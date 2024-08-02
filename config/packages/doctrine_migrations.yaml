@@ -1,0 +1,7 @@
+doctrine_migrations:
+  enable_profiler: true
+  migrations_paths:
+    'App\Database\Migrations': '%kernel.project_dir%/database/migrations'
+  storage:
+    table_storage:
+      table_name: doctrine_migrations

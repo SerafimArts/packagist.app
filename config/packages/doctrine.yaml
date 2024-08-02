@@ -1,0 +1,72 @@
+parameters:
+  env(DB_DATABASE): ffi
+  env(DB_HOST): postgres
+  env(DB_PORT): 5432
+  env(DB_USERNAME): user
+  env(DB_PASSWORD): password
+
+doctrine:
+  dbal:
+    default_connection: default
+    connections:
+      default:
+        dbname: '%env(string:DB_DATABASE)%'
+        host: '%env(string:DB_HOST)%'
+        port: '%env(int:DB_PORT)%'
+        user: '%env(string:DB_USERNAME)%'
+        password: '%env(string:DB_PASSWORD)%'
+        server_version: '16.3'
+        driver: pdo_pgsql
+        logging: "%kernel.debug%"
+        profiling: "%kernel.debug%"
+        profiling_collect_backtrace: '%kernel.debug%'
+        use_savepoints: true
+        mapping_types:
+          _account_role: App\Account\Domain\Role[]
+    types:
+      App\Account\Domain\Role[]: App\Account\Infrastructure\Persistence\Type\AccountRoleListType
+      # Shared
+      App\Shared\Domain\Id\AccountId: App\Shared\Infrastructure\Persistence\Type\AccountIdType
+
+  orm:
+    auto_generate_proxy_classes: true
+    enable_lazy_ghost_objects: true
+    report_fields_where_declared: true
+    validate_xml_mapping: true
+    naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+    auto_mapping: true
+    controller_resolver:
+      auto_mapping: false
+    mappings:
+      App:
+        is_bundle: false
+        type: attribute
+        dir: '%kernel.project_dir%/app/'
+        prefix: 'App\'
+        alias: App
+
+when@test:
+  doctrine:
+    dbal:
+      # "TEST_TOKEN" is typically set by ParaTest
+      dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+  doctrine:
+    orm:
+      auto_generate_proxy_classes: false
+      proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+      query_cache_driver:
+        type: pool
+        pool: doctrine.system_cache_pool
+      result_cache_driver:
+        type: pool
+        pool: doctrine.result_cache_pool
+
+  framework:
+    cache:
+      pools:
+        doctrine.result_cache_pool:
+          adapter: cache.app
+        doctrine.system_cache_pool:
+          adapter: cache.system

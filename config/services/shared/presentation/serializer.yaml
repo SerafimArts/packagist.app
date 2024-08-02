@@ -1,0 +1,14 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Shared\Presentation\Response\Serializer\Handler\:
+    resource: '%kernel.project_dir%/app/Shared/Presentation/Response/Serializer/Handler'
+    tags: ['jms_serializer.subscribing_handler']
+
+  App\Shared\Presentation\Response\Serializer\Listener\:
+    resource: '%kernel.project_dir%/app/Shared/Presentation/Response/Serializer/Listener'
+    tags:
+      - { name: 'jms_serializer.event_listener', event: 'serializer.pre_serialize', method: '__invoke' }

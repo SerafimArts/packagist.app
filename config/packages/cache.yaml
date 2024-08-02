@@ -1,0 +1,30 @@
+framework:
+  cache:
+    # Unique name of your app: used to compute stable namespaces for cache keys.
+    prefix_seed: local/ffi
+
+    # The "app" cache stores to the filesystem by default.
+    # The data in this cache should persist between deploys.
+
+    app: cache.adapter.filesystem
+
+    # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
+    #app: cache.adapter.apcu
+
+    # Namespaced pools use the above "app" backend by default
+    pools:
+      cache.versioned:
+        adapters:
+          - cache.adapter.array
+          - cache.adapter.apcu
+          - cache.adapter.filesystem
+
+when@test:
+  framework:
+    cache:
+      app: cache.adapter.array
+      pools:
+        cache.versioned:
+          adapters:
+            - cache.adapter.array
+            - cache.adapter.filesystem

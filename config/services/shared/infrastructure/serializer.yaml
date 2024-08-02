@@ -1,0 +1,18 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  _instanceof:
+    JMS\Serializer\EventDispatcher\EventSubscriberInterface:
+      tags: ['jms_serializer.event_subscriber']
+
+    JMS\Serializer\Handler\SubscribingHandlerInterface:
+      tags: ['jms_serializer.subscribing_handler']
+
+  App\Shared\Infrastructure\Serializer\Handler\:
+    resource: '%kernel.project_dir%/app/Shared/Infrastructure/Serializer/Handler'
+
+  App\Shared\Infrastructure\Serializer\Subscriber\:
+    resource: '%kernel.project_dir%/app/Shared/Infrastructure/Serializer/Subscriber'

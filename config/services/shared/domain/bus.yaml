@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Shared\Domain\Bus\EventBusInterface:
+    class: App\Shared\Infrastructure\Bus\EventBus

@@ -1,0 +1,27 @@
+framework:
+  default_locale: en
+  translator:
+    default_path: '%kernel.project_dir%/resources/translations'
+    fallbacks:
+      - en
+    providers:
+      taxonomy:
+        dsn: 'taxonomy://localhost%kernel.project_dir%/var/taxonomy'
+        domains: [ locale, localization ]
+        locales:
+          - ru
+          - en
+          - ch
+          - cz
+          - fr
+          - ge
+          - it
+          - jp
+          - pl
+          - po
+          - es
+          - es-mx
+          - tu
+          - ro
+          - hu
+          - kr

@@ -1,0 +1,9 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # Event Listeners
+  App\Shared\Infrastructure\Persistence\Listener\:
+    resource: '%kernel.project_dir%/app/Shared/Infrastructure/Persistence/Listener'

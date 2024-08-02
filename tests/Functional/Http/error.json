@@ -1,0 +1,19 @@
+{
+    "type": "object",
+    "required": ["error", "data"],
+    "additionalProperties": false,
+    "properties": {
+        "error": {
+            "type": "string"
+        },
+        "data": {
+            "type": "null"
+        },
+        "debug": {
+            "type": "array",
+            "items": {
+                "type": "object"
+            }
+        }
+    }
+}

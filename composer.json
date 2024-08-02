@@ -1,0 +1,143 @@
+{
+    "license": "MIT",
+    "repositories": [
+        {"url": "libs/*", "type": "path"}
+    ],
+    "require": {
+        "php": "^8.3",
+        "ext-bcmath": "*",
+        "ext-ctype": "*",
+        "ext-ffi": "*",
+        "ext-iconv": "*",
+        "doctrine/dbal": "^4.0",
+        "doctrine/doctrine-bundle": "^2.12",
+        "doctrine/orm": "^3.2",
+        "httpsoft/http-message": "^1.1",
+        "jms/serializer-bundle": "^5.4",
+        "lcobucci/jwt": "^5.3",
+        "local/http-data-bundle": "^1.0",
+        "local/http-factory-bundle": "^1.0",
+        "local/token": "^1.0",
+        "ramsey/uuid": "^4.7",
+        "symfony/clock": "7.1.*",
+        "symfony/console": "7.1.*",
+        "symfony/dotenv": "7.1.*",
+        "symfony/framework-bundle": "7.1.*",
+        "symfony/monolog-bundle": "^3.10",
+        "symfony/polyfill-php84": "^1.30",
+        "symfony/runtime": "7.1.*",
+        "symfony/security-bundle": "7.1.*",
+        "symfony/translation": "7.1.*",
+        "symfony/validator": "7.1.*",
+        "symfony/yaml": "7.1.*"
+    },
+    "require-dev": {
+        "doctrine/doctrine-migrations-bundle": "^3.3",
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "fakerphp/faker": "^1.23",
+        "friendsofphp/php-cs-fixer": "^3.61",
+        "jetbrains/phpstorm-attributes": "^1.1",
+        "local/http-testing": "^1.0",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan-strict-rules": "^1.6",
+        "phpunit/phpunit": "^11.3",
+        "symfony/browser-kit": "7.1.*",
+        "symfony/css-selector": "7.1.*",
+        "symfony/debug-bundle": "7.1.*",
+        "symfony/flex": "^2.4",
+        "symfony/stopwatch": "7.1.*",
+        "symfony/var-dumper": "7.1.*",
+        "symfony/web-profiler-bundle": "7.1.*"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true,
+            "symfony/flex": true,
+            "symfony/runtime": true,
+            "phpstan/extension-installer": true
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests",
+            "App\\Database\\DataFixtures\\": "database/fixtures",
+            "App\\Database\\Migrations\\": "database/migrations",
+            "Local\\Token\\Tests\\": "libs/token/tests"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*",
+        "symfony/polyfill-php80": "*",
+        "symfony/polyfill-php81": "*",
+        "symfony/polyfill-php82": "*"
+    },
+    "scripts-aliases": {
+        "linter:check": ["linter", "stan", "analyze", "phpstan"],
+        "phpcs:fix": ["phpcs", "per2", "codestyle", "cs"],
+        "test:unit": ["phpunit", "unit"],
+        "test:functional": ["functional", "feature"]
+    },
+    "scripts": {
+        "db:up": "@php bin/console doctrine:migrations:migrate --no-interaction",
+        "db:down": "@php bin/console doctrine:migrations:migrate first --no-interaction",
+        "db:fill": "@php bin/console doctrine:fixtures:load -n",
+        "db:info": "@php bin/console doctrine:mapping:info",
+        "db:diff": "@php bin/console doctrine:migrations:diff -vvv",
+        "db:warmup": [
+            "@php bin/console doctrine:cache:clear-metadata",
+            "@php bin/console doctrine:cache:clear-query",
+            "@php bin/console doctrine:cache:clear-result"
+        ],
+        "db:refresh": [
+            "@db:down",
+            "@db:up"
+        ],
+
+        "test": ["@test:unit", "@test:functional"],
+        "test:unit": "phpunit --testdox --testsuite=unit --bootstrap=tests/bootstrap.php",
+        "test:functional": "phpunit --testdox --testsuite=functional --bootstrap=tests/bootstrap_feature.php",
+
+        "linter:check": "@linter:run",
+        "linter:baseline": "@linter:run --generate-baseline",
+        "linter:run": "phpstan analyse --configuration phpstan.neon",
+
+        "phpcs:fix": "@phpcs:run",
+        "phpcs:check": "@phpcs:run --dry-run",
+        "phpcs:run": "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes --verbose --diff",
+
+        "post-autoload-dump": [
+            "@php -r \"is_file('.env') || copy('.env.example', '.env');\"",
+            "@php bin/console cache:clear",
+            "@php bin/console assets:install",
+            "@php bin/console secrets:generate-keys -q -r",
+            "@php bin/console dotenv:dump"
+        ],
+
+        "bash": [
+            "Composer\\Config::disableProcessTimeout",
+            "docker exec -it ffi-php bash"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "7.1.*"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

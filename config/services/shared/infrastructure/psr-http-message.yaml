@@ -1,0 +1,23 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Psr\Http\Message\RequestFactoryInterface:
+    class: HttpSoft\Message\RequestFactory
+
+  Psr\Http\Message\ResponseFactoryInterface:
+    class: HttpSoft\Message\ResponseFactory
+
+  Psr\Http\Message\ServerRequestFactoryInterface:
+    class: HttpSoft\Message\ServerRequestFactory
+
+  Psr\Http\Message\StreamFactoryInterface:
+    class: HttpSoft\Message\StreamFactory
+
+  Psr\Http\Message\UploadedFileFactoryInterface:
+    class: HttpSoft\Message\UploadedFileFactory
+
+  Psr\Http\Message\UriFactoryInterface:
+    class: HttpSoft\Message\UriFactory

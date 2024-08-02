@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Account\Presentation\Response\Transformer\:
+    resource: '%kernel.project_dir%/app/Account/Presentation/Response/Transformer/'

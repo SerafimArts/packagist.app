@@ -1,0 +1,11 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Account\Domain\AccountByLoginProviderInterface:
+    alias: App\Account\Infrastructure\Persistence\Repository\DatabaseAccountRepository
+
+  App\Account\Domain\AccountByIdProviderInterface:
+    alias: App\Account\Infrastructure\Persistence\Repository\DatabaseAccountRepository

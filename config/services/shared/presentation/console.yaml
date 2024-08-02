@@ -1,0 +1,10 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  Symfony\Component\Dotenv\Command\DotenvDumpCommand: ~
+
+  App\Shared\Presentation\Console\:
+    resource: '%kernel.project_dir%/app/Shared/Presentation/Console'

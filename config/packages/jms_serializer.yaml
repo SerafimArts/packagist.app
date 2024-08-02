@@ -1,0 +1,50 @@
+jms_serializer:
+  default_value_property_reader_support: true
+  enum_support: true
+  profiler: '%kernel.debug%'
+  twig_enabled: false
+
+  property_naming:
+    id: jms_serializer.identical_property_naming_strategy
+
+  metadata:
+    cache: file
+    auto_detection: true
+    debug: '%kernel.debug%'
+    infer_types_from_doctrine_metadata: true
+    infer_types_from_doc_block: false
+    include_interfaces: true
+
+  visitors:
+    json_deserialization:
+      strict: true
+
+  default_context:
+    serialization:
+      serialize_null: true
+      attributes: {}
+      enable_max_depth_checks: false
+    deserialization:
+      serialize_null: true
+      attributes: {}
+      enable_max_depth_checks: false
+
+when@prod:
+  jms_serializer:
+    visitors:
+      json_serialization:
+        options:
+          - JSON_UNESCAPED_SLASHES
+          - JSON_PRESERVE_ZERO_FRACTION
+
+when@dev: &dev
+  jms_serializer:
+    visitors:
+      json_serialization:
+        options:
+          - JSON_PRETTY_PRINT
+          - JSON_UNESCAPED_SLASHES
+          - JSON_PRESERVE_ZERO_FRACTION
+
+when@test:
+  <<: *dev

@@ -1,0 +1,7 @@
+imports:
+  - { resource: services/*.yaml }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true

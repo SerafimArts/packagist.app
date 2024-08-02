@@ -1,0 +1,38 @@
+{
+    "name": "local/http-testing",
+    "description": "Symfony HTTP Tests",
+    "type": "library",
+    "keywords": ["testing", "tests", "library", "dev", "json", "symfony"],
+    "require": {
+        "php": "^8.3",
+        "ext-json": "*",
+        "phpunit/phpunit": "^10.5|^11.0",
+        "softcreatr/jsonpath": "^0.9",
+        "symfony/browser-kit": "^6.4|^7.0",
+        "symfony/framework-bundle": "^6.4|^7.0",
+        "symfony/http-foundation": "^6.4|^7.0",
+        "justinrainbow/json-schema": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Local\\Testing\\Http\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+            "dev-main": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "platform-check": true,
+        "bin-compat": "full",
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

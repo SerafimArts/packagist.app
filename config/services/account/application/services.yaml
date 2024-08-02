@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Account\Application\Auth\AuthenticationProcess: ~
+  App\Account\Application\Auth\RegistrationProcess: ~

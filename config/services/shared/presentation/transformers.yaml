@@ -1,0 +1,12 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Shared\Presentation\Response\Transformer\:
+    resource: '%kernel.project_dir%/app/Shared/Presentation/Response/Transformer'
+
+  App\Shared\Presentation\Response\Transformer\FailureResponseTransformer:
+    arguments:
+      $debug: '%kernel.debug%'

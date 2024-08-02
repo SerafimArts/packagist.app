@@ -1,0 +1,10 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Shared\Infrastructure\Translation\SwitchableTranslator:
+    decorates: Symfony\Contracts\Translation\TranslatorInterface
+    arguments:
+      $translator: '@.inner'

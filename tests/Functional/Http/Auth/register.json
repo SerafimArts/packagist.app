@@ -1,0 +1,38 @@
+{
+    "type": "object",
+    "required": [
+        "data"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "data": {
+            "type": "object",
+            "required": [
+                "token",
+                "account"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "account": {
+                    "type": "object",
+                    "required": [
+                        "id",
+                        "login"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "login": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

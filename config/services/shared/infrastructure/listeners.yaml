@@ -1,0 +1,16 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Shared\Infrastructure\Listener\:
+    resource: '%kernel.project_dir%/app/Shared/Infrastructure/Listener'
+
+  App\Shared\Infrastructure\Listener\SuccessfulResponseListener:
+    arguments:
+      $transformer: '@App\Shared\Presentation\Response\Transformer\SuccessfulResponseTransformer'
+
+  App\Shared\Infrastructure\Listener\FailureResponseListener:
+    arguments:
+      $transformer: '@App\Shared\Presentation\Response\Transformer\FailureResponseTransformer'

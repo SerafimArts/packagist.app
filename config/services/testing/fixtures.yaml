@@ -1,0 +1,18 @@
+
+#
+# ----------------------------------------------------------------------------
+#  Database Fixtures
+# ----------------------------------------------------------------------------
+#
+
+when@dev: &dev
+  services:
+    _defaults:
+      autowire: true
+      autoconfigure: true
+
+    App\Database\DataFixtures\:
+      resource: '%kernel.project_dir%/database/fixtures'
+      tags: ['doctrine.fixture.orm']
+
+when@test: *dev

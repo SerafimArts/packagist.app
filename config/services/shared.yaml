@@ -1,0 +1,8 @@
+
+imports:
+  - { resource: shared/*.yaml }
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true

@@ -1,0 +1,14 @@
+/.idea/
+
+/.env
+/.env.local
+/.env.local.php
+/.env.*.local
+/.allow-drop-db
+
+/node_modules/
+/vendor/
+/var/
+/docker/data/
+
+/test.php

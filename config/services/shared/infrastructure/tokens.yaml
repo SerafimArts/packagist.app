@@ -1,0 +1,31 @@
+parameters:
+  app.auth.key.public: '%kernel.project_dir%/config/secrets/%kernel.environment%/auth.key.pub'
+  app.auth.key.private: '%kernel.project_dir%/config/secrets/%kernel.environment%/auth.key'
+  app.auth.key.algo: 'ES256'
+  app.auth.token_account_id: 'account_id'
+  app.auth.token_expiration: 'P1D'
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  app.auth.algo:
+    class: Local\Token\AlgoInterface
+    factory: [Local\Token\Algo, from]
+    arguments:
+      - '%app.auth.key.algo%'
+
+  app.auth.parser:
+    class: Local\Token\TokenParserInterface
+    factory: ['@Local\Token\TokenParserFactoryInterface', 'createFromFile']
+    arguments:
+      $publicKeyPathname: '%app.auth.key.public%'
+      $algo: '@app.auth.algo'
+
+  app.auth.builder:
+    class: Local\Token\TokenBuilderInterface
+    factory: ['@Local\Token\TokenBuilderFactoryInterface', 'createFromFile']
+    arguments:
+      $privateKeyPathname: '%app.auth.key.private%'
+      $algo: '@app.auth.algo'

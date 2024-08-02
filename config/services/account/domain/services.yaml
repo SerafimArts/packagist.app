@@ -1,0 +1,30 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # ----------------------------------------------------------------------------
+  #   Profile Services
+  # ----------------------------------------------------------------------------
+
+  App\Account\Domain\Token\TokenCreator:
+    arguments:
+      $tokenAccountIdKey: '%app.auth.token_account_id%'
+      $builder: '@app.auth.builder'
+      $expiresAt: '%app.auth.token_expiration%'
+
+  # ----------------------------------------------------------------------------
+  #   Account Services
+  # ----------------------------------------------------------------------------
+
+  App\Account\Domain\AccountCreator:
+    arguments:
+      $hasher: '@security.user_password_hasher'
+
+  App\Account\Domain\AccountCredentialsFinder:
+    arguments:
+      $hasher: '@security.user_password_hasher'
+
+
+

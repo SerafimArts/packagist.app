@@ -1,0 +1,43 @@
+{
+    "name": "local/http-data-bundle",
+    "type": "symfony-bundle",
+    "description": "Provides feature to inject DTO into controllers",
+    "require": {
+        "php": "^8.2",
+        "local/http-factory-bundle": "^1.0",
+        "symfony/http-foundation": "^7.0",
+        "jms/serializer": "^3.28"
+    },
+    "autoload": {
+        "psr-4": {
+            "Local\\HttpData\\": "src"
+        }
+    },
+    "require-dev": {
+        "symfony/config": "^7.0",
+        "symfony/dependency-injection": "^7.0",
+        "symfony/http-kernel": "^7.0"
+    },
+    "suggest": {
+        "symfony/http-kernel": "For Symfony Bundle support",
+        "symfony/config": "For Symfony Bundle support",
+        "symfony/dependency-injection": "For Symfony Bundle support"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+            "dev-main": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "platform-check": true,
+        "bin-compat": "full",
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

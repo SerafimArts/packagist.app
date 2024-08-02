@@ -1,0 +1,5 @@
+accounts:
+  resource:
+    path: ../app/Account/Presentation/Controller/
+    namespace: App\Account\Presentation\Controller
+  type: attribute
