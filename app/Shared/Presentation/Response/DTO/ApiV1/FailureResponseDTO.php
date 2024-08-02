@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Presentation\Response\DTO;
+namespace App\Shared\Presentation\Response\DTO\ApiV1;
 
-use App\Shared\Presentation\Response\DTO\ErrorResponse\ExceptionErrorResponseDTO;
+use App\Shared\Presentation\Response\DTO\FailureResponse\ExceptionErrorResponseDTO;
 use JMS\Serializer\Annotation\SkipWhenEmpty;
 
 /**
@@ -15,7 +15,7 @@ final readonly class FailureResponseDTO extends ResponseDTO
 {
     /**
      * @param TData|null $data
-     * @param list<ExceptionErrorResponseDTO> $debug
+     * @param ExceptionErrorResponseDTO $debug
      */
     public function __construct(
         public string $error,

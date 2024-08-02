@@ -39,6 +39,6 @@ final readonly class ResponseTransformerListener
 
         $transformed = $this->serializer->toArray($result);
 
-        $event->setControllerResult($transformed);
+        $event->setControllerResult((object) $transformed);
     }
 }

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Presentation\Response\Transformer;
+namespace App\Shared\Presentation\Response\Transformer\Packagist;
 
-use App\Shared\Presentation\Exception\PublicDataProviderInterface;
 use App\Shared\Presentation\Exception\PublicMessageProviderInterface;
-use App\Shared\Presentation\Response\DTO\ErrorResponse\ExceptionErrorResponseDTO;
-use App\Shared\Presentation\Response\DTO\FailureResponseDTO;
-use App\Shared\Presentation\Response\Transformer\ErrorResponseTransformer\ExceptionErrorResponseTransformer;
+use App\Shared\Presentation\Response\DTO\FailureResponse\ExceptionErrorResponseDTO;
+use App\Shared\Presentation\Response\DTO\Packagist\FailureResponseDTO;
+use App\Shared\Presentation\Response\Transformer\FailureResponseTransformer\ExceptionErrorResponseTransformer;
+use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Validator\Exception\ExceptionInterface as ValidationExceptionInterface;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
@@ -33,8 +33,7 @@ final readonly class FailureResponseTransformer extends ResponseTransformer
     public function transform(mixed $entry): FailureResponseDTO
     {
         return new FailureResponseDTO(
-            error: $this->getMessage($entry),
-            data: $this->getData($entry),
+            message: $this->getMessage($entry),
             debug: $this->getDebug($entry),
         );
     }
@@ -49,15 +48,6 @@ final readonly class FailureResponseTransformer extends ResponseTransformer
         }
 
         return [];
-    }
-
-    private function getData(\Throwable $e): mixed
-    {
-        if ($e instanceof PublicDataProviderInterface) {
-            return $e->getPublicData();
-        }
-
-        return null;
     }
 
     private function getMessageFromValidation(ValidationFailedException $e): string

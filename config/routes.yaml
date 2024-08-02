@@ -3,3 +3,13 @@ accounts:
     path: ../app/Account/Presentation/Controller/
     namespace: App\Account\Presentation\Controller
   type: attribute
+  defaults:
+    _api: v1
+
+packages:
+  resource:
+    path: ../app/Package/Presentation/Controller/
+    namespace: App\Package\Presentation\Controller
+  type: attribute
+  defaults:
+    _api: packagist

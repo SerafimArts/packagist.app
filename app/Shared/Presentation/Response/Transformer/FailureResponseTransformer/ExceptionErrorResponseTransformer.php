@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Presentation\Response\Transformer\ErrorResponseTransformer;
+namespace App\Shared\Presentation\Response\Transformer\FailureResponseTransformer;
 
-use App\Shared\Presentation\Response\DTO\ErrorResponse\ExceptionErrorResponseDTO;
+use App\Shared\Presentation\Response\DTO\FailureResponse\ExceptionErrorResponseDTO;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**

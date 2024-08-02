@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Presentation\Response\DTO;
+namespace App\Shared\Presentation\Response\DTO\ApiV1;
 
 /**
  * @template TData of mixed

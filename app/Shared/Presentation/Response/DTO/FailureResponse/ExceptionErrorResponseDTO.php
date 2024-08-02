@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Presentation\Response\DTO\ErrorResponse;
+namespace App\Shared\Presentation\Response\DTO\FailureResponse;
 
 final class ExceptionErrorResponseDTO
 {

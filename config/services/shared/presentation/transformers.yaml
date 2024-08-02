@@ -7,6 +7,10 @@ services:
   App\Shared\Presentation\Response\Transformer\:
     resource: '%kernel.project_dir%/app/Shared/Presentation/Response/Transformer'
 
-  App\Shared\Presentation\Response\Transformer\FailureResponseTransformer:
+  App\Shared\Presentation\Response\Transformer\ApiV1\FailureResponseTransformer:
+    arguments:
+      $debug: '%kernel.debug%'
+
+  App\Shared\Presentation\Response\Transformer\Packagist\FailureResponseTransformer:
     arguments:
       $debug: '%kernel.debug%'

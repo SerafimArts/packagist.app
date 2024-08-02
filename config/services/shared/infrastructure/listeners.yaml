@@ -9,8 +9,14 @@ services:
 
   App\Shared\Infrastructure\Listener\SuccessfulResponseListener:
     arguments:
-      $transformer: '@App\Shared\Presentation\Response\Transformer\SuccessfulResponseTransformer'
+      $api: !service_locator
+        v1: '@App\Shared\Presentation\Response\Transformer\ApiV1\SuccessfulResponseTransformer'
+        packagist: '@App\Shared\Presentation\Response\Transformer\Packagist\SuccessfulResponseTransformer'
+      $default: '@App\Shared\Presentation\Response\Transformer\ApiV1\SuccessfulResponseTransformer'
 
   App\Shared\Infrastructure\Listener\FailureResponseListener:
     arguments:
-      $transformer: '@App\Shared\Presentation\Response\Transformer\FailureResponseTransformer'
+      $api: !service_locator
+        v1: '@App\Shared\Presentation\Response\Transformer\ApiV1\FailureResponseTransformer'
+        packagist: '@App\Shared\Presentation\Response\Transformer\Packagist\FailureResponseTransformer'
+      $default: '@App\Shared\Presentation\Response\Transformer\ApiV1\FailureResponseTransformer'

@@ -19,6 +19,7 @@
         "symfony/clock": "7.1.*",
         "symfony/console": "7.1.*",
         "symfony/dotenv": "7.1.*",
+        "symfony/expression-language": "7.1.*",
         "symfony/framework-bundle": "7.1.*",
         "symfony/monolog-bundle": "^3.10",
         "symfony/polyfill-php84": "^1.30",

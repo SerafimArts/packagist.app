@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Presentation\Response\Transformer;
+namespace App\Shared\Presentation\Response\Transformer\ApiV1;
 
-use App\Shared\Presentation\Response\DTO\SuccessfulResponseDTO;
+use App\Shared\Presentation\Response\DTO\ApiV1\SuccessfulResponseDTO;
+use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**
  * @api
