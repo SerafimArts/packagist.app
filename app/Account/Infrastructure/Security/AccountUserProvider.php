@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Account\Infrastructure\Security;
 
-use App\Account\Domain\AccountByIdProviderInterface;
+use App\Account\Domain\AccountRepositoryInterface;
 use App\Account\Domain\Authentication;
 use App\Shared\Domain\Id\AccountId;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -23,7 +23,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 final readonly class AccountUserProvider implements UserProviderInterface
 {
     public function __construct(
-        private AccountByIdProviderInterface $accounts,
+        private AccountRepositoryInterface $accounts,
     ) {}
 
     public function refreshUser(UserInterface $user): Authentication

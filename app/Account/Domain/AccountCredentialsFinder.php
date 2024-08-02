@@ -15,7 +15,7 @@ final readonly class AccountCredentialsFinder
 {
     public function __construct(
         private UserPasswordHasherInterface $hasher,
-        private AccountByLoginProviderInterface $accounts,
+        private AccountRepositoryInterface $accounts,
         private EventBusInterface $events,
     ) {}
 

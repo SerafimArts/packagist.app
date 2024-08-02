@@ -4,3 +4,4 @@ services:
     autowire: true
     autoconfigure: true
 
+  App\Package\Infrastructure\Persistence\Repository\DatabasePackageRepository: ~

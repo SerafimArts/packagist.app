@@ -4,8 +4,5 @@ services:
     autowire: true
     autoconfigure: true
 
-  App\Account\Domain\AccountByLoginProviderInterface:
-    alias: App\Account\Infrastructure\Persistence\Repository\DatabaseAccountRepository
-
-  App\Account\Domain\AccountByIdProviderInterface:
+  App\Account\Domain\AccountRepositoryInterface:
     alias: App\Account\Infrastructure\Persistence\Repository\DatabaseAccountRepository

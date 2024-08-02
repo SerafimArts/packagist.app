@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App\Account\Domain;
 
-interface AccountByLoginProviderInterface
+use App\Shared\Domain\Id\AccountId;
+
+interface AccountRepositoryInterface
 {
+    public function findById(AccountId $id): ?Account;
+
     /**
      * @param non-empty-string $login
      */

@@ -3,3 +3,6 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
+
+  App\Package\Application\PackagesListMetadataProvider: ~
+  App\Package\Application\PackageFinder: ~

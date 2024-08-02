@@ -25,6 +25,7 @@ doctrine:
           _account_role: App\Account\Domain\Role[]
     types:
       App\Account\Domain\Role[]: App\Account\Infrastructure\Persistence\Type\AccountRoleListType
+      App\Package\Domain\PackageId: App\Package\Infrastructure\Persistence\Type\PackageIdType
       # Shared
       App\Shared\Domain\Id\AccountId: App\Shared\Infrastructure\Persistence\Type\AccountIdType
 

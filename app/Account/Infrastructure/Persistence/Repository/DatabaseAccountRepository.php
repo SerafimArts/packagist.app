@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\Account\Infrastructure\Persistence\Repository;
 
 use App\Account\Domain\Account;
-use App\Account\Domain\AccountByIdProviderInterface;
-use App\Account\Domain\AccountByLoginProviderInterface;
+use App\Account\Domain\AccountRepositoryInterface;
 use App\Shared\Domain\Id\AccountId;
 use App\Shared\Infrastructure\Persistence\Repository\DatabaseRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,9 +18,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @template-extends DatabaseRepository<Account>
  */
-final class DatabaseAccountRepository extends DatabaseRepository implements
-    AccountByIdProviderInterface,
-    AccountByLoginProviderInterface
+final class DatabaseAccountRepository extends DatabaseRepository implements AccountRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
