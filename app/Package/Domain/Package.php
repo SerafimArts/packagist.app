@@ -40,19 +40,21 @@ class Package implements
     public Credentials $credentials;
 
     /**
-     * @var Collection<array-key, PackageVersion>
+     * @var PackageVersionsSet<PackageVersion>
      * @readonly
      */
     #[ORM\OneToMany(targetEntity: PackageVersion::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
     #[ORM\OrderBy(['version' => 'DESC', 'createdAt' => 'ASC'])]
-    public Collection $versions;
+    public Collection $versions {
+        get => PackageVersionsSet::getter($this->versions);
+    }
 
     public function __construct(
         Credentials $credentials,
         ?PackageId $id = null,
     ) {
         $this->credentials = $credentials;
-        $this->versions = new ArrayCollection();
+        $this->versions = new PackageVersionsSet();
         $this->id = $id ?? PackageId::new();
     }
 }

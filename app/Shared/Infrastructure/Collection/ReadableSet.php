@@ -4,22 +4,58 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Collection;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\ReadableCollection as ReadableCollectionInterface;
+use Doctrine\Common\Collections\Selectable as SelectableInterface;
 
 /**
  * @template T of object
  *
  * @template-implements ReadableCollectionInterface<array-key, T>
+ * @template-implements SelectableInterface<array-key, T>
  * @phpstan-consistent-constructor
  */
-abstract class ReadableSet implements ReadableCollectionInterface
+abstract class ReadableSet implements ReadableCollectionInterface, SelectableInterface
 {
+    /**
+     * @var \WeakMap<ReadableCollectionInterface, static>|null
+     */
+    private static ?\WeakMap $references = null;
+
     /**
      * @param ReadableCollectionInterface<array-key, T> $delegate
      */
     public function __construct(
-        protected readonly ReadableCollectionInterface $delegate,
+        protected readonly ReadableCollectionInterface $delegate = new ArrayCollection(),
     ) {}
+
+    public static function getter(ReadableCollectionInterface $ctx): static
+    {
+        if ($ctx instanceof static) {
+            return $ctx;
+        }
+
+        self::$references ??= new \WeakMap();
+
+        return self::$references[$ctx] ??= new static($ctx);
+    }
+
+    /**
+     * @template TArg of object
+     *
+     * @param list<TArg> $elements
+     * @return static<TArg>
+     */
+    public static function fromArray(array $elements = []): static
+    {
+        return new static(new ArrayCollection($elements));
+    }
+
+    public function matching(Criteria $criteria): static
+    {
+        return new static($this->delegate->matching($criteria));
+    }
 
     public function getIterator(): \Traversable
     {

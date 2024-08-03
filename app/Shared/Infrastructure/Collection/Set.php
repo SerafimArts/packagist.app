@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Collection;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 
 /**
@@ -18,8 +19,9 @@ abstract class Set extends ReadableSet implements CollectionInterface
     /**
      * @param CollectionInterface<array-key, T> $delegate
      */
-    public function __construct(CollectionInterface $delegate)
-    {
+    public function __construct(
+        CollectionInterface $delegate = new ArrayCollection(),
+    ) {
         parent::__construct($delegate);
     }
 
