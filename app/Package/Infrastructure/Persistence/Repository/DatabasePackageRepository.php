@@ -25,12 +25,16 @@ final class DatabasePackageRepository extends DatabaseRepository implements Pack
         parent::__construct($registry, Package::class);
     }
 
-    /**
-     * TODO
-     */
     public function findByCredentials(Credentials $credentials): ?Package
     {
-        return null;
+        return $this->createQueryBuilder('pkg')
+            ->andWhere('pkg.credentials.name = :name')
+            ->andWhere('pkg.credentials.vendor = :vendor')
+            ->setParameter('name', $credentials->name)
+            ->setParameter('vendor', $credentials->vendor)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function getAll(): iterable

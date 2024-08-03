@@ -6,3 +6,8 @@ services:
 
   App\Package\Domain\Credentials\CredentialsParser: ~
 
+  App\Package\Domain\Credentials\CredentialsValidator:
+    public: true
+    arguments:
+      $validator: '@Symfony\Component\Validator\Validator\ValidatorInterface'
+

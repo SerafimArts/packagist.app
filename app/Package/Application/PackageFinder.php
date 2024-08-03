@@ -6,24 +6,19 @@ namespace App\Package\Application;
 
 use App\Package\Domain\Credentials\CredentialsParser;
 use App\Package\Domain\Package;
+use App\Package\Domain\PackageRepositoryInterface;
 
 final readonly class PackageFinder
 {
     public function __construct(
         private CredentialsParser $parser,
+        private PackageRepositoryInterface $packages,
     ) {}
 
-    /**
-     * TODO
-     */
     public function findByPackageString(string $package): ?Package
     {
-        try {
-            $this->parser->createFromPackage($package);
-        } catch (\Throwable $e) {
-            return null;
-        }
-
-        return null;
+        return $this->packages->findByCredentials(
+            credentials: $this->parser->createFromPackage($package),
+        );
     }
 }

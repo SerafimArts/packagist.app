@@ -23,7 +23,7 @@ class HttpPresentationException extends PresentationException implements
     /**
      * @var int<100, 599>
      */
-    private int $httpStatusCode = Response::HTTP_INTERNAL_SERVER_ERROR;
+    private int $httpStatusCode = Response::HTTP_UNPROCESSABLE_ENTITY;
 
     public readonly HeaderBag $headers;
 

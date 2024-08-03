@@ -10,28 +10,28 @@ use Doctrine\ORM\Mapping as ORM;
 final class Credentials
 {
     /**
-     * Unique package name
+     * Unique package name.
      *
-     * @var non-empty-string
+     * @var non-empty-lowercase-string
      */
     #[ORM\Column(type: 'string')]
     public string $name;
 
     /**
-     * @var non-empty-string
+     * @var non-empty-lowercase-string
      */
     #[ORM\Column(type: 'string')]
     public string $vendor;
 
     /**
-     * @param non-empty-string $name
      * @param non-empty-string $vendor
+     * @param non-empty-string $name
      */
     public function __construct(
-        string $name,
         string $vendor,
+        string $name,
     ) {
-        $this->name = $name;
-        $this->vendor = $vendor;
+        $this->vendor = \strtolower($vendor);
+        $this->name = \strtolower($name);
     }
 }

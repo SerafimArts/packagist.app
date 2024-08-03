@@ -8,6 +8,8 @@ use App\Package\Application\PackageFinder;
 use App\Package\Presentation\Controller\PackageVersionsController\PackageVersionsResponseDTO;
 use App\Package\Presentation\Controller\PackageVersionsController\PackageVersionsResponseTransformer;
 use App\Package\Presentation\Exception\PackageNotFoundException;
+use App\Shared\Domain\Exception\DomainException;
+use App\Shared\Presentation\Exception\PresentationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -25,7 +27,11 @@ final readonly class PackageVersionsController
 
     public function __invoke(string $package): PackageVersionsResponseDTO
     {
-        $instance = $this->finder->findByPackageString($package);
+        try {
+            $instance = $this->finder->findByPackageString($package);
+        } catch (DomainException $e) {
+            throw PresentationException::fromDomainException($e);
+        }
 
         if ($instance === null) {
             throw (new PackageNotFoundException('404 not found, no packages here'))
