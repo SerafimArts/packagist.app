@@ -1,8 +1,10 @@
-# FFI
+# [WIP] PHP FFI
+
+Composer server (packagist like) for PHP FFI packages.
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.4+
 - Postgres 16.3+
 
 ## Installation
