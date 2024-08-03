@@ -36,6 +36,7 @@ class HttpPresentationException extends PresentationException implements
 
     /**
      * @param int<100, 599> $code
+     *
      * @return $this
      */
     public function setHttpStatusCode(int $code): self

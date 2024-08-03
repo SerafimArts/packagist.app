@@ -28,7 +28,6 @@ abstract readonly class ResponseListener
     }
 
     /**
-     * @param RequestEvent $event
      * @return TransformerInterface<mixed, mixed>|null
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
