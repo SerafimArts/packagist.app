@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Account\Domain\Token;
 
-use App\Shared\Domain\ValueObject\ValueObjectInterface;
+use App\Shared\Domain\ValueObjectInterface;
 
 readonly class EncryptedToken implements ValueObjectInterface
 {

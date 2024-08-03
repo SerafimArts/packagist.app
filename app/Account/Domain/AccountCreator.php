@@ -6,7 +6,7 @@ namespace App\Account\Domain;
 
 use App\Account\Domain\Event\AccountCreated;
 use App\Account\Domain\Password\Password;
-use App\Shared\Domain\Bus\EventBusInterface;
+use App\Shared\Domain\EventBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final readonly class AccountCreator

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Bus;
+namespace App\Shared\Infrastructure;
 
-use App\Shared\Domain\Bus\EventBusInterface;
+use App\Shared\Domain\EventBusInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
 final readonly class EventBus implements EventBusInterface

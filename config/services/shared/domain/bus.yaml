@@ -4,5 +4,5 @@ services:
     autowire: true
     autoconfigure: true
 
-  App\Shared\Domain\Bus\EventBusInterface:
-    class: App\Shared\Infrastructure\Bus\EventBus
+  App\Shared\Domain\EventBusInterface:
+    class: App\Shared\Infrastructure\EventBus

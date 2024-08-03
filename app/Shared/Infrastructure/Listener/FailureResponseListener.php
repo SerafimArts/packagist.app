@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Listener;
 
 use App\Shared\Application\Exception\ApplicationException;
-use App\Shared\Domain\Exception\DomainException;
+use App\Shared\Domain\DomainException;
 use App\Shared\Infrastructure\Transformer\TransformerInterface;
 use App\Shared\Presentation\Exception\Http\HttpHeadersProviderInterface;
 use App\Shared\Presentation\Exception\Http\HttpStatusCodeProviderInterface;

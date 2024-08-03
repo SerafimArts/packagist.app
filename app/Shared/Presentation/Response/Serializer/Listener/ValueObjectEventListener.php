@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Presentation\Response\Serializer\Listener;
 
-use App\Shared\Domain\ValueObject\ValueObjectInterface;
+use App\Shared\Domain\ValueObjectInterface;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 
 /**

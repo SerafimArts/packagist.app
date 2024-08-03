@@ -12,7 +12,7 @@ services:
       - php
     volumes:
       - .:/home/ffi/ffi.org
-      - ./docker/nginx/eft.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/ffi.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "${APP_PUBLIC_PORT:-80}:80"
     networks:

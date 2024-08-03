@@ -8,7 +8,7 @@ use App\Account\Application\Auth\Exception\AuthenticationFailedException;
 use App\Account\Domain\AccountCredentialsFinder;
 use App\Account\Domain\Token\Token;
 use App\Account\Domain\Token\TokenCreator;
-use App\Shared\Domain\Exception\DomainException;
+use App\Shared\Domain\DomainException;
 
 final readonly class AuthenticationProcess
 {

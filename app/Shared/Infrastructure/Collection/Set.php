@@ -27,7 +27,7 @@ abstract class Set extends ReadableSet implements CollectionInterface
 
     protected function onAdd(object $entity): void
     {
-        // TODO
+        // Can be overridden
     }
 
     public function add(mixed $element): void

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\Bus;
+namespace App\Shared\Domain;
 
 interface EventBusInterface
 {

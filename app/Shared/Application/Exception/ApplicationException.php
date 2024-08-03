@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Application\Exception;
 
-use App\Shared\Domain\Exception\DomainException;
+use App\Shared\Domain\DomainException;
 
 /**
  * @phpstan-consistent-constructor

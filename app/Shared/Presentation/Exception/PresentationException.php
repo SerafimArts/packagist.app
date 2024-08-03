@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Presentation\Exception;
 
 use App\Shared\Application\Exception\ApplicationException;
-use App\Shared\Domain\Exception\DomainException;
+use App\Shared\Domain\DomainException;
 
 /**
  * @template TData of mixed
