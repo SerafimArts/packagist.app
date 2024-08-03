@@ -7,7 +7,7 @@ namespace App\Package\Domain;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]
-final class Credentials
+final class Credentials implements \Stringable
 {
     /**
      * Unique package name.
@@ -33,5 +33,16 @@ final class Credentials
     ) {
         $this->vendor = \strtolower($vendor);
         $this->name = \strtolower($name);
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    public function __toString(): string
+    {
+        return \vsprintf('%s/%s', [
+            $this->vendor,
+            $this->name,
+        ]);
     }
 }

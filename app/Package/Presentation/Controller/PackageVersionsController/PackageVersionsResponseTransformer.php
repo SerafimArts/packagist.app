@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Package\Presentation\Controller\PackageVersionsController;
 
 use App\Package\Domain\Package;
+use App\Package\Presentation\Response\Transformer\PackageVersionTransformer;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**
@@ -15,10 +16,18 @@ use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
  */
 final readonly class PackageVersionsResponseTransformer extends ResponseTransformer
 {
+    public function __construct(
+        private PackageVersionTransformer $versions,
+    ) {}
+
     public function transform(mixed $entry): PackageVersionsResponseDTO
     {
         return new PackageVersionsResponseDTO(
-            packages: [],
+            packages: [
+                (string) $entry->credentials => $this->versions->mapToArray(
+                    entries: $entry->versions,
+                ),
+            ]
         );
     }
 }

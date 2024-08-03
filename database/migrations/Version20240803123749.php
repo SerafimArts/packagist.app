@@ -20,8 +20,8 @@ final class Version20240803123749 extends AbstractMigration
             CREATE TABLE package_versions (
                 id UUID NOT NULL,
                 package_id UUID DEFAULT NULL,
-                version_value VARCHAR(255) NOT NULL,
-                version_normalized VARCHAR(255) NOT NULL,
+                version VARCHAR(255) NOT NULL DEFAULT '0.0.1',
+                is_release BOOLEAN DEFAULT false,
                 created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
                 PRIMARY KEY(id)

@@ -33,26 +33,28 @@ class PackageVersion implements
     #[ORM\Column(type: PackageVersionId::class)]
     public PackageVersionId $id;
 
-    #[ORM\Embedded(class: Version::class, columnPrefix: 'version_')]
-    public Version $version;
+    #[ORM\Column(type: 'string', options: ['default' => '0.0.1'])]
+    public string $version;
 
     #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'versions')]
     #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id')]
     public Package $package;
 
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    public bool $isRelease;
+
     /**
-     * @param non-empty-string|\Stringable $version
+     * @param non-empty-string $version
      */
     public function __construct(
         Package $package,
-        string|\Stringable $version,
+        string $version,
+        bool $isRelease = false,
         ?PackageId $id = null,
     ) {
         $this->package = $package;
-        $this->version = match (true) {
-            $version instanceof Version => $version,
-            default => new Version((string) $version),
-        };
+        $this->version = $version;
+        $this->isRelease = $isRelease;
         $this->id = $id ?? PackageVersionId::new();
 
         $package->versions->add($this);

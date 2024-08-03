@@ -44,6 +44,7 @@ class Package implements
      * @readonly
      */
     #[ORM\OneToMany(targetEntity: PackageVersion::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OrderBy(['version' => 'DESC', 'createdAt' => 'ASC'])]
     public Collection $versions;
 
     public function __construct(
