@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-ffi": "*",
         "ext-iconv": "*",
+        "composer/semver": "^3.4",
         "doctrine/dbal": "^4.0",
         "doctrine/doctrine-bundle": "^2.12",
         "doctrine/orm": "^3.2",

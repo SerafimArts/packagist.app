@@ -9,8 +9,6 @@ use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;
 use App\Shared\Domain\Date\UpdatedDateProviderInterface;
 use App\Shared\Domain\Id\IdentifiableInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -18,9 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'packages')]
-#[ORM\UniqueConstraint(name: 'package_name_idx', columns: ['name'])]
-class Package implements
+#[ORM\Table(name: 'package_versions')]
+class PackageVersion implements
     IdentifiableInterface,
     CreatedDateProviderInterface,
     UpdatedDateProviderInterface
@@ -33,25 +30,31 @@ class Package implements
      *           to a Doctrine bug https://github.com/doctrine/orm/issues/9863
      */
     #[ORM\Id]
-    #[ORM\Column(type: PackageId::class)]
-    public PackageId $id;
+    #[ORM\Column(type: PackageVersionId::class)]
+    public PackageVersionId $id;
 
-    #[ORM\Embedded(class: Credentials::class, columnPrefix: false)]
-    public Credentials $credentials;
+    #[ORM\Embedded(class: Version::class, columnPrefix: 'version_')]
+    public Version $version;
+
+    #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'versions')]
+    #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id')]
+    public Package $package;
 
     /**
-     * @var Collection<array-key, PackageVersion>
-     * @readonly
+     * @param non-empty-string|\Stringable $version
      */
-    #[ORM\OneToMany(targetEntity: PackageVersion::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
-    public Collection $versions;
-
     public function __construct(
-        Credentials $credentials,
+        Package $package,
+        string|\Stringable $version,
         ?PackageId $id = null,
     ) {
-        $this->credentials = $credentials;
-        $this->versions = new ArrayCollection();
-        $this->id = $id ?? PackageId::new();
+        $this->package = $package;
+        $this->version = match (true) {
+            $version instanceof Version => $version,
+            default => new Version((string) $version),
+        };
+        $this->id = $id ?? PackageVersionId::new();
+
+        $package->versions->add($this);
     }
 }
