@@ -12,7 +12,7 @@ final class RegisterTest extends HttpTestCase
     {
         $this->json('POST', '/auth/register')
             ->assertStatusUnprocessable()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.v1.json')
             ->assertJsonPathSame('$.error', 'Missing required [login] property');
     }
 
@@ -22,7 +22,7 @@ final class RegisterTest extends HttpTestCase
             'login' => __FUNCTION__
         ])
             ->assertStatusUnprocessable()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.v1.json')
             ->assertJsonPathSame('$.error', 'Missing required [password] property');
     }
 
@@ -32,7 +32,7 @@ final class RegisterTest extends HttpTestCase
             'password' => __FUNCTION__
         ])
             ->assertStatusUnprocessable()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.v1.json')
             ->assertJsonPathSame('$.error', 'Missing required [login] property');
     }
 

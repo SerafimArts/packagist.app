@@ -1,0 +1,28 @@
+{
+    "type": "object",
+    "required": [
+        "packages",
+        "warning",
+        "warning-versions",
+        "metadata-url"
+    ],
+    "additionalProperties": false,
+    "properties": {
+        "packages": {
+            "type": "array",
+            "maxItems": 0
+        },
+        "warning": {
+            "type": "string",
+            "minLength": 1
+        },
+        "warning-versions": {
+            "type": "string",
+            "minLength": 1
+        },
+        "metadata-url": {
+            "type": "string",
+            "minLength": 1
+        }
+    }
+}

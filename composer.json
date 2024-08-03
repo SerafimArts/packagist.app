@@ -30,8 +30,8 @@
         "symfony/yaml": "7.1.*"
     },
     "require-dev": {
-        "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "doctrine/doctrine-migrations-bundle": "^3.3",
         "fakerphp/faker": "^1.23",
         "friendsofphp/php-cs-fixer": "^3.61",
         "jetbrains/phpstorm-attributes": "^1.1",

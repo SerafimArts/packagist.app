@@ -13,7 +13,7 @@ final class LoginTest extends HttpTestCase
     {
         $this->json('POST', '/auth/login')
             ->assertStatusUnprocessable()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.v1.json')
             ->assertJsonPathSame('$.error', 'Missing required [login] property');
     }
 
@@ -23,7 +23,7 @@ final class LoginTest extends HttpTestCase
             'login' => __FUNCTION__
         ])
             ->assertStatusUnprocessable()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.v1.json')
             ->assertJsonPathSame('$.error', 'Missing required [password] property');
     }
 
@@ -33,7 +33,7 @@ final class LoginTest extends HttpTestCase
             'password' => __FUNCTION__
         ])
             ->assertStatusUnprocessable()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.v1.json')
             ->assertJsonPathSame('$.error', 'Missing required [login] property');
     }
 
@@ -44,7 +44,7 @@ final class LoginTest extends HttpTestCase
             'password' => __FUNCTION__,
         ])
             ->assertStatusUnprocessable()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.v1.json')
             ->assertJsonPathMatches('$.error', '/Invalid account "\w+" credentials/');
     }
 
@@ -58,7 +58,7 @@ final class LoginTest extends HttpTestCase
             'password' => __FUNCTION__,
         ])
             ->assertStatusUnprocessable()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/../error.v1.json')
             ->assertJsonPathMatches('$.error', '/Invalid account "\w+" credentials/');
     }
 
