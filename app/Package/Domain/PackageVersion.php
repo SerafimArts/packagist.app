@@ -25,13 +25,9 @@ class PackageVersion implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine bug https://github.com/doctrine/orm/issues/9863
-     */
     #[ORM\Id]
     #[ORM\Column(type: PackageVersionId::class)]
-    public PackageVersionId $id;
+    public PackageVersionId $id { get => $this->id; }
 
     #[ORM\Column(type: 'string', options: ['default' => '0.0.1'])]
     public string $version;

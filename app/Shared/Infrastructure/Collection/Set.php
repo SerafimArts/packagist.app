@@ -25,8 +25,15 @@ abstract class Set extends ReadableSet implements CollectionInterface
         parent::__construct($delegate);
     }
 
+    protected function onAdd(object $entity): void
+    {
+        // TODO
+    }
+
     public function add(mixed $element): void
     {
+        $this->onAdd($element);
+
         $this->delegate->add($element);
     }
 
@@ -47,6 +54,8 @@ abstract class Set extends ReadableSet implements CollectionInterface
 
     public function set(int|string $key, mixed $value): void
     {
+        $this->onAdd($value);
+
         $this->delegate->set($key, $value);
     }
 
@@ -62,6 +71,8 @@ abstract class Set extends ReadableSet implements CollectionInterface
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
+        $this->onAdd($value);
+
         $this->delegate->offsetSet($offset, $value);
     }
 

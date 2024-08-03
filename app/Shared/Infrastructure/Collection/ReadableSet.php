@@ -19,26 +19,17 @@ use Doctrine\Common\Collections\Selectable as SelectableInterface;
 abstract class ReadableSet implements ReadableCollectionInterface, SelectableInterface
 {
     /**
-     * @var \WeakMap<ReadableCollectionInterface, static>|null
-     */
-    private static ?\WeakMap $references = null;
-
-    /**
      * @param ReadableCollectionInterface<array-key, T> $delegate
      */
     public function __construct(
         protected readonly ReadableCollectionInterface $delegate = new ArrayCollection(),
     ) {}
 
-    public static function getter(ReadableCollectionInterface $ctx): static
+    public static function for(ReadableCollectionInterface $ctx): static
     {
-        if ($ctx instanceof static) {
-            return $ctx;
-        }
-
-        self::$references ??= new \WeakMap();
-
-        return self::$references[$ctx] ??= new static($ctx);
+        return Reference::for($ctx, static fn (ReadableCollectionInterface $ctx): static
+            => new static($ctx),
+        );
     }
 
     /**

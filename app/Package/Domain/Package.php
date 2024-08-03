@@ -9,7 +9,6 @@ use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;
 use App\Shared\Domain\Date\UpdatedDateProviderInterface;
 use App\Shared\Domain\Id\IdentifiableInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,27 +27,21 @@ class Package implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine bug https://github.com/doctrine/orm/issues/9863
-     */
     #[ORM\Id]
     #[ORM\Column(type: PackageId::class)]
-    public PackageId $id {
-        get => $this->id;
-    }
+    public PackageId $id { get => $this->id; }
 
     #[ORM\Embedded(class: Credentials::class, columnPrefix: false)]
     public Credentials $credentials;
 
     /**
-     * @var PackageVersionsSet<PackageVersion>
+     * @var PackageVersionsSet<PackageVersion> & Collection<array-key, PackageVersion>
      * @readonly
      */
     #[ORM\OneToMany(targetEntity: PackageVersion::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
     #[ORM\OrderBy(['version' => 'DESC', 'createdAt' => 'ASC'])]
     public Collection $versions {
-        get => PackageVersionsSet::getter($this->versions);
+        get => PackageVersionsSet::for($this->versions);
     }
 
     public function __construct(
