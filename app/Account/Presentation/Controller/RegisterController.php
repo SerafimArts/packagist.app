@@ -9,7 +9,7 @@ use App\Account\Application\Auth\RegistrationProcess;
 use App\Account\Presentation\Controller\RegisterController\RegisterRequestDTO;
 use App\Account\Presentation\Controller\RegisterController\RegisterResponseDTO;
 use App\Account\Presentation\Controller\RegisterController\RegisterResponseTransformer;
-use App\Shared\Presentation\Exception\PresentationException;
+use App\Shared\Presentation\Exception\Http\HttpPresentationException;
 use Local\HttpData\Attribute\MapBody;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -32,7 +32,7 @@ final readonly class RegisterController
                 password: $request->password,
             ));
         } catch (AccountAlreadyRegisteredException $e) {
-            throw PresentationException::fromApplicationException($e);
+            throw HttpPresentationException::fromApplicationException($e);
         }
     }
 }

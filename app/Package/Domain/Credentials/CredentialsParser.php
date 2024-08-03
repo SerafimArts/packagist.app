@@ -8,8 +8,11 @@ use App\Package\Domain\Credentials;
 
 final class CredentialsParser
 {
+    /**
+     * TODO
+     */
     public function createFromPackage(string $package): Credentials
     {
-        dd($package);
+        throw new \InvalidArgumentException();
     }
 }

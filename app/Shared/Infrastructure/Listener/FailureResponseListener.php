@@ -7,6 +7,8 @@ namespace App\Shared\Infrastructure\Listener;
 use App\Shared\Application\Exception\ApplicationException;
 use App\Shared\Domain\Exception\DomainException;
 use App\Shared\Infrastructure\Transformer\TransformerInterface;
+use App\Shared\Presentation\Exception\Http\HttpHeadersProviderInterface;
+use App\Shared\Presentation\Exception\Http\HttpStatusCodeProviderInterface;
 use App\Shared\Presentation\Exception\PresentationException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -49,17 +51,21 @@ final readonly class FailureResponseListener extends ResponseListener
         );
 
         $response->setStatusCode($this->getStatusCode($exception));
-        $response->headers->add($this->getHeaders($exception));
+
+        foreach ($this->getHeaders($exception) as $header => $line) {
+            $response->headers->add([$header => $line]);
+        }
 
         $event->setResponse($response);
     }
 
     /**
-     * @return array<non-empty-string, string>
+     * @return iterable<non-empty-string, string>
      */
-    private function getHeaders(\Throwable $e): array
+    private function getHeaders(\Throwable $e): iterable
     {
         return match (true) {
+            $e instanceof HttpHeadersProviderInterface => $e->getHttpHeaders(),
             $e instanceof HttpExceptionInterface => $e->getHeaders(),
             default => [],
         };
@@ -68,6 +74,7 @@ final readonly class FailureResponseListener extends ResponseListener
     private function getStatusCode(\Throwable $e): int
     {
         return match (true) {
+            $e instanceof HttpStatusCodeProviderInterface => $e->getHttpStatusCode(),
             $e instanceof HttpExceptionInterface => $e->getStatusCode(),
             $e instanceof ValidationExceptionInterface,
             $e instanceof PresentationException,

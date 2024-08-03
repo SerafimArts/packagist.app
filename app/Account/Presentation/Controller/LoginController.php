@@ -9,7 +9,7 @@ use App\Account\Application\Auth\Exception\AuthenticationFailedException;
 use App\Account\Presentation\Controller\LoginController\LoginRequestDTO;
 use App\Account\Presentation\Controller\LoginController\LoginResponseDTO;
 use App\Account\Presentation\Controller\LoginController\LoginResponseTransformer;
-use App\Shared\Presentation\Exception\PresentationException;
+use App\Shared\Presentation\Exception\Http\HttpPresentationException;
 use Local\HttpData\Attribute\MapBody;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -32,7 +32,7 @@ final readonly class LoginController
                 password: $request->password,
             ));
         } catch (AuthenticationFailedException $e) {
-            throw PresentationException::fromApplicationException($e);
+            throw HttpPresentationException::fromApplicationException($e);
         }
     }
 }

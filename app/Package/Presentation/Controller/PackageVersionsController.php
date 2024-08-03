@@ -7,7 +7,9 @@ namespace App\Package\Presentation\Controller;
 use App\Package\Application\PackageFinder;
 use App\Package\Presentation\Controller\PackageVersionsController\PackageVersionsResponseDTO;
 use App\Package\Presentation\Controller\PackageVersionsController\PackageVersionsResponseTransformer;
+use App\Package\Presentation\Exception\PackageNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -24,6 +26,11 @@ final readonly class PackageVersionsController
     public function __invoke(string $package): PackageVersionsResponseDTO
     {
         $instance = $this->finder->findByPackageString($package);
+
+        if ($instance === null) {
+            throw (new PackageNotFoundException('404 not found, no packages here'))
+                ->setHttpStatusCode(Response::HTTP_NOT_FOUND);
+        }
 
         return $this->response->transform(
             entry: $instance,
