@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @final impossible to specify "final" attribute natively due
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
+ *
+ * @uses Collection (phpstorm reference bug)
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'packages')]
@@ -35,7 +37,7 @@ class Package implements
     public Credentials $credentials;
 
     /**
-     * @var PackageVersionsSet<PackageVersion> & Collection<array-key, PackageVersion>
+     * @var PackageVersionsSet<PackageVersion>
      * @readonly
      */
     #[ORM\OneToMany(targetEntity: PackageVersion::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]

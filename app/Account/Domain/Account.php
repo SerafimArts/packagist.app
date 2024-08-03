@@ -12,6 +12,7 @@ use App\Shared\Domain\Date\UpdatedDateProviderInterface;
 use App\Shared\Domain\Id\AccountId;
 use App\Shared\Domain\Id\IdentifiableInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Psr\Clock\ClockInterface;
 
 /**
  * @final impossible to specify "final" attribute natively due

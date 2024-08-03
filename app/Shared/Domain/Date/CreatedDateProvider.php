@@ -13,12 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 trait CreatedDateProvider
 {
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine bug https://github.com/doctrine/orm/issues/9863
-     */
     #[ORM\Column(name: 'created_at', type: 'datetimetz_immutable', nullable: false, options: [
         'default' => 'CURRENT_TIMESTAMP',
     ])]
-    public \DateTimeImmutable $createdAt;
+    public \DateTimeImmutable $createdAt { get => $this->createdAt; }
 }
