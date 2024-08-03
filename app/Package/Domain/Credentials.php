@@ -7,7 +7,7 @@ namespace App\Package\Domain;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]
-final class Credentials implements \Stringable
+final readonly class Credentials implements \Stringable
 {
     /**
      * Unique package name.

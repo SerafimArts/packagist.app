@@ -34,7 +34,9 @@ class Package implements
      */
     #[ORM\Id]
     #[ORM\Column(type: PackageId::class)]
-    public PackageId $id;
+    public PackageId $id {
+        get => $this->id;
+    }
 
     #[ORM\Embedded(class: Credentials::class, columnPrefix: false)]
     public Credentials $credentials;
