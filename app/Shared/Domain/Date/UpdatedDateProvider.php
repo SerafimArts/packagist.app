@@ -17,13 +17,5 @@ use Psr\Clock\ClockInterface;
 trait UpdatedDateProvider
 {
     #[ORM\Column(name: 'updated_at', type: 'datetimetz_immutable', nullable: true)]
-    public ?\DateTimeImmutable $updatedAt = null {
-        get => $this->updatedAt;
-        set (\DateTimeInterface|ClockInterface|null $date) => match (true) {
-            $date instanceof \DateTimeImmutable => $date,
-            $date instanceof \DateTimeInterface => \DateTimeImmutable::createFromMutable($date),
-            $date instanceof ClockInterface => $date->now(),
-            default => $date,
-        };
-    }
+    public ?\DateTimeImmutable $updatedAt = null;
 }

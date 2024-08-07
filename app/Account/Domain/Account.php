@@ -9,10 +9,8 @@ use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;
 use App\Shared\Domain\Date\UpdatedDateProviderInterface;
-use App\Shared\Domain\Id\AccountId;
 use App\Shared\Domain\Id\IdentifiableInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Psr\Clock\ClockInterface;
 
 /**
  * @final impossible to specify "final" attribute natively due
@@ -31,7 +29,7 @@ class Account implements
 
     #[ORM\Id]
     #[ORM\Column(type: AccountId::class)]
-    public AccountId $id { get => $this->id; }
+    public AccountId $id;
 
     /**
      * @var non-empty-string

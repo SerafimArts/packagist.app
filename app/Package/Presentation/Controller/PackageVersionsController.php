@@ -25,7 +25,7 @@ final readonly class PackageVersionsController
         private PackageFinder $finder,
     ) {}
 
-    public function __invoke(string $package): PackageVersionsResponseDTO
+    public function __invoke(string $package, ?string $_route = null): PackageVersionsResponseDTO
     {
         try {
             $instance = $this->finder->findByPackageString($package);
@@ -40,6 +40,7 @@ final readonly class PackageVersionsController
 
         return $this->response->transform(
             entry: $instance,
+            dev: $_route === 'package.dev',
         );
     }
 }

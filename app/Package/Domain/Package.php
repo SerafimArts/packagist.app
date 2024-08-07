@@ -17,6 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
  *
  * @uses Collection (phpstorm reference bug)
+ *
+ * @property Credentials $credentials Annotation for PHP 8.4 autocompletion support
+ * @property PackageVersionsSet $versions Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'packages')]

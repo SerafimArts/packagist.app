@@ -20,12 +20,16 @@ final readonly class PackageVersionsResponseTransformer extends ResponseTransfor
         private PackageVersionTransformer $versions,
     ) {}
 
-    public function transform(mixed $entry): PackageVersionsResponseDTO
+    public function transform(mixed $entry, ?bool $dev = null): PackageVersionsResponseDTO
     {
         return new PackageVersionsResponseDTO(
             packages: [
                 (string) $entry->credentials => $this->versions->mapToArray(
-                    entries: $entry->versions,
+                    entries: match ($dev) {
+                        true => $entry->versions->dev,
+                        false => $entry->versions->released,
+                        default => $entry->versions,
+                    },
                 ),
             ]
         );

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Account\Presentation\Response\DTO;
 
-use App\Shared\Domain\Id\AccountId;
+use App\Account\Domain\AccountId;
 
 final class AccountInfoResponseDTO
 {
