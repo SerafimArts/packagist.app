@@ -121,11 +121,6 @@
             "@php bin/console assets:install",
             "@php bin/console secrets:generate-keys -q -r",
             "@php bin/console dotenv:dump"
-        ],
-
-        "bash": [
-            "Composer\\Config::disableProcessTimeout",
-            "docker exec -it ffi-php bash"
         ]
     },
     "conflict": {
