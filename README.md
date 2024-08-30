@@ -1,6 +1,6 @@
-# [WIP] PHP FFI
+# [WIP] Self-Hosted Packagist
 
-Composer server (packagist like) for PHP FFI packages.
+An alternative self-hosted Composer Server (packagist like).
 
 ## Requirements
 
@@ -16,13 +16,13 @@ Composer server (packagist like) for PHP FFI packages.
 
 Migration is required to update the database structure.
 
-- `docker exec -it ffi-php composer db:up`
+- `docker exec -it packagist-php composer db:up`
 
 ### Fixtures
 
 Fill the database with random test data.
 
-- `docker exec -it ffi-php composer db:fill`
+- `docker exec -it packagist-php composer db:fill`
 
 ## Usage
 
@@ -34,7 +34,7 @@ Fill the database with random test data.
 
 ### API
 
-- HTTP: `http://ffi.localhost`
+- HTTP: `http://packagist.localhost`
 
 To interact with the API, you can use the [Postman](https://www.postman.com/) 
 resources located in [resources/postman.json](/resources/postman.json).
@@ -43,13 +43,13 @@ resources located in [resources/postman.json](/resources/postman.json).
 
 **Docker Credentials:**
 
-| Description | Value      | Environment Variable |
-|-------------|------------|----------------------|
-| Host        | `postgres` | `DB_HOST`            |
-| Port        | `5432`     | `DB_PORT`            |
-| Login       | `user`     | `DB_USERNAME`        |
-| Password    | `password` | `DB_PASSWORD`        |
-| Database    | `ffi`      | `DB_DATABASE`        |
+| Description | Value       | Environment Variable |
+|-------------|-------------|----------------------|
+| Host        | `postgres`  | `DB_HOST`            |
+| Port        | `5432`      | `DB_PORT`            |
+| Login       | `user`      | `DB_USERNAME`        |
+| Password    | `password`  | `DB_PASSWORD`        |
+| Database    | `packagist` | `DB_DATABASE`        |
 
 If you change the `DB_HOST`, you also need to change `postgres:` the section
 name in the [`docker-compose.yml`](./docker-compose.yml) file.

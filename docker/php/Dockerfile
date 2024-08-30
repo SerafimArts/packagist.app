@@ -1,6 +1,6 @@
 FROM php:8.4-rc-fpm
 
-WORKDIR "/home/ffi/ffi.org"
+WORKDIR "/home/packagist/packagist.app"
 
 # Fix debconf warnings upon build
 ARG DEBIAN_FRONTEND=noninteractive
@@ -56,9 +56,9 @@ RUN apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/
     && ln -sf /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 # Composer cache permissions
-RUN mkdir -p /home/ffi/.composer && \
-    chmod +w /home/ffi/.composer -R && \
-    chown 1000:1000 /home/ffi/.composer -R
+RUN mkdir -p /home/packagist/.composer && \
+    chmod +w /home/packagist/.composer -R && \
+    chown 1000:1000 /home/packagist/.composer -R
 
-RUN useradd -u 1000 -m ffi
-USER ffi
+RUN useradd -u 1000 -m packagist
+USER packagist
