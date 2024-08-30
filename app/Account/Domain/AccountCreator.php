@@ -25,7 +25,7 @@ final readonly class AccountCreator
         $account = new Account(
             login: $login,
             password: Password::empty(),
-            roles: [Role::SuperAdmin],
+            roles: [],
         );
 
         $account->password = Password::createForAccount(
