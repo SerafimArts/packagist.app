@@ -1,4 +1,4 @@
-# [WIP] Self-Hosted Packagist
+# [WIP] Alternative Self-Hosted Packagist
 
 An alternative self-hosted Composer Server (packagist like).
 
