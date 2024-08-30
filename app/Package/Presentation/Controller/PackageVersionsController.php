@@ -15,6 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Return versions list for a package.
+ */
 #[AsController]
 #[Route('/package/{package}.json', name: 'package', methods: Request::METHOD_GET, stateless: true)]
 #[Route('/package/{package}~dev.json', name: 'package.dev', methods: Request::METHOD_GET, stateless: true)]

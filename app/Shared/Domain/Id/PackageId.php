@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Domain;
-
-use App\Shared\Domain\Id\UniversalUniqueId;
+namespace App\Shared\Domain\Id;
 
 final readonly class PackageId extends UniversalUniqueId {}

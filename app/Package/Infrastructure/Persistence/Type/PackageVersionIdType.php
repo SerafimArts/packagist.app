@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Infrastructure\Persistence\Type;
 
-use App\Package\Domain\PackageVersionId;
+use App\Shared\Domain\Id\PackageVersionId;
 use App\Shared\Infrastructure\Persistence\Type\UniversalUniqueIdType;
 
 /**

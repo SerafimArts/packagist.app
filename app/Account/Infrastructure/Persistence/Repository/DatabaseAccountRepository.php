@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Account\Infrastructure\Persistence\Repository;
 
 use App\Account\Domain\Account;
-use App\Account\Domain\AccountId;
 use App\Account\Domain\AccountRepositoryInterface;
+use App\Shared\Domain\Id\AccountId;
 use App\Shared\Infrastructure\Persistence\Repository\DatabaseRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

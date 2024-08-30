@@ -9,6 +9,7 @@ use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;
 use App\Shared\Domain\Date\UpdatedDateProviderInterface;
 use App\Shared\Domain\Id\IdentifiableInterface;
+use App\Shared\Domain\Id\PackageId;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 

@@ -1,0 +1,8 @@
+# config/packages/messenger.yaml
+framework:
+  messenger:
+    transports:
+      sync: 'sync://'
+
+    routing:
+      # App\Message\SmsNotification: sync

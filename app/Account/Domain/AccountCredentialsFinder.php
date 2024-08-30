@@ -8,7 +8,7 @@ use App\Account\Domain\Event\AccountVerified;
 use App\Account\Domain\Exception\AccountNotFoundException;
 use App\Account\Domain\Exception\AccountNotVerifiableException;
 use App\Account\Domain\Exception\InvalidAccountCredentialsException;
-use App\Shared\Domain\EventBusInterface;
+use App\Shared\Domain\Bus\EventBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final readonly class AccountCredentialsFinder

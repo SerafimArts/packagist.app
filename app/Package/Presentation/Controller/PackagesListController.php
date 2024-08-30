@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+/**
+ * Returns main metadata for all packages.
+ */
 #[AsController]
 #[Route('/packages.json', name: 'package.list', methods: Request::METHOD_GET, stateless: true)]
 final readonly class PackagesListController

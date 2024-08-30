@@ -24,11 +24,11 @@ doctrine:
         mapping_types:
           _account_role: App\Account\Domain\Role[]
     types:
-      App\Account\Domain\AccountId: App\Account\Infrastructure\Persistence\Type\AccountIdType
       App\Account\Domain\Role[]: App\Account\Infrastructure\Persistence\Type\AccountRoleListType
-      App\Package\Domain\PackageId: App\Package\Infrastructure\Persistence\Type\PackageIdType
-      App\Package\Domain\PackageVersionId: App\Package\Infrastructure\Persistence\Type\PackageVersionIdType
       # Shared
+      App\Shared\Domain\Id\PackageId: App\Package\Infrastructure\Persistence\Type\PackageIdType
+      App\Shared\Domain\Id\PackageVersionId: App\Package\Infrastructure\Persistence\Type\PackageVersionIdType
+      App\Shared\Domain\Id\AccountId: App\Account\Infrastructure\Persistence\Type\AccountIdType
       string[]: App\Shared\Infrastructure\Persistence\Type\StringArrayType
 
   orm:
