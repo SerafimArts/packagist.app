@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Http\Package;
 
 use App\Package\Domain\Package;
-use App\Package\Domain\PackageVersion;
+use App\Package\Domain\Version\PackageVersion;
 use App\Tests\Concerns\InteractWithDatabase;
 use App\Tests\Functional\Http\HttpTestCase;
 use Local\Testing\Http\TestingResponse;

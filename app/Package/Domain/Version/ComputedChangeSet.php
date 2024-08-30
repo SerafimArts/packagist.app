@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Package\Domain\Version;
 
-use App\Package\Domain\PackageVersion;
-
 final readonly class ComputedChangeSet
 {
     public function __construct(

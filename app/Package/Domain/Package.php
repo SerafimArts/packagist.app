@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Package\Domain;
 
+use App\Package\Domain\Version\PackageVersion;
+use App\Package\Domain\Version\PackageVersionsSet;
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;
@@ -32,6 +34,17 @@ class Package implements
 {
     use CreatedDateProvider;
     use UpdatedDateProvider;
+
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: PackageId::class)]
+    public PackageId $id;
+
+    #[ORM\Embedded(class: Credentials::class, columnPrefix: false)]
+    public Credentials $credentials;
 
     public function __construct(
         Credentials $credentials,
@@ -64,17 +77,6 @@ class Package implements
     //  All properties are located AFTER the methods, because at the moment
     //  IDE does not support PHP 8.4
     // -------------------------------------------------------------------------
-
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: PackageId::class)]
-    public PackageId $id;
-
-    #[ORM\Embedded(class: Credentials::class, columnPrefix: false)]
-    public Credentials $credentials;
 
     /**
      * @var PackageVersionsSet<PackageVersion>

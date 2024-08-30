@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Account\Domain;
 
+use App\Account\Domain\Integration\Integration;
+use App\Account\Domain\Integration\IntegrationsSet;
 use App\Account\Domain\Password\EncryptedPassword;
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\CreatedDateProviderInterface;
@@ -11,6 +13,7 @@ use App\Shared\Domain\Date\UpdatedDateProvider;
 use App\Shared\Domain\Date\UpdatedDateProviderInterface;
 use App\Shared\Domain\Id\AccountId;
 use App\Shared\Domain\Id\IdentifiableInterface;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -68,6 +71,22 @@ class Account implements
             $roles instanceof Role => [$roles],
             default => \array_values([...$roles]),
         };
+        $this->integrations = new IntegrationsSet();
         $this->createdAt = new \DateTimeImmutable();
+    }
+
+    // -------------------------------------------------------------------------
+    //  All properties are located AFTER the methods, because at the moment
+    //  IDE does not support PHP 8.4
+    // -------------------------------------------------------------------------
+
+    /**
+     * @var IntegrationsSet<Integration>
+     * @readonly
+     */
+    #[ORM\OneToMany(targetEntity: Integration::class, mappedBy: 'account', cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OrderBy(['createdAt' => 'ASC'])]
+    public Collection $integrations {
+        get => AccountIntegrationsSet::for($this->integrations);
     }
 }

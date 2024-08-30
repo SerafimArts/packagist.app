@@ -10,28 +10,20 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * @api
  */
-final class Version20240603184220 extends AbstractMigration
+final class Version20240830211215 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Create accounts table';
+        return 'Add account integrations table';
     }
 
     public function up(Schema $schema): void
     {
-        $this->addSql(<<<SQL
-            CREATE TYPE account_role AS ENUM(
-                'ROLE_SUPER_ADMIN',
-                'ROLE_ADMIN'
-            )
-            SQL);
-
         $this->addSql(<<<'SQL'
-            CREATE TABLE accounts (
+            CREATE TABLE account_integrations (
                 id UUID NOT NULL,
-                login VARCHAR(255) NOT NULL CHECK(login <> ''),
-                password VARCHAR(255) DEFAULT NULL,
-                roles account_role[] DEFAULT '{}' NOT NULL,
+                account_id UUID DEFAULT NULL,
+                dsn VARCHAR(255) NOT NULL CHECK(dsn <> ''),
                 created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
                 PRIMARY KEY(id)
@@ -39,18 +31,24 @@ final class Version20240603184220 extends AbstractMigration
             SQL);
 
         $this->addSql(<<<'SQL'
-            CREATE UNIQUE INDEX login_unique ON accounts (login)
+            CREATE INDEX IDX_E5F67AEC9B6B5FBA ON account_integrations (account_id)
+            SQL);
+
+        $this->addSql(<<<'SQL'
+            ALTER TABLE account_integrations ADD CONSTRAINT FK_E5F67AEC9B6B5FBA
+                FOREIGN KEY (account_id) REFERENCES accounts (id)
+                    NOT DEFERRABLE INITIALLY IMMEDIATE
             SQL);
     }
 
     public function down(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-            DROP TABLE accounts
+            ALTER TABLE account_integrations DROP CONSTRAINT FK_E5F67AEC9B6B5FBA
             SQL);
 
         $this->addSql(<<<'SQL'
-            DROP TYPE account_role
+            DROP TABLE account_integrations
             SQL);
     }
 }

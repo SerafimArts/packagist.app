@@ -7,6 +7,9 @@ namespace App\Database\Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
+/**
+ * @api
+ */
 final class Version20240802201735 extends AbstractMigration
 {
     public function getDescription(): string
@@ -19,8 +22,8 @@ final class Version20240802201735 extends AbstractMigration
         $this->addSql(<<<'SQL'
             CREATE TABLE packages (
                 id UUID NOT NULL,
-                name VARCHAR(255) NOT NULL,
-                vendor VARCHAR(255) NOT NULL,
+                name VARCHAR(255) NOT NULL CHECK(name <> ''),
+                vendor VARCHAR(255) NOT NULL CHECK(vendor <> ''),
                 created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
                 PRIMARY KEY(id)

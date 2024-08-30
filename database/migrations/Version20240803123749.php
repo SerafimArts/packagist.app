@@ -7,6 +7,9 @@ namespace App\Database\Migrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
+/**
+ * @api
+ */
 final class Version20240803123749 extends AbstractMigration
 {
     public function getDescription(): string
@@ -20,15 +23,15 @@ final class Version20240803123749 extends AbstractMigration
             CREATE TABLE package_versions (
                 id UUID NOT NULL,
                 package_id UUID DEFAULT NULL,
-                version VARCHAR(255) NOT NULL DEFAULT '0.0.1',
+                version VARCHAR(255) NOT NULL DEFAULT '0.0.1' CHECK(version <> ''),
                 description TEXT DEFAULT NULL,
                 license VARCHAR(255)[] DEFAULT '{}' NOT NULL,
-                source_type VARCHAR(255) NOT NULL DEFAULT '',
-                source_url VARCHAR(255) NOT NULL DEFAULT '',
-                source_hash VARCHAR(255) NOT NULL DEFAULT '',
-                dist_type VARCHAR(255) NOT NULL DEFAULT '',
-                dist_url VARCHAR(255) NOT NULL DEFAULT '',
-                dist_hash VARCHAR(255) DEFAULT NULL,
+                source_type VARCHAR(255) NOT NULL CHECK(source_type <> ''),
+                source_url VARCHAR(255) NOT NULL CHECK(source_url <> ''),
+                source_hash VARCHAR(255) NOT NULL CHECK(source_hash <> ''),
+                dist_type VARCHAR(255) NOT NULL CHECK(dist_type <> ''),
+                dist_url VARCHAR(255) NOT NULL CHECK(dist_url <> ''),
+                dist_hash VARCHAR(255) DEFAULT NULL CHECK(dist_hash <> ''),
                 is_release BOOLEAN NOT NULL DEFAULT false,
                 created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,

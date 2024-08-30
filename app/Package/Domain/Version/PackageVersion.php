@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Domain;
+namespace App\Package\Domain\Version;
 
+use App\Package\Domain\Package;
 use App\Package\Domain\Reference\DistReference;
 use App\Package\Domain\Reference\SourceReference;
 use App\Shared\Domain\Date\CreatedDateProvider;
@@ -33,6 +34,36 @@ class PackageVersion implements
     use UpdatedDateProvider;
 
     /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: PackageVersionId::class)]
+    public PackageVersionId $id;
+
+    #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'versions')]
+    #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id')]
+    public Package $package;
+
+    /**
+     * @var non-empty-string
+     */
+    #[ORM\Column(type: 'string', options: ['default' => '0.0.1'])]
+    public string $version;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    public ?string $description = null;
+
+    /**
+     * @var list<non-empty-string>
+     */
+    #[ORM\Column(type: 'string[]', options: ['default' => '{}'])]
+    public array $license = [];
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    public bool $isRelease;
+
+    /**
      * @param non-empty-string $version
      */
     public function __construct(
@@ -56,30 +87,6 @@ class PackageVersion implements
     //  IDE does not support PHP 8.4
     // -------------------------------------------------------------------------
 
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: PackageVersionId::class)]
-    public PackageVersionId $id;
-
-    #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'versions')]
-    #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id')]
-    public Package $package;
-
-    #[ORM\Column(type: 'string', options: ['default' => '0.0.1'])]
-    public string $version;
-
-    #[ORM\Column(type: 'text', nullable: true)]
-    public ?string $description = null;
-
-    /**
-     * @var list<non-empty-string>
-     */
-    #[ORM\Column(type: 'string[]', options: ['default' => '{}'])]
-    public array $license = [];
-
     #[ORM\Embedded(class: SourceReference::class, columnPrefix: 'source_')]
     public ?SourceReference $source {
         get => $this->source?->isValid() ? $this->source : null;
@@ -91,7 +98,4 @@ class PackageVersion implements
         get => $this->dist?->isValid() ? $this->dist : null;
         set (?DistReference $ref) => $ref ?? DistReference::createEmpty();
     }
-
-    #[ORM\Column(type: 'boolean', options: ['default' => false])]
-    public bool $isRelease;
 }

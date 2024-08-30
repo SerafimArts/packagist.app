@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Response\Transformer;
 
-use App\Package\Domain\PackageVersion;
 use App\Package\Domain\Version\ComputedChangeSet;
+use App\Package\Domain\Version\PackageVersion;
 use App\Package\Presentation\Response\DTO\MinifiedPackageVersionResponseDTO;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 use Composer\Semver\VersionParser;
