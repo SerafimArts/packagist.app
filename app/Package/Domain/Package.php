@@ -64,9 +64,13 @@ class Package implements
     //  IDE does not support PHP 8.4
     // -------------------------------------------------------------------------
 
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
     #[ORM\Id]
     #[ORM\Column(type: PackageId::class)]
-    public PackageId $id { get => $this->id; }
+    public PackageId $id;
 
     #[ORM\Embedded(class: Credentials::class, columnPrefix: false)]
     public Credentials $credentials;

@@ -27,6 +27,10 @@ class Account implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
     #[ORM\Id]
     #[ORM\Column(type: AccountId::class)]
     public AccountId $id;
