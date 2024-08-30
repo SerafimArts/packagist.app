@@ -10,6 +10,11 @@ final class PackagesTest extends HttpTestCase
     {
         $this->json('GET', '/packages.json')
             ->assertStatusOk()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/packages.json');
+            ->assertJsonSchemaFileMatches(__DIR__ . '/packages.json')
+            ->assertJsonPathSame('$.packages', [])
+            ->assertJsonPathStringContains('$.warning', 'Support for Composer 1 is deprecated')
+            ->assertJsonPathSame('$.warning-versions', '<1.99')
+            ->assertJsonPathSame('$.metadata-url', '/package/%package%.json')
+        ;
     }
 }

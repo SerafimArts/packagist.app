@@ -28,6 +28,20 @@ abstract readonly class Transformer implements TransformerInterface
     }
 
     /**
+     * @param iterable<mixed, TInput> $entries
+     *
+     * @return iterable<array-key, TOutput>
+     *
+     * @psalm-suppress TooManyArguments
+     */
+    public function mapWithoutKeys(iterable $entries, mixed ...$args): iterable
+    {
+        foreach ($entries as $entry) {
+            yield $this->transform($entry, ...$args);
+        }
+    }
+
+    /**
      * @param TInput|null $entry
      *
      * @return TOutput|null

@@ -7,6 +7,8 @@ namespace App\Database\DataFixtures;
 use App\Package\Domain\Credentials;
 use App\Package\Domain\Package;
 use App\Package\Domain\PackageVersion;
+use App\Package\Domain\Reference\DistReference;
+use App\Package\Domain\Reference\SourceReference;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
@@ -27,7 +29,7 @@ final class ExamplePackageFixture extends Fixture
         for ($i = 0; $i < 100; ++$i) {
             echo $this->progressNext('Generating example/example package versions...');
 
-            new PackageVersion(
+            $version = new PackageVersion(
                 package: $package,
                 version: \vsprintf('%d.%d.%d', [
                     \random_int(0, 3),
@@ -36,6 +38,20 @@ final class ExamplePackageFixture extends Fixture
                 ]),
                 isRelease: true,
             );
+
+            $version->dist = new DistReference(
+                type: 'zip',
+                url: 'https://api.github.com/repos/phplrt/phplrt/zipball/2d2745637cc9136189e5b6ef769657872919d32a',
+                hash: '2d2745637cc9136189e5b6ef769657872919d32a',
+            );
+
+            if (\random_int(0, 2) === 0) {
+                $version->source = new SourceReference(
+                    type: 'git',
+                    url: 'https://github.com/phplrt/phplrt.git',
+                    hash: '2d2745637cc9136189e5b6ef769657872919d32a',
+                );
+            }
         }
 
         for ($i = 0; $i < 30; ++$i) {

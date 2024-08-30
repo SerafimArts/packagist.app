@@ -16,5 +16,5 @@ trait CreatedDateProvider
     #[ORM\Column(name: 'created_at', type: 'datetimetz_immutable', nullable: false, options: [
         'default' => 'CURRENT_TIMESTAMP',
     ])]
-    public \DateTimeImmutable $createdAt { get => $this->createdAt; }
+    public \DateTimeImmutable $createdAt;
 }

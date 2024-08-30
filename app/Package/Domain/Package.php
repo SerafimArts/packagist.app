@@ -32,6 +32,38 @@ class Package implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
+    public function __construct(
+        Credentials $credentials,
+        ?PackageId $id = null,
+    ) {
+        $this->credentials = $credentials;
+        $this->versions = new PackageVersionsSet();
+        $this->id = $id ?? PackageId::new();
+    }
+
+    /**
+     * @param non-empty-string $vendor
+     * @param non-empty-string $name
+     */
+    public static function create(
+        string $vendor,
+        string $name,
+        ?PackageId $id = null,
+    ): self {
+        return new self(
+            credentials: new Credentials(
+                vendor: $vendor,
+                name: $name,
+            ),
+            id: $id,
+        );
+    }
+
+    // -------------------------------------------------------------------------
+    //  All properties are located AFTER the methods, because at the moment
+    //  IDE does not support PHP 8.4
+    // -------------------------------------------------------------------------
+
     #[ORM\Id]
     #[ORM\Column(type: PackageId::class)]
     public PackageId $id { get => $this->id; }
@@ -47,14 +79,5 @@ class Package implements
     #[ORM\OrderBy(['version' => 'DESC', 'createdAt' => 'ASC'])]
     public Collection $versions {
         get => PackageVersionsSet::for($this->versions);
-    }
-
-    public function __construct(
-        Credentials $credentials,
-        ?PackageId $id = null,
-    ) {
-        $this->credentials = $credentials;
-        $this->versions = new PackageVersionsSet();
-        $this->id = $id ?? PackageId::new();
     }
 }

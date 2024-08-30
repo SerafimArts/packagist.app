@@ -30,6 +30,30 @@ class PackageVersion implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
+    /**
+     * @param non-empty-string $version
+     */
+    public function __construct(
+        Package $package,
+        string $version,
+        bool $isRelease = false,
+        ?PackageId $id = null,
+    ) {
+        $this->package = $package;
+        $this->version = $version;
+        $this->isRelease = $isRelease;
+        $this->source = SourceReference::createEmpty();
+        $this->dist = DistReference::createEmpty();
+        $this->id = $id ?? PackageVersionId::new();
+
+        $package->versions->add($this);
+    }
+
+    // -------------------------------------------------------------------------
+    //  All properties are located AFTER the methods, because at the moment
+    //  IDE does not support PHP 8.4
+    // -------------------------------------------------------------------------
+
     #[ORM\Id]
     #[ORM\Column(type: PackageVersionId::class)]
     public PackageVersionId $id;
@@ -64,23 +88,4 @@ class PackageVersion implements
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     public bool $isRelease;
-
-    /**
-     * @param non-empty-string $version
-     */
-    public function __construct(
-        Package $package,
-        string $version,
-        bool $isRelease = false,
-        ?PackageId $id = null,
-    ) {
-        $this->package = $package;
-        $this->version = $version;
-        $this->isRelease = $isRelease;
-        $this->source = SourceReference::createEmpty();
-        $this->dist = DistReference::createEmpty();
-        $this->id = $id ?? PackageVersionId::new();
-
-        $package->versions->add($this);
-    }
 }

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Package\Presentation\Controller;
 
 use App\Package\Application\PackageFinder;
-use App\Package\Presentation\Controller\PackageVersionsController\PackageVersionsResponseDTO;
-use App\Package\Presentation\Controller\PackageVersionsController\PackageVersionsResponseTransformer;
+use App\Package\Presentation\Controller\PackageVersionsController\MinifiedPackageVersionsResponseDTO;
+use App\Package\Presentation\Controller\PackageVersionsController\MinifiedPackageVersionsResponseTransformer;
 use App\Package\Presentation\Exception\PackageNotFoundException;
 use App\Shared\Domain\DomainException;
 use App\Shared\Presentation\Exception\PresentationException;
@@ -21,11 +21,11 @@ use Symfony\Component\Routing\Attribute\Route;
 final readonly class PackageVersionsController
 {
     public function __construct(
-        private PackageVersionsResponseTransformer $response,
+        private MinifiedPackageVersionsResponseTransformer $response,
         private PackageFinder $finder,
     ) {}
 
-    public function __invoke(string $package, ?string $_route = null): PackageVersionsResponseDTO
+    public function __invoke(string $package, ?string $_route = null): MinifiedPackageVersionsResponseDTO
     {
         try {
             $instance = $this->finder->findByPackageString($package);
