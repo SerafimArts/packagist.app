@@ -1,5 +1,5 @@
 parameters:
-  env(DB_DATABASE): ffi
+  env(DB_DATABASE): packagist
   env(DB_HOST): postgres
   env(DB_PORT): 5432
   env(DB_USERNAME): user
