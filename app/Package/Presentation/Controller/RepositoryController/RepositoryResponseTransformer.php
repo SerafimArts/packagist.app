@@ -18,7 +18,18 @@ final readonly class RepositoryResponseTransformer extends ResponseTransformer
     public function transform(mixed $entry): RepositoryResponseDTO
     {
         return new RepositoryResponseDTO(
-            metadataUrl: \urldecode((string) $entry->metadata),
+            metadataTemplateUrl: $this->formatTemplateUrl($entry->metadataTemplateUrl),
+            listUrl: $this->formatUrl($entry->listUrl),
         );
+    }
+
+    private function formatUrl(string $url): string
+    {
+        return $url;
+    }
+
+    private function formatTemplateUrl(string $url): string
+    {
+        return \urldecode($url);
     }
 }

@@ -27,14 +27,14 @@ final readonly class RepositoryResponseDTO
          * @var non-empty-string|null
          */
         #[Serializer\SerializedName('providers-url')]
-        #[Serializer\Exclude(if: 'object.providersUrl === null')]
-        public ?string $providersUrl = null,
+        #[Serializer\Exclude(if: 'object.providersTemplateUrl === null')]
+        public ?string $providersTemplateUrl = null,
         /**
          * @var non-empty-string|null
          */
         #[Serializer\SerializedName('metadata-url')]
-        #[Serializer\Exclude(if: 'object.metadataUrl === null')]
-        public ?string $metadataUrl = null,
+        #[Serializer\Exclude(if: 'object.metadataTemplateUrl === null')]
+        public ?string $metadataTemplateUrl = null,
         /**
          * @var non-empty-string|null
          */
@@ -45,8 +45,8 @@ final readonly class RepositoryResponseDTO
          * @var non-empty-string|null
          */
         #[Serializer\SerializedName('search')]
-        #[Serializer\Exclude(if: 'object.searchUrl === null')]
-        public ?string $searchUrl = null,
+        #[Serializer\Exclude(if: 'object.searchTemplateUrl === null')]
+        public ?string $searchTemplateUrl = null,
         /**
          * @var non-empty-string|null
          */
@@ -57,8 +57,8 @@ final readonly class RepositoryResponseDTO
          * @var non-empty-string|null
          */
         #[Serializer\SerializedName('providers-api')]
-        #[Serializer\Exclude(if: 'object.providersApiUrl === null')]
-        public ?string $providersApiUrl = null,
+        #[Serializer\Exclude(if: 'object.providersApiTemplateUrl === null')]
+        public ?string $providersApiTemplateUrl = null,
         #[Serializer\SerializedName('security-advisories')]
         #[Serializer\Exclude(if: 'object.securityAdvisories === null')]
         public ?RepositorySecurityAdvisoriesResponseDTO $securityAdvisories = null,

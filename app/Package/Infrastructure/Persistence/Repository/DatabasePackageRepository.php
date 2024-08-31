@@ -39,6 +39,10 @@ final class DatabasePackageRepository extends DatabaseRepository implements Pack
 
     public function getAll(): iterable
     {
-        return $this->findAll();
+        return $this->createQueryBuilder('pkg')
+            ->orderBy('pkg.credentials.name', 'ASC')
+            ->orderBy('pkg.credentials.vendor', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 }

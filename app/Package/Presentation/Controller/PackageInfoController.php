@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller;
 
-use App\Package\Application\PackageFinder;
-use App\Package\Presentation\Controller\PackageVersionsController\MinifiedPackageVersionsResponseDTO;
-use App\Package\Presentation\Controller\PackageVersionsController\MinifiedPackageVersionsResponseTransformer;
+use App\Package\Application\Package\PackageFinder;
+use App\Package\Presentation\Controller\PackageInfoController\MinifiedPackageVersionsResponseDTO;
+use App\Package\Presentation\Controller\PackageInfoController\MinifiedPackageVersionsResponseTransformer;
 use App\Shared\Domain\DomainException;
 use App\Shared\Presentation\Exception\Http\HttpPresentationException;
 use App\Shared\Presentation\Exception\PresentationException;
@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[AsController]
 #[Route('/package/{package}.json', name: 'package', methods: Request::METHOD_GET, stateless: true)]
 #[Route('/package/{package}~dev.json', name: 'package.dev', methods: Request::METHOD_GET, stateless: true)]
-final readonly class PackageVersionsController
+final readonly class PackageInfoController
 {
     public function __construct(
         private MinifiedPackageVersionsResponseTransformer $response,

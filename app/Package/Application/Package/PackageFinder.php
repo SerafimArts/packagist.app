@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Application;
+namespace App\Package\Application\Package;
 
 use App\Package\Domain\Credentials\CredentialsParser;
 use App\Package\Domain\Package;

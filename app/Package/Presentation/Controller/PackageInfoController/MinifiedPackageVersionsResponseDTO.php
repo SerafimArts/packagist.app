@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\PackageVersionsController;
+namespace App\Package\Presentation\Controller\PackageInfoController;
 
 use App\Package\Presentation\Response\DTO\MinifiedPackageVersionResponseDTO;
 use JMS\Serializer\Annotation\VirtualProperty;

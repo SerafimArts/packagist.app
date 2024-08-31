@@ -40,9 +40,12 @@ final readonly class RepositoryInfoProvider
     public function get(): RepositoryInfo
     {
         return new RepositoryInfo(
-            metadata: $this->generateUriString(
+            metadataTemplateUrl: $this->generateUriString(
                 name: 'package',
                 parameters: ['package' => ['vendor/name', '%package%']],
+            ),
+            listUrl: $this->generateUriString(
+                name: 'package.list',
             ),
         );
     }

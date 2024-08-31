@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\PackageVersionsController;
+namespace App\Package\Presentation\Controller\PackageInfoController;
 
 use App\Package\Domain\Package;
 use App\Package\Presentation\Response\DTO\MinifiedPackageVersionResponseDTO;

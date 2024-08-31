@@ -6,10 +6,21 @@ namespace App\Package\Application\Repository;
 
 final readonly class RepositoryInfo
 {
-    /**
-     * @param non-empty-string $metadata Metadata
-     */
     public function __construct(
-        public string $metadata,
+        /**
+         * Provides concrete package metadata template url.
+         *
+         * The "template" term means that a specific package name must be
+         * substituted for the value "%package%" within this url pattern.
+         *
+         * @var non-empty-string
+         */
+        public string $metadataTemplateUrl,
+        /**
+         * Provides url to the packages list.
+         *
+         * @var non-empty-string
+         */
+        public string $listUrl,
     ) {}
 }
