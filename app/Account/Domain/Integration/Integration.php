@@ -42,6 +42,24 @@ class Integration implements
     #[ORM\Embedded(class: Dsn::class, columnPrefix: false)]
     public Dsn $dsn;
 
+    /**
+     * @var non-empty-string|null
+     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    public ?string $login = null;
+
+    /**
+     * @var non-empty-string|null
+     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    public ?string $email = null;
+
+    /**
+     * @var non-empty-string|null
+     */
+    #[ORM\Column(type: 'string', nullable: true)]
+    public ?string $avatar = null;
+
     public function __construct(
         Account $account,
         string|Dsn $dsn,

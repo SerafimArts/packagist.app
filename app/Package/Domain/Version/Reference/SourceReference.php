@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Domain\Reference;
+namespace App\Package\Domain\Version\Reference;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,10 +17,15 @@ final readonly class SourceReference extends Reference
     public function __construct(
         string $type,
         string $url,
-        #[ORM\Column(type: 'string')]
+        #[ORM\Column(type: 'string', options: ['default' => ''])]
         public string $hash,
     ) {
         parent::__construct($type, $url);
+    }
+
+    public function isValid(): bool
+    {
+        return parent::isValid() && $this->hash !== '';
     }
 
     public static function createEmpty(): self

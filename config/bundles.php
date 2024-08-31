@@ -14,4 +14,6 @@ return [
     Local\HttpData\HttpDataBundle::class => ['all' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true],
     Local\Token\TokenBundle::class => ['all' => true],
+    Local\Integration\Github\GithubIntegrationBundle::class => ['all' => true],
+    Local\Integration\IntegrationBundle::class => ['all' => true],
 ];

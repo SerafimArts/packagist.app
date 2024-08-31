@@ -4,20 +4,22 @@ services:
     autowire: true
     autoconfigure: true
 
+  Nyholm\Psr7\Factory\Psr17Factory: ~
+
   Psr\Http\Message\RequestFactoryInterface:
-    class: HttpSoft\Message\RequestFactory
+    alias: Nyholm\Psr7\Factory\Psr17Factory
 
   Psr\Http\Message\ResponseFactoryInterface:
-    class: HttpSoft\Message\ResponseFactory
+    alias: Nyholm\Psr7\Factory\Psr17Factory
 
   Psr\Http\Message\ServerRequestFactoryInterface:
-    class: HttpSoft\Message\ServerRequestFactory
+    alias: Nyholm\Psr7\Factory\Psr17Factory
 
   Psr\Http\Message\StreamFactoryInterface:
-    class: HttpSoft\Message\StreamFactory
+    alias: Nyholm\Psr7\Factory\Psr17Factory
 
   Psr\Http\Message\UploadedFileFactoryInterface:
-    class: HttpSoft\Message\UploadedFileFactory
+    alias: Nyholm\Psr7\Factory\Psr17Factory
 
   Psr\Http\Message\UriFactoryInterface:
-    class: HttpSoft\Message\UriFactory
+    alias: Nyholm\Psr7\Factory\Psr17Factory

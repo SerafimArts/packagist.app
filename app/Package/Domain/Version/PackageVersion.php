@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Package\Domain\Version;
 
 use App\Package\Domain\Package;
-use App\Package\Domain\Reference\DistReference;
-use App\Package\Domain\Reference\SourceReference;
+use App\Package\Domain\Version\Reference\DistReference;
+use App\Package\Domain\Version\Reference\SourceReference;
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Response\Transformer;
 
-use App\Package\Domain\Reference\SourceReference;
+use App\Package\Domain\Version\Reference\SourceReference;
 use App\Package\Presentation\Response\DTO\SourceReferenceResponseDTO;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 

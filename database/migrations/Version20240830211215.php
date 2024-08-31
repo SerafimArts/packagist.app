@@ -23,7 +23,10 @@ final class Version20240830211215 extends AbstractMigration
             CREATE TABLE account_integrations (
                 id UUID NOT NULL,
                 account_id UUID DEFAULT NULL,
-                dsn VARCHAR(255) NOT NULL CHECK(dsn <> ''),
+                dsn VARCHAR(255) NOT NULL CHECK(dsn ~* '^[\w+-.]+://.+?$'),
+                login VARCHAR(255) DEFAULT NULL,
+                email VARCHAR(255) DEFAULT NULL,
+                avatar VARCHAR(255) DEFAULT NULL,
                 created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
                 PRIMARY KEY(id)

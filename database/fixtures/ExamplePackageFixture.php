@@ -6,9 +6,9 @@ namespace App\Database\DataFixtures;
 
 use App\Package\Domain\Credentials;
 use App\Package\Domain\Package;
-use App\Package\Domain\Reference\DistReference;
-use App\Package\Domain\Reference\SourceReference;
 use App\Package\Domain\Version\PackageVersion;
+use App\Package\Domain\Version\Reference\DistReference;
+use App\Package\Domain\Version\Reference\SourceReference;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 

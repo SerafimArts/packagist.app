@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
-#[Route('/auth/register', methods: Request::METHOD_POST, stateless: true)]
+#[Route('/auth/register', name: 'auth.register', methods: Request::METHOD_POST, stateless: true)]
 final readonly class RegisterController
 {
     public function __construct(

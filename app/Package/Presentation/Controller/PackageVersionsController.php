@@ -7,8 +7,8 @@ namespace App\Package\Presentation\Controller;
 use App\Package\Application\PackageFinder;
 use App\Package\Presentation\Controller\PackageVersionsController\MinifiedPackageVersionsResponseDTO;
 use App\Package\Presentation\Controller\PackageVersionsController\MinifiedPackageVersionsResponseTransformer;
-use App\Package\Presentation\Exception\PackageNotFoundException;
 use App\Shared\Domain\DomainException;
+use App\Shared\Presentation\Exception\Http\HttpPresentationException;
 use App\Shared\Presentation\Exception\PresentationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +37,7 @@ final readonly class PackageVersionsController
         }
 
         if ($instance === null) {
-            throw (new PackageNotFoundException('404 not found, no packages here'))
+            throw (new HttpPresentationException('404 not found, no packages here'))
                 ->setHttpStatusCode(Response::HTTP_NOT_FOUND);
         }
 

@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[AsController]
-#[Route('/auth/login', methods: Request::METHOD_POST, stateless: true)]
+#[Route('/auth/login', name: 'auth.login', methods: Request::METHOD_POST, stateless: true)]
 final readonly class LoginController
 {
     public function __construct(

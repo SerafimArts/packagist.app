@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Domain\Reference;
+namespace App\Package\Domain\Version\Reference;
 
 use Doctrine\ORM\Mapping as ORM;
 

@@ -1,21 +1,19 @@
 {
-    "name": "local/token",
+    "name": "local/integration-github",
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^8.3",
-        "symfony/clock": "^6.4|^7.0"
+        "php": "^8.4",
+        "local/integration": "^1.0",
+        "league/oauth2-github": "^3.1"
     },
     "autoload": {
         "psr-4": {
-            "Local\\Token\\": "src"
+            "Local\\Integration\\Github\\": "src"
         }
     },
     "require-dev": {
-        "firebase/php-jwt": "^6.10",
         "friendsofphp/php-cs-fixer": "^3.16",
-        "lcobucci/clock": "^3.2",
-        "lcobucci/jwt": "^5.3",
         "phpstan/extension-installer": "^1.3",
         "phpstan/phpstan": "^1.11",
         "phpstan/phpstan-strict-rules": "^1.6",
@@ -26,13 +24,11 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Local\\Token\\Tests\\": "tests"
+            "Local\\Integration\\Github\\Tests\\": "tests"
         }
     },
     "suggest": {
-        "lcobucci/jwt": "(^5.3) Lcobucci JWT encoder and decoder",
-        "firebase/php-jwt": "(^6.10) Firebase JWT encoder and decoder",
-        "symfony/http-kernel": "Adds Symfony bundle support (Local\\Token\\TokenBundle)"
+        "symfony/http-kernel": "Adds Symfony bundle support (Local\\Integration\\Github\\GithubIntegrationBundle)"
     },
     "scripts": {
         "linter": "@linter:check",

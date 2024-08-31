@@ -6,3 +6,6 @@ services:
 
   App\Account\Application\Auth\AuthenticationProcess: ~
   App\Account\Application\Auth\RegistrationProcess: ~
+
+  App\Account\Application\Integration\IntegrationRedirectGenerator: ~
+  App\Account\Application\Integration\IntegrationAccountFetcher: ~
