@@ -9,7 +9,9 @@ use App\Package\Domain\Version\PackageVersion;
 use App\Tests\Concerns\InteractWithDatabase;
 use App\Tests\Functional\Http\HttpTestCase;
 use Local\Testing\Http\TestingResponse;
+use PHPUnit\Framework\Attributes\TestDox;
 
+#[TestDox('GET /package/<vendor>/<name>.json')]
 final class PackageVersionsTest extends HttpTestCase
 {
     use InteractWithDatabase;

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Http;
 
+use PHPUnit\Framework\Attributes\TestDox;
+
+#[TestDox('GET /packages.json')]
 final class PackagesTest extends HttpTestCase
 {
     public function testSuccessful(): void

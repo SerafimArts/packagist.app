@@ -6,7 +6,9 @@ namespace App\Tests\Functional\Http\Auth;
 
 use App\Account\Application\Auth\RegistrationProcess;
 use App\Tests\Functional\Http\HttpTestCase;
+use PHPUnit\Framework\Attributes\TestDox;
 
+#[TestDox('POST /auth/login')]
 final class LoginTest extends HttpTestCase
 {
     public function testWithoutBody(): void

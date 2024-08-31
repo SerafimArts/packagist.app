@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Domain;
 
 use Psr\Http\Message\UriInterface;
-use Nyholm\Psr7\Uri;
+use Nyholm\Psr7\Uri as PsrUri;
 
 /**
  * @uses Uri
@@ -19,7 +19,7 @@ use Nyholm\Psr7\Uri;
  * @property-read string $query Annotation for PHP 8.4 autocompletion support
  * @property-read string $fragment Annotation for PHP 8.4 autocompletion support
  */
-class Dsn implements ValueObjectInterface
+class Uri implements ValueObjectInterface
 {
     /**
      * @var non-empty-string
@@ -27,16 +27,20 @@ class Dsn implements ValueObjectInterface
     protected readonly string $value;
 
     /**
-     * @param non-empty-string $uri
+     * @param non-empty-string|UriInterface $uri
      */
-    public function __construct(string $uri)
+    public function __construct(string|UriInterface $uri)
     {
-        $this->value = $uri;
+        $this->value = (string) $uri;
+
+        if ($uri instanceof UriInterface) {
+            $this->parsed = $uri;
+        }
     }
 
     private function parse(): UriInterface
     {
-        return new Uri($this->value);
+        return new PsrUri($this->value);
     }
 
     public function equals(ValueObjectInterface $object): bool

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Http\Auth;
 
 use App\Tests\Functional\Http\HttpTestCase;
+use PHPUnit\Framework\Attributes\TestDox;
 
+#[TestDox('POST /auth/register')]
 final class RegisterTest extends HttpTestCase
 {
     public function testWithoutBody(): void
