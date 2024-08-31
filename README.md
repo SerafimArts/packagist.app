@@ -4,7 +4,7 @@ An alternative self-hosted Composer Server (packagist like).
 
 ## Requirements
 
-- PHP 8.4+
+- PHP 8.4+ (>=8.4.0beta4)
 - Postgres 16.3+
 
 ## Installation
