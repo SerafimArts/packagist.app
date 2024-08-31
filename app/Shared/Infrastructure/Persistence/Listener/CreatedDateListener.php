@@ -37,10 +37,6 @@ final readonly class CreatedDateListener
         if ($target instanceof CreatedDateProviderInterface) {
             $reflection = new \ReflectionProperty($target, 'createdAt');
 
-            if ($reflection->isInitialized($target)) {
-                return;
-            }
-
             $reflection->setValue($target, $this->clock->now());
         }
     }
