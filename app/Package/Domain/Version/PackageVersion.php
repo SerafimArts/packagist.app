@@ -33,17 +33,9 @@ class PackageVersion implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: PackageVersionId::class)]
-    public PackageVersionId $id;
-
     #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'versions')]
     #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id')]
-    public Package $package;
+    public readonly Package $package;
 
     /**
      * @var non-empty-string
@@ -86,6 +78,14 @@ class PackageVersion implements
     //  All properties are located AFTER the methods, because at the moment
     //  IDE does not support PHP 8.4
     // -------------------------------------------------------------------------
+
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: PackageVersionId::class)]
+    public private(set) PackageVersionId $id;
 
     #[ORM\Embedded(class: SourceReference::class, columnPrefix: 'source_')]
     public ?SourceReference $source {

@@ -35,14 +35,6 @@ class Package implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: PackageId::class)]
-    public PackageId $id;
-
     #[ORM\Embedded(class: Credentials::class, columnPrefix: false)]
     public Credentials $credentials;
 
@@ -79,12 +71,20 @@ class Package implements
     // -------------------------------------------------------------------------
 
     /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: PackageId::class)]
+    public private(set) PackageId $id;
+
+    /**
      * @var PackageVersionsSet<PackageVersion>
      * @readonly
      */
     #[ORM\OneToMany(targetEntity: PackageVersion::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
     #[ORM\OrderBy(['version' => 'DESC', 'createdAt' => 'ASC'])]
-    public Collection $versions {
+    public private(set) Collection $versions {
         get => PackageVersionsSet::for($this->versions);
     }
 }

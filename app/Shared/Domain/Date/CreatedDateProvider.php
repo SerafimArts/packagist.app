@@ -10,11 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
  * @psalm-require-implements CreatedDateProviderInterface
  *
  * @mixin CreatedDateProviderInterface
+ *
+ * @property-read \DateTimeImmutable $createdAt Annotation for PHP 8.4 autocompletion support
  */
 trait CreatedDateProvider
 {
     #[ORM\Column(name: 'created_at', type: 'datetimetz_immutable', nullable: false, options: [
         'default' => 'CURRENT_TIMESTAMP',
     ])]
-    public \DateTimeImmutable $createdAt;
+    public private(set) \DateTimeImmutable $createdAt {
+        get {
+            try {
+                return $this->createdAt;
+            } catch (\Error) {
+                return $this->createdAt = new \DateTimeImmutable();
+            }
+        }
+    }
 }

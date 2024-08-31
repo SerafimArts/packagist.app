@@ -32,7 +32,6 @@ doctrine:
       App\Shared\Domain\Id\IntegrationId: App\Shared\Infrastructure\Persistence\Type\IntegrationIdType
       # Other
       string[]: App\Shared\Infrastructure\Persistence\Type\StringArrayType
-      Psr\Http\Message\UriInterface: App\Shared\Infrastructure\Persistence\Type\UriType
 
 
   orm:

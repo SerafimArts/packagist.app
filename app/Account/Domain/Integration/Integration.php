@@ -27,20 +27,12 @@ class Integration implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: IntegrationId::class)]
-    public IntegrationId $id;
-
     #[ORM\ManyToOne(targetEntity: Account::class, cascade: ['ALL'], inversedBy: 'integrations')]
     #[ORM\JoinColumn(name: 'account_id', referencedColumnName: 'id')]
     public readonly Account $account;
 
-    #[ORM\Embedded(class: Dsn::class, columnPrefix: false)]
-    public Dsn $dsn;
+    #[ORM\Embedded(class: ConnectionInfo::class, columnPrefix: false)]
+    public ConnectionInfo $dsn;
 
     /**
      * @var non-empty-string
@@ -67,7 +59,7 @@ class Integration implements
     public ?string $avatar = null;
 
     /**
-     * @param non-empty-string|Dsn $dsn
+     * @param non-empty-string|ConnectionInfo $dsn
      * @param non-empty-string $externalId
      * @param non-empty-string|null $login
      * @param non-empty-string|null $email
@@ -75,7 +67,7 @@ class Integration implements
      */
     public function __construct(
         Account $account,
-        string|Dsn $dsn,
+        string|ConnectionInfo $dsn,
         string $externalId,
         ?string $login = null,
         ?string $email = null,
@@ -83,12 +75,24 @@ class Integration implements
         ?IntegrationId $id = null,
     ) {
         $this->account = $account;
-        $this->dsn = new Dsn((string) $dsn);
+        $this->dsn = new ConnectionInfo((string) $dsn);
         $this->externalId = $externalId;
         $this->login = $login;
         $this->email = $email;
         $this->avatar = $avatar;
         $this->id = $id ?? IntegrationId::new();
-        $this->createdAt = new \DateTimeImmutable();
     }
+
+    // -------------------------------------------------------------------------
+    //  All properties are located AFTER the methods, because at the moment
+    //  IDE does not support PHP 8.4
+    // -------------------------------------------------------------------------
+
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: IntegrationId::class)]
+    public private(set) IntegrationId $id;
 }

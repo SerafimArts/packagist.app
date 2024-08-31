@@ -64,7 +64,7 @@ final class UserInfoCommand extends Command
         /** @var Integration $integration */
         foreach ($this->getAccountIntegrationRows($account->integrations) as $integration => $rows) {
             $output->writeln('');
-            $output->writeln($this->subtitle($terminal, $integration->dsn->provider));
+            $output->writeln($this->subtitle($terminal, $integration->dsn->scheme));
             $output->writeln('');
 
             foreach ($rows as $title => $value) {

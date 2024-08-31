@@ -28,14 +28,20 @@ final readonly class CreatedDateListener
 
     /**
      * @param LifecycleEventArgs<ObjectManager> $event
+     * @throws \ReflectionException
      */
     public function prePersist(LifecycleEventArgs $event): void
     {
         $target = $event->getObject();
 
         if ($target instanceof CreatedDateProviderInterface) {
-            // @phpstan-ignore-next-line
-            $target->createdAt = $this->clock->now();
+            $reflection = new \ReflectionProperty($target, 'createdAt');
+
+            if ($reflection->isInitialized($target)) {
+                return;
+            }
+
+            $reflection->setValue($target, $this->clock->now());
         }
     }
 }

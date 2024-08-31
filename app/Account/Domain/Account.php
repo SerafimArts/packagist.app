@@ -19,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @final impossible to specify "final" attribute natively due
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
+ *
+ * @uses Collection (phpstorm reference bug)
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'accounts')]
@@ -30,14 +32,6 @@ class Account implements
 {
     use CreatedDateProvider;
     use UpdatedDateProvider;
-
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: AccountId::class)]
-    public AccountId $id;
 
     /**
      * @var non-empty-string
@@ -72,7 +66,6 @@ class Account implements
             default => \array_values([...$roles]),
         };
         $this->integrations = new IntegrationsSet();
-        $this->createdAt = new \DateTimeImmutable();
     }
 
     // -------------------------------------------------------------------------
@@ -81,12 +74,20 @@ class Account implements
     // -------------------------------------------------------------------------
 
     /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: AccountId::class)]
+    public private(set) AccountId $id;
+
+    /**
      * @var IntegrationsSet<Integration>
      * @readonly
      */
     #[ORM\OneToMany(targetEntity: Integration::class, mappedBy: 'account', cascade: ['ALL'], orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
-    public Collection $integrations {
+    public private(set) Collection $integrations {
         get => IntegrationsSet::for($this->integrations);
     }
 }
