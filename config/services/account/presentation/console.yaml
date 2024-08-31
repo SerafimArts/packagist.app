@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Account\Presentation\Console\:
+    resource: '%kernel.project_dir%/app/Account/Presentation/Console'

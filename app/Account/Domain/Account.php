@@ -87,6 +87,6 @@ class Account implements
     #[ORM\OneToMany(targetEntity: Integration::class, mappedBy: 'account', cascade: ['ALL'], orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
     public Collection $integrations {
-        get => AccountIntegrationsSet::for($this->integrations);
+        get => IntegrationsSet::for($this->integrations);
     }
 }

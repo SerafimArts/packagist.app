@@ -24,6 +24,7 @@ final class Version20240830211215 extends AbstractMigration
                 id UUID NOT NULL,
                 account_id UUID DEFAULT NULL,
                 dsn VARCHAR(255) NOT NULL CHECK(dsn ~* '^[\w+-.]+://.+?$'),
+                external_id VARCHAR(255) NOT NULL CHECK(dsn <> ''),
                 login VARCHAR(255) DEFAULT NULL,
                 email VARCHAR(255) DEFAULT NULL,
                 avatar VARCHAR(255) DEFAULT NULL,

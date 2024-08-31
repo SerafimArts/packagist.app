@@ -43,6 +43,12 @@ class Integration implements
     public Dsn $dsn;
 
     /**
+     * @var non-empty-string
+     */
+    #[ORM\Column(type: 'string')]
+    public string $externalId;
+
+    /**
      * @var non-empty-string|null
      */
     #[ORM\Column(type: 'string', nullable: true)]
@@ -60,13 +66,28 @@ class Integration implements
     #[ORM\Column(type: 'string', nullable: true)]
     public ?string $avatar = null;
 
+    /**
+     * @param non-empty-string|Dsn $dsn
+     * @param non-empty-string $externalId
+     * @param non-empty-string|null $login
+     * @param non-empty-string|null $email
+     * @param non-empty-string|null $avatar
+     */
     public function __construct(
         Account $account,
         string|Dsn $dsn,
+        string $externalId,
+        ?string $login = null,
+        ?string $email = null,
+        ?string $avatar = null,
         ?IntegrationId $id = null,
     ) {
         $this->account = $account;
         $this->dsn = new Dsn((string) $dsn);
+        $this->externalId = $externalId;
+        $this->login = $login;
+        $this->email = $email;
+        $this->avatar = $avatar;
         $this->id = $id ?? IntegrationId::new();
         $this->createdAt = new \DateTimeImmutable();
     }

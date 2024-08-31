@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace App\Account\Domain\Integration;
 
 use Doctrine\ORM\Mapping as ORM;
+use Psr\Http\Message\UriInterface;
 
 #[ORM\Embeddable]
-final readonly class Dsn implements \Stringable
+final class Dsn implements \Stringable
 {
-    /**
-     * @var non-empty-string
-     */
-    #[ORM\Column(name: 'dsn')]
-    public string $uri;
+    #[ORM\Column(name: 'dsn', type: UriInterface::class)]
+    public readonly UriInterface $uri;
 
-    /**
-     * @param non-empty-string $uri
-     */
-    public function __construct(string $uri)
+    /** @var non-empty-string */
+    public string $provider {
+        get => $this->uri->getScheme();
+    }
+
+    public function __construct(UriInterface $uri)
     {
         $this->uri = $uri;
     }
@@ -28,6 +28,6 @@ final readonly class Dsn implements \Stringable
      */
     public function __toString(): string
     {
-        return $this->uri;
+        return (string) $this->uri;
     }
 }

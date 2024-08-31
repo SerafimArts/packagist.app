@@ -30,7 +30,10 @@ doctrine:
       App\Shared\Domain\Id\PackageVersionId: App\Shared\Infrastructure\Persistence\Type\PackageVersionIdType
       App\Shared\Domain\Id\AccountId: App\Shared\Infrastructure\Persistence\Type\AccountIdType
       App\Shared\Domain\Id\IntegrationId: App\Shared\Infrastructure\Persistence\Type\IntegrationIdType
+      # Other
       string[]: App\Shared\Infrastructure\Persistence\Type\StringArrayType
+      Psr\Http\Message\UriInterface: App\Shared\Infrastructure\Persistence\Type\UriType
+
 
   orm:
     auto_generate_proxy_classes: true
