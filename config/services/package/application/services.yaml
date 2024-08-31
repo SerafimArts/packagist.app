@@ -4,5 +4,6 @@ services:
     autowire: true
     autoconfigure: true
 
-  App\Package\Application\PackagesListMetadataProvider: ~
   App\Package\Application\PackageFinder: ~
+
+  App\Package\Application\Repository\RepositoryInfoProvider: ~

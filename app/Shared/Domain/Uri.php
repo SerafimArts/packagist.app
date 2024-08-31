@@ -38,11 +38,6 @@ class Uri implements ValueObjectInterface
         }
     }
 
-    private function parse(): UriInterface
-    {
-        return new PsrUri($this->value);
-    }
-
     public function equals(ValueObjectInterface $object): bool
     {
         return $this === $object
@@ -66,7 +61,7 @@ class Uri implements ValueObjectInterface
      * @readonly
      */
     private ?UriInterface $parsed = null {
-        get => $this->parsed ??= $this->parse();
+        get => $this->parsed ??= new PsrUri($this->value);
     }
 
     /**

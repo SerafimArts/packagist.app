@@ -2,18 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Application;
+namespace App\Package\Application\Repository;
 
-use App\Package\Application\Metadata\PackagesListInfo;
-use Psr\Http\Message\UriFactoryInterface;
-use Psr\Http\Message\UriInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final readonly class PackagesListMetadataProvider
+/**
+ * Contains information about all packages.
+ */
+final readonly class RepositoryInfoProvider
 {
     public function __construct(
         private UrlGeneratorInterface $generator,
-        private UriFactoryInterface $uri,
     ) {}
 
     /**
@@ -38,24 +37,13 @@ final readonly class PackagesListMetadataProvider
         );
     }
 
-    /**
-     * @param non-empty-string $name
-     * @param array<non-empty-string, array{non-empty-string, non-empty-string}> $parameters
-     */
-    private function generateUri(string $name, array $parameters = []): UriInterface
+    public function get(): RepositoryInfo
     {
-        return $this->uri->createUri($this->generateUriString(
-            name: $name,
-            parameters: $parameters,
-        ));
-    }
-
-    public function get(): PackagesListInfo
-    {
-        return new PackagesListInfo(
-            metadata: $this->generateUri('package', [
-                'package' => ['vendor/name', '%package%'],
-            ]),
+        return new RepositoryInfo(
+            metadata: $this->generateUriString(
+                name: 'package',
+                parameters: ['package' => ['vendor/name', '%package%']],
+            ),
         );
     }
 }
