@@ -7,7 +7,6 @@ namespace Local\Integration\Github;
 use League\OAuth2\Client\Provider\Exception\GithubIdentityProviderException;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\Github;
-use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 use Local\Integration\ClientInterface;
 use Local\Integration\Exception\InvalidCodeException;
@@ -16,6 +15,7 @@ use Psr\Http\Message\UriInterface;
 
 /**
  * @api
+ *
  * @internal this is an internal library class, please do not use it in your code.
  * @psalm-internal Local\Integration\Github
  */
@@ -72,6 +72,7 @@ final readonly class GithubClient implements ClientInterface
 
     /**
      * @param non-empty-string $code
+     *
      * @throws IdentityProviderException
      */
     private function getToken(string $code): AccessTokenInterface
@@ -105,6 +106,7 @@ final readonly class GithubClient implements ClientInterface
     /**
      * @param array<array-key, mixed> $data
      * @param non-empty-string $key
+     *
      * @return non-empty-string|null
      */
     private static function fetchNonEmptyStringOrNull(array $data, string $key): ?string

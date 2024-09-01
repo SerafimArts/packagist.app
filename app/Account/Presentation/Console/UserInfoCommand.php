@@ -18,6 +18,7 @@ use Symfony\Component\Console\Terminal;
 
 /**
  * @api
+ *
  * @internal this is an internal library class, please do not use it in your code.
  * @psalm-internal App\Account\Presentation\Console
  */
@@ -96,7 +97,7 @@ final class UserInfoCommand extends Command
         $dots = $terminal->getWidth() - 4
             - \mb_strlen(\strip_tags($title));
 
-        return \vsprintf(" <fg=gray>%s <fg=gray;options=bold>%s</> %s</>", [
+        return \vsprintf(' <fg=gray>%s <fg=gray;options=bold>%s</> %s</>', [
             \str_repeat('─', 2),
             $title,
             \str_repeat('─', \max(0, $dots - 2)),
@@ -144,7 +145,7 @@ final class UserInfoCommand extends Command
     private function getAccountInfoRows(Account $account): iterable
     {
         $roles = (new ArrayCollection($account->roles))
-            ->map(static fn (Role $role): string => $role->getName())
+            ->map(static fn(Role $role): string => $role->getName())
             ->toArray();
 
         return [

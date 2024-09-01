@@ -10,6 +10,7 @@ interface AccountProviderInterface
 {
     /**
      * @param non-empty-string $code
+     *
      * @throws InvalidCodeException
      */
     public function getAccount(string $code): AccountInterface;

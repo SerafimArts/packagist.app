@@ -24,6 +24,7 @@ final readonly class PackageListResponseTransformer extends ResponseTransformer
 
     /**
      * @param iterable<array-key, Package> $packages
+     *
      * @return iterable<array-key, non-empty-string>
      */
     private function mapAllPackageNames(iterable $packages): iterable

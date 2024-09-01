@@ -24,7 +24,7 @@ final readonly class PackagistComposerParser implements ParserInterface
         . '\((?P<os>[^\s;]+)[^;]*?; [^;]*?; '
         . '(?P<engine>HHVM|PHP) '
         . '(?P<php>[0-9.]+)[^;]*(?:; '
-            . '(?P<http>streams|curl \d+\.\d+)'
+        . '(?P<http>streams|curl \d+\.\d+)'
         . '[^;)]*)?'
         . '(?:; Platform-PHP (?P<platform_php>[0-9.]+)[^;]*)?'
         . '(?P<ci>; CI)?'

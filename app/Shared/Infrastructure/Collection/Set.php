@@ -9,9 +9,9 @@ use Doctrine\Common\Collections\Collection as CollectionInterface;
 
 /**
  * @template T of object
- *
  * @template-extends ReadableSet<T>
  * @template-implements CollectionInterface<array-key, T>
+ *
  * @phpstan-consistent-constructor
  */
 abstract class Set extends ReadableSet implements CollectionInterface

@@ -11,9 +11,9 @@ use Doctrine\Common\Collections\Selectable as SelectableInterface;
 
 /**
  * @template T of object
- *
  * @template-implements ReadableCollectionInterface<array-key, T>
  * @template-implements SelectableInterface<array-key, T>
+ *
  * @phpstan-consistent-constructor
  */
 abstract class ReadableSet implements ReadableCollectionInterface, SelectableInterface
@@ -27,7 +27,9 @@ abstract class ReadableSet implements ReadableCollectionInterface, SelectableInt
 
     public static function for(ReadableCollectionInterface $ctx): static
     {
-        return Reference::for($ctx, static fn (ReadableCollectionInterface $ctx): static
+        return Reference::for(
+            $ctx,
+            static fn(ReadableCollectionInterface $ctx): static
             => new static($ctx),
         );
     }
@@ -36,6 +38,7 @@ abstract class ReadableSet implements ReadableCollectionInterface, SelectableInt
      * @template TArg of object
      *
      * @param list<TArg> $elements
+     *
      * @return static<TArg>
      */
     public static function fromArray(array $elements = []): static

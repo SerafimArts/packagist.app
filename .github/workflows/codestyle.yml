@@ -40,4 +40,6 @@ jobs:
           max_attempts: 5
           command: composer update --prefer-dist --no-interaction --no-progress
       - name: Check Code Style
+        env:
+          PHP_CS_FIXER_IGNORE_ENV: 1
         run: composer phpcs:check

@@ -21,6 +21,7 @@ final class Reference
     /**
      * @param T $reference
      * @param callable(T):U $then
+     *
      * @return U
      */
     public static function for(object $reference, callable $then): object

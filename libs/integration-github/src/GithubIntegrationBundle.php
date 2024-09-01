@@ -25,7 +25,7 @@ final class GithubIntegrationBundle extends Bundle
         $container->register(Github::class)
             ->addArgument([
                 'clientId' => '%env(OAUTH_GITHUB_ID)%',
-                'clientSecret' => '%env(OAUTH_GITHUB_SECRET)%'
+                'clientSecret' => '%env(OAUTH_GITHUB_SECRET)%',
             ]);
 
         $container->register(GithubClient::class)

@@ -10,6 +10,7 @@ interface FactoryInterface
 {
     /**
      * @param non-empty-string $type
+     *
      * @throws InvalidProviderException
      */
     public function getClient(string $type): ClientInterface;

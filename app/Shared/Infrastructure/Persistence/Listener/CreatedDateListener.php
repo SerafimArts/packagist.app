@@ -28,6 +28,7 @@ final readonly class CreatedDateListener
 
     /**
      * @param LifecycleEventArgs<ObjectManager> $event
+     *
      * @throws \ReflectionException
      */
     public function prePersist(LifecycleEventArgs $event): void
