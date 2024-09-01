@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\V2\PackageInfoController;
+namespace App\Package\Presentation\Controller\PackageMetaController;
 
 use App\Package\Presentation\Response\DTO\PackageVersionResponseDTO;
 use JMS\Serializer\Annotation\VirtualProperty;
@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 final readonly class PackageInfoResponseDTO
 {
     /**
-     * @param iterable<non-empty-string, list<PackageVersionResponseDTO>> $packages
+     * @param PackageVersionResponseDTO $packages
      */
     public function __construct(
         public iterable $packages,

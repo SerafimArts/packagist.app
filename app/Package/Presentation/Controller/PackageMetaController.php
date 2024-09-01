@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\V2;
+namespace App\Package\Presentation\Controller;
 
 use App\Package\Application\PackageInfo\GetPackageByNameStringQuery;
 use App\Package\Application\PackageInfo\PackageInfo;
-use App\Package\Presentation\Controller\V2\PackageInfoController\PackageInfoResponseDTO;
-use App\Package\Presentation\Controller\V2\PackageInfoController\PackageInfoResponseTransformer;
+use App\Package\Presentation\Controller\PackageMetaController\PackageInfoResponseDTO;
+use App\Package\Presentation\Controller\PackageMetaController\PackageInfoResponseTransformer;
 use App\Shared\Domain\Bus\QueryBusInterface;
 use App\Shared\Domain\DomainException;
 use App\Shared\Presentation\Exception\Http\HttpPresentationException;
@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[AsController]
 #[Route('/package/meta/{package}~dev.json', name: 'package.meta.dev', methods: Request::METHOD_GET, priority: 2, stateless: true)]
 #[Route('/package/meta/{package}.json', name: 'package.meta', methods: Request::METHOD_GET, priority: 1, stateless: true)]
-final readonly class PackageInfoController
+final readonly class PackageMetaController
 {
     public function __construct(
         private PackageInfoResponseTransformer $response,

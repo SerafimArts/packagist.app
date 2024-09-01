@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\V2\PackageInfoController;
+namespace App\Package\Presentation\Controller\PackageMetaController;
 
 use App\Package\Application\PackageInfo\PackageInfo;
 use App\Package\Domain\Package;
