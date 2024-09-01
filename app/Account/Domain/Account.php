@@ -50,10 +50,6 @@ class Account implements
     #[ORM\Column(name: 'roles', type: Role::class . '[]', options: ['default' => '{}'])]
     private array $roleValues = [];
 
-    public private(set) RoleSet $roles {
-        get => RoleSet::for($this->roleValues);
-    }
-
     /**
      * @param non-empty-string $login
      * @param iterable<array-key, Role>|Role $roles
@@ -86,6 +82,13 @@ class Account implements
     #[ORM\Id]
     #[ORM\Column(type: AccountId::class)]
     public private(set) AccountId $id;
+
+    /**
+     * @readonly
+     */
+    public private(set) RoleSet $roles {
+        get => RoleSet::for($this->roleValues);
+    }
 
     /**
      * @readonly

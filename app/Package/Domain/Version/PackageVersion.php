@@ -22,6 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @property SourceReference|null $source Annotation for PHP 8.4 autocompletion support
  * @property DistReference|null $dist Annotation for PHP 8.4 autocompletion support
+ * @property-read LicenseSet $license Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'package_versions')]
@@ -49,8 +50,8 @@ class PackageVersion implements
     /**
      * @var list<non-empty-string>
      */
-    #[ORM\Column(type: 'string[]', options: ['default' => '{}'])]
-    public array $license = [];
+    #[ORM\Column(name: 'license', type: 'string[]', options: ['default' => '{}'])]
+    private array $licenseValues = [];
 
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     public bool $isRelease;
@@ -86,6 +87,14 @@ class PackageVersion implements
     #[ORM\Id]
     #[ORM\Column(type: PackageVersionId::class)]
     public private(set) PackageVersionId $id;
+
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    public private(set) LicenseSet $license {
+        get => LicenseSet::for($this->licenseValues);
+    }
 
     #[ORM\Embedded(class: SourceReference::class, columnPrefix: 'source_')]
     public ?SourceReference $source {

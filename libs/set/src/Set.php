@@ -26,20 +26,16 @@ class Set extends ReadableSet implements CollectionInterface
         parent::__construct($delegate);
     }
 
-    protected function onAdd(mixed $entry): void
+    protected function onAdd(mixed $entry): bool
     {
-        // Can be overridden
+        return ! $this->delegate->contains($entry);
     }
 
     public function add(mixed $element): void
     {
-        if ($this->delegate->contains($element)) {
-            return;
+        if ($this->onAdd($element)) {
+            $this->delegate->add($element);
         }
-
-        $this->onAdd($element);
-
-        $this->delegate->add($element);
     }
 
     public function clear(): void
@@ -59,11 +55,9 @@ class Set extends ReadableSet implements CollectionInterface
 
     public function set(int|string $key, mixed $value): void
     {
-        if ($this->contains($value)) {
+        if (!$this->onAdd($value)) {
             $this->delegate->removeElement($value);
         }
-
-        $this->onAdd($value);
 
         $this->delegate->set($key, $value);
     }

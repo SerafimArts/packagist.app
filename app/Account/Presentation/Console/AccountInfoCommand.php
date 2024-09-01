@@ -23,7 +23,7 @@ use Symfony\Component\Console\Terminal;
  * @psalm-internal App\Account\Presentation\Console
  */
 #[AsCommand(name: 'account:info', description: 'Show account info')]
-final class UserInfoCommand extends Command
+final class AccountInfoCommand extends Command
 {
     private const string TPL_NONE = '<fg=gray>--none--</>';
     private const string FMT_DATE = \DateTimeInterface::RFC2822;
@@ -144,17 +144,13 @@ final class UserInfoCommand extends Command
 
     private function getAccountInfoRows(Account $account): iterable
     {
-        $roles = (new ArrayCollection($account->roles))
-            ->map(static fn(Role $role): string => $role->getName())
-            ->toArray();
-
         return [
             'ID' => $account->id->toString(),
             'Login' => $account->login,
             'Password' => $account->password->isPasswordProtected()
                 ? '<fg=green>✓</>'
                 : '<fg=red>✕</>',
-            'Roles' => \implode(', ', $roles) ?: self::TPL_NONE,
+            'Roles' => (string) $account->roles ?: self::TPL_NONE,
             'Created At' => $account->createdAt->format(self::FMT_DATE),
             'Updated At' => $account->updatedAt?->format(self::FMT_DATE) ?? self::TPL_NONE,
         ];
