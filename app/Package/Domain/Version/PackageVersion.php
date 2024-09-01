@@ -63,13 +63,15 @@ class PackageVersion implements
         Package $package,
         string $version,
         bool $isRelease = false,
+        ?SourceReference $source = null,
+        ?DistReference $dist = null,
         ?PackageId $id = null,
     ) {
         $this->package = $package;
         $this->version = $version;
         $this->isRelease = $isRelease;
-        $this->source = SourceReference::createEmpty();
-        $this->dist = DistReference::createEmpty();
+        $this->source = $source ?? SourceReference::createEmpty();
+        $this->dist = $dist ?? DistReference::createEmpty();
         $this->id = $id ?? PackageVersionId::new();
 
         $package->versions->add($this);

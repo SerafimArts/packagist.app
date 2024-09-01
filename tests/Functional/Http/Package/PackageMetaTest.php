@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Http\Package;
 
+use App\Package\Domain\Version\PackageVersion;
+use App\Package\Domain\Version\Reference\DistReference;
+use App\Package\Domain\Version\Reference\SourceReference;
 use App\Tests\Concerns\InteractWithDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -19,6 +22,41 @@ final class PackageMetaTest extends PackageVersionsTestCase
             ->assertStatus(404)
             ->assertJsonSchemaFileMatches(__DIR__ . '/../error.packagist.json')
             ->assertJsonPathSame('$.message', '404 not found, no packages here');
+    }
+
+    #[TestDox('Stable and dev packages in separate lists')]
+    #[DataProvider('stabilityDataProvider')]
+    public function testPackageSeparateLists(bool $stable, string $suffix): void
+    {
+        $name = $this->getPackageName($stable);
+
+        $package = $this->givenPackage($name);
+
+        $this->given(new PackageVersion(
+            package: $package,
+            version: '1.0',
+            isRelease: true,
+            dist: new DistReference(
+                type: 'git',
+                url: 'http://localhost',
+            ),
+        ));
+
+        $this->given(new PackageVersion(
+            package: $package,
+            version: '1.x-dev',
+            isRelease: false,
+            dist: new DistReference(
+                type: 'git',
+                url: 'http://localhost',
+            ),
+        ));
+
+        $this->json('GET', '/package/meta/test/' . $name . $suffix . '.json')
+            ->assertSuccessful()
+            ->assertJsonSchemaFileMatches(__DIR__ . '/package-meta.json')
+            ->assertJsonPathIsArrayOfSize('$.packages["test/' . $name . '"]', 1)
+        ;
     }
 
     #[TestDox('Package versions with dist url')]

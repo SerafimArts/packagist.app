@@ -43,8 +43,6 @@ final class PackagesUpdateStatisticCollector
 
     public function flush(): void
     {
-        \file_put_contents(__DIR__ . '/f.json', \json_encode($this->records));
-
         while ($this->records !== []) {
             $next = \array_shift($this->records);
 

@@ -35,6 +35,6 @@ final readonly class PackageInfoFinder
             return new PackageInfo(dev: $dev);
         }
 
-        return $this->getByName($this->parser->parse($name));
+        return $this->getByName($this->parser->parse($name), $dev);
     }
 }

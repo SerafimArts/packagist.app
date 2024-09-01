@@ -10,7 +10,6 @@ use App\Package\Domain\Version\Reference\DistReference;
 use App\Package\Domain\Version\Reference\SourceReference;
 use App\Tests\Concerns\InteractWithDatabase;
 use App\Tests\Functional\Http\HttpTestCase;
-use Doctrine\ORM\EntityManagerInterface;
 
 abstract class PackageVersionsTestCase extends HttpTestCase
 {
@@ -19,13 +18,6 @@ abstract class PackageVersionsTestCase extends HttpTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        #$this->get(EntityManagerInterface::class)
-        #    ->getRepository(Package::class)
-        #    ->createQueryBuilder('pkg')
-        #    ->delete()
-        #    ->getQuery()
-        #    ->execute();
     }
 
     /**
@@ -45,13 +37,18 @@ abstract class PackageVersionsTestCase extends HttpTestCase
         yield 'dev' => [false, '~dev'];
     }
 
+    protected function givenPackage(string $name): Package
+    {
+        return $this->given(Package::create(
+            name: $name,
+            vendor: 'test',
+        ));
+    }
+
     private function createPackageVersion(string $name, bool $stable = true): PackageVersion
     {
         return new PackageVersion(
-            package: Package::create(
-                name: $name,
-                vendor: 'test',
-            ),
+            package: $this->givenPackage($name),
             version: '2.0',
             isRelease: $stable,
         );

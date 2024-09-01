@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Response\Transformer;
 
+use App\Package\Domain\Package;
 use App\Package\Domain\Version\ComputedChangeSet;
 use App\Package\Domain\Version\PackageVersion;
 use App\Package\Presentation\Response\DTO\PackageVersionResponseDTO;
@@ -21,14 +22,42 @@ final readonly class PackageVersionTransformer extends ResponseTransformer
         private VersionParser $semver = new VersionParser(),
     ) {}
 
-    public function transform(mixed $entry, ?PackageVersion $prev = null): PackageVersionResponseDTO
+    private function normalizeVersion(PackageVersion $version): string
     {
-        try {
-            $normalized = $this->semver->normalize($entry->version);
-        } catch (\Throwable) {
-            $normalized = $entry->version;
+        $result = $version->version;
+
+        if (\str_starts_with($result, 'dev-')) {
+            return $result;
         }
 
+        if (\str_ends_with($result, '.x')) {
+            try {
+                return $this->semver->normalize($result . '-dev');
+            } catch (\Throwable) {
+                return 'dev-' . $result;
+            }
+        }
+
+        try {
+            return $this->semver->normalize($result);
+        } catch (\Throwable) {
+            return 'dev-' . $result;
+        }
+    }
+
+    private function formatVersion(PackageVersion $version): string
+    {
+        try {
+            $this->semver->normalize($version->version);
+
+            return $version->version;
+        } catch (\Throwable) {
+            return $version->version . '-dev';
+        }
+    }
+
+    public function transform(mixed $entry, ?PackageVersion $prev = null): PackageVersionResponseDTO
+    {
         $changeSet = new ComputedChangeSet($entry, $prev);
 
         return new PackageVersionResponseDTO(
@@ -42,8 +71,8 @@ final readonly class PackageVersionTransformer extends ResponseTransformer
             funding: $changeSet->fetchFundingIfChanged(),
             source: $this->sources->optional($entry->source),
             dist: $this->dists->optional($entry->dist),
-            version: $entry->version,
-            versionNormalized: $normalized,
+            version: $this->formatVersion($entry),
+            versionNormalized: $this->normalizeVersion($entry),
             updatedAt: $entry->updatedAt ?? $entry->createdAt,
         );
     }
