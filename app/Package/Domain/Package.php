@@ -58,8 +58,8 @@ class Package implements
     ): self {
         return new self(
             credentials: new Credentials(
-                vendor: $vendor,
                 name: $name,
+                vendor: $vendor,
             ),
             id: $id,
         );

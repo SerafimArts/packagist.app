@@ -21,6 +21,6 @@ final readonly class CredentialsParser
 
         [$vendor, $name] = \explode('/', $package);
 
-        return new Credentials($vendor, $name);
+        return new Credentials($name, $vendor);
     }
 }
