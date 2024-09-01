@@ -72,7 +72,7 @@ final class JsonMatches extends Constraint
     protected function matches(mixed $other): bool
     {
         if (\is_string($other)) {
-            $other = \json_decode($other, true, 512, \JSON_THROW_ON_ERROR);
+            $other = \json_decode($other, false, 512, \JSON_THROW_ON_ERROR);
         }
 
         if (!\is_array($other)) {

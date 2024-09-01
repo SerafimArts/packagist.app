@@ -60,6 +60,57 @@
                                 "type": "string",
                                 "minLength": 1
                             },
+                            "dist": {
+                                "type": "object",
+                                "required": [
+                                    "type",
+                                    "url",
+                                    "reference"
+                                ],
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "reference": {
+                                        "oneOf": [
+                                            {
+                                                "type": "string",
+                                                "minLength": 1
+                                            },
+                                            {
+                                                "type": "null"
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "source": {
+                                "type": "object",
+                                "required": [
+                                    "type",
+                                    "url",
+                                    "reference"
+                                ],
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "url": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "reference": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    }
+                                }
+                            },
                             "funding": {
                                 "type": "array",
                                 "items": {

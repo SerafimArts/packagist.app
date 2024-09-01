@@ -14,12 +14,18 @@ trait InteractWithDatabase
 {
     use InteractWithContainer;
 
-    protected function given(object $entity): void
+    /**
+     * @template T of object
+     * @param T $entity
+     * @return T
+     */
+    protected function given(object $entity): object
     {
         $em = $this->get(EntityManagerInterface::class);
 
         $em->persist($entity);
         $em->flush();
-        $em->clear();
+
+        return $entity;
     }
 }

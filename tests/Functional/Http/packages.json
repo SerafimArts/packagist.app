@@ -4,7 +4,8 @@
         "packages",
         "warning",
         "warning-versions",
-        "metadata-url"
+        "metadata-url",
+        "list"
     ],
     "additionalProperties": false,
     "properties": {
@@ -21,6 +22,10 @@
             "minLength": 1
         },
         "metadata-url": {
+            "type": "string",
+            "minLength": 1
+        },
+        "list": {
             "type": "string",
             "minLength": 1
         }

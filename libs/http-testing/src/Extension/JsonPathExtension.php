@@ -14,6 +14,7 @@ use PHPUnit\Framework\Constraint\IsFalse;
 use PHPUnit\Framework\Constraint\IsIdentical;
 use PHPUnit\Framework\Constraint\IsNull;
 use PHPUnit\Framework\Constraint\IsTrue;
+use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\Constraint\RegularExpression;
 use PHPUnit\Framework\Constraint\StringContains;
@@ -95,6 +96,87 @@ trait JsonPathExtension
     public function assertJsonPathIsNull(string $path, string $message = ''): self
     {
         return $this->assertJsonPath($path, new IsNull(), $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     * @param non-empty-string|IsType::TYPE_* $type
+     */
+    public function assertJsonPathIsType(string $path, string $type, string $message = ''): self
+    {
+        return $this->assertJsonPath($path, new IsType($type), $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsArray(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_ARRAY, $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsBool(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_BOOL, $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsFloat(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_FLOAT, $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsInt(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_INT, $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsNumeric(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_NUMERIC, $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsObject(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_OBJECT, $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsString(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_STRING, $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsScalar(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_SCALAR, $message);
+    }
+
+    /**
+     * @param non-empty-string $path
+     */
+    public function assertJsonPathIsIterable(string $path, string $message = ''): self
+    {
+        return $this->assertJsonPathIsType($path, IsType::TYPE_ITERABLE, $message);
     }
 
     /**
