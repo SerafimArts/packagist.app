@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Account\Application\Auth\Exception;
+namespace App\Account\Application\Registration\Exception;
 
 use App\Shared\Application\Exception\ApplicationException;
 

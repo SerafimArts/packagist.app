@@ -6,5 +6,5 @@ namespace App\Shared\Domain\Bus;
 
 interface CommandBusInterface
 {
-    public function send(object $command): void;
+    public function send(object $command): mixed;
 }

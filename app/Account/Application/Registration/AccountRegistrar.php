@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Account\Application\Auth;
+namespace App\Account\Application\Registration;
 
-use App\Account\Application\Auth\Exception\AccountAlreadyRegisteredException;
+use App\Account\Application\Registration\Exception\AccountAlreadyRegisteredException;
 use App\Account\Domain\AccountCreator;
 use App\Account\Domain\Token\Token;
 use App\Account\Domain\Token\TokenCreator;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 
-final readonly class RegistrationProcess
+final readonly class AccountRegistrar
 {
     public function __construct(
         private EntityManagerInterface $em,
@@ -24,6 +24,7 @@ final readonly class RegistrationProcess
      * @param non-empty-string $password
      *
      * @throws AccountAlreadyRegisteredException
+     * @throws \Throwable
      */
     public function register(string $login, #[\SensitiveParameter] string $password): Token
     {

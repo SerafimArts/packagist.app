@@ -10,7 +10,7 @@ use App\Account\Domain\Token\Token;
 use App\Account\Domain\Token\TokenCreator;
 use App\Shared\Domain\DomainException;
 
-final readonly class AuthenticationProcess
+final readonly class AccountAuthenticator
 {
     public function __construct(
         private TokenCreator $tokens,
@@ -22,6 +22,7 @@ final readonly class AuthenticationProcess
      * @param non-empty-string $password
      *
      * @throws AuthenticationFailedException
+     * @throws \Throwable
      */
     public function login(string $login, #[\SensitiveParameter] string $password): Token
     {

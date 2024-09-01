@@ -15,12 +15,4 @@ class AuthenticationFailedException extends ApplicationException
 
         return new static($message, 0, $prev);
     }
-
-    public static function becauseProfileNotFound(string $login, ?\Throwable $prev = null): static
-    {
-        $message = 'Profile not found for account "%s"';
-        $message = \sprintf($message, $login);
-
-        return new static($message, 0, $prev);
-    }
 }

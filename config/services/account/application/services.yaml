@@ -4,8 +4,16 @@ services:
     autowire: true
     autoconfigure: true
 
-  App\Account\Application\Auth\AuthenticationProcess: ~
-  App\Account\Application\Auth\RegistrationProcess: ~
+  # ----------------------------------------------------------------------------
+  #  Authentication Use Case
+  # ----------------------------------------------------------------------------
 
-  App\Account\Application\Integration\IntegrationRedirectGenerator: ~
-  App\Account\Application\Integration\IntegrationAccountFetcher: ~
+  App\Account\Application\Auth\:
+    resource: '%kernel.project_dir%/app/Account/Application/Auth'
+
+  # ----------------------------------------------------------------------------
+  #  Registration Use Case
+  # ----------------------------------------------------------------------------
+
+  App\Account\Application\Registration\:
+    resource: '%kernel.project_dir%/app/Account/Application/Registration'

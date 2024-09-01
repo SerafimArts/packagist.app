@@ -22,6 +22,11 @@ final readonly class AccountCredentialsFinder
     /**
      * @param non-empty-string $login
      * @param non-empty-string $password
+     *
+     * @throws AccountNotFoundException
+     * @throws AccountNotVerifiableException
+     * @throws InvalidAccountCredentialsException
+     * @throws \Throwable
      */
     public function getByCredentials(string $login, #[\SensitiveParameter] string $password): Account
     {

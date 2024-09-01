@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Bus\CommandBus;
 
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Stamp\HandledStamp;
 
 final readonly class SymfonyMessengerCommandBus extends CommandBus
 {
@@ -12,8 +14,20 @@ final readonly class SymfonyMessengerCommandBus extends CommandBus
         private MessageBusInterface $bus,
     ) {}
 
-    public function send(object $command): void
+    public function send(object $command): mixed
     {
-        $this->bus->dispatch($command);
+        try {
+            $envelope = $this->bus->dispatch($command);
+        } catch (HandlerFailedException $e) {
+            foreach ($e->getWrappedExceptions() as $exception) {
+                throw $exception;
+            }
+
+            throw $e;
+        }
+
+        $stamp = $envelope->last(HandledStamp::class);
+
+        return $stamp?->getResult();
     }
 }

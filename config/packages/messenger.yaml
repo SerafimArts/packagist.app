@@ -1,8 +1,50 @@
-# config/packages/messenger.yaml
+parameters:
+  env(MESSENGER_TRANSPORT_DSN): 'sync://'
+
+  app.messenger.default: '%env(MESSENGER_TRANSPORT_DSN)%'
+
 framework:
   messenger:
+    default_bus: command.bus
+
+    # Uncomment this (and the failed transport below) to send failed
+    # messages to this transport for later handling.
+    failure_transport: failed
+
+    # https://symfony.com/doc/current/messenger.html#transport-configuration
     transports:
-      sync: 'sync://'
+      default:
+        dsn: '%app.messenger.default%'
+        failure_transport: failed
+        # options:
+        #   stream: events
+        #   serializer: !php/const Redis::SERIALIZER_NONE
+
+      failed:
+        dsn: 'doctrine://default?queue_name=failed_messages'
+        options:
+          auto_setup: true
 
     routing:
-      # App\Message\SmsNotification: sync
+      # Account
+      App\Account\Application\Auth\AuthCommand: default
+      App\Account\Application\Registration\RegisterCommand: default
+
+    buses:
+      command.bus:
+        default_middleware:
+          enabled: true
+          allow_no_handlers: true
+
+      query.bus:
+        default_middleware:
+          enabled: true
+          allow_no_handlers: false
+
+when@test:
+  framework:
+    messenger:
+      transports:
+        # replace with your transport name here (e.g., my_transport: 'in-memory://')
+        # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
+        async: 'in-memory://'

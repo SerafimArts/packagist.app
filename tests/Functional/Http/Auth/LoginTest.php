@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Http\Auth;
 
-use App\Account\Application\Auth\RegistrationProcess;
+use App\Account\Application\Registration\AccountRegistrar;
 use App\Tests\Functional\Http\HttpTestCase;
 use PHPUnit\Framework\Attributes\TestDox;
 
@@ -52,7 +52,7 @@ final class LoginTest extends HttpTestCase
 
     public function testInvalidPassword(): void
     {
-        $process = $this->get(RegistrationProcess::class);
+        $process = $this->get(AccountRegistrar::class);
         $process->register(__FUNCTION__, '');
 
         $this->json('POST', '/auth/login', body: [
@@ -66,7 +66,7 @@ final class LoginTest extends HttpTestCase
 
     public function testSuccessfulLogin(): void
     {
-        $process = $this->get(RegistrationProcess::class);
+        $process = $this->get(AccountRegistrar::class);
         $process->register(__FUNCTION__, __FUNCTION__);
 
         $this->json('POST', '/auth/login', body: [

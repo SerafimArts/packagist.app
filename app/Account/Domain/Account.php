@@ -63,7 +63,7 @@ class Account implements
         $this->login = $login;
         $this->password = $password;
         $this->id = $id ?? AccountId::new();
-        $this->roles = match (true) {
+        $this->roleValues = match (true) {
             $roles instanceof Role => [$roles],
             default => \array_values([...$roles]),
         };
