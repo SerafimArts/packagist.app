@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Collection;
+namespace Local\Set;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection as CollectionInterface;
 
 /**
- * @template T of object
+ * @template T of mixed
+ *
  * @template-extends ReadableSet<T>
  * @template-implements CollectionInterface<array-key, T>
  *
  * @phpstan-consistent-constructor
  */
-abstract class Set extends ReadableSet implements CollectionInterface
+class Set extends ReadableSet implements CollectionInterface
 {
     /**
      * @param CollectionInterface<array-key, T> $delegate
@@ -25,13 +26,17 @@ abstract class Set extends ReadableSet implements CollectionInterface
         parent::__construct($delegate);
     }
 
-    protected function onAdd(object $entity): void
+    protected function onAdd(mixed $entry): void
     {
         // Can be overridden
     }
 
     public function add(mixed $element): void
     {
+        if ($this->delegate->contains($element)) {
+            return;
+        }
+
         $this->onAdd($element);
 
         $this->delegate->add($element);
@@ -54,6 +59,10 @@ abstract class Set extends ReadableSet implements CollectionInterface
 
     public function set(int|string $key, mixed $value): void
     {
+        if ($this->contains($value)) {
+            $this->delegate->removeElement($value);
+        }
+
         $this->onAdd($value);
 
         $this->delegate->set($key, $value);
@@ -71,8 +80,6 @@ abstract class Set extends ReadableSet implements CollectionInterface
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        $this->onAdd($value);
-
         $this->delegate->offsetSet($offset, $value);
     }
 

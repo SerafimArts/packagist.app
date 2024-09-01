@@ -2,21 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Collection;
+namespace Local\Set;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Collections\ReadableCollection as ReadableCollectionInterface;
 use Doctrine\Common\Collections\Selectable as SelectableInterface;
+use Local\Set\Internal\Reference;
+use Local\Set\Internal\ReferencedArrayCollection;
 
 /**
- * @template T of object
+ * @template T of mixed
+ *
  * @template-implements ReadableCollectionInterface<array-key, T>
  * @template-implements SelectableInterface<array-key, T>
  *
  * @phpstan-consistent-constructor
  */
-abstract class ReadableSet implements ReadableCollectionInterface, SelectableInterface
+class ReadableSet implements ReadableCollectionInterface, SelectableInterface
 {
     /**
      * @param ReadableCollectionInterface<array-key, T> $delegate
@@ -25,25 +28,22 @@ abstract class ReadableSet implements ReadableCollectionInterface, SelectableInt
         protected readonly ReadableCollectionInterface $delegate = new ArrayCollection(),
     ) {}
 
-    public static function for(ReadableCollectionInterface $ctx): static
-    {
-        return Reference::for(
-            $ctx,
-            static fn(ReadableCollectionInterface $ctx): static
-            => new static($ctx),
-        );
-    }
-
     /**
-     * @template TArg of object
+     * @template TArg of mixed
      *
-     * @param list<TArg> $elements
+     * @param ReadableCollectionInterface<array-key, TArg>|list<TArg> $ctx
      *
      * @return static<TArg>
      */
-    public static function fromArray(array $elements = []): static
+    public static function for(ReadableCollectionInterface|array &$ctx = []): static
     {
-        return new static(new ArrayCollection($elements));
+        if (\is_array($ctx)) {
+            return new static(new ReferencedArrayCollection($ctx));
+        }
+
+        return Reference::for($ctx, function (ReadableCollectionInterface $ctx): static {
+            return new static($ctx);
+        });
     }
 
     public function matching(Criteria $criteria): static

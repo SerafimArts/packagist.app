@@ -107,6 +107,9 @@
     "local/token": {
         "version": "dev-master"
     },
+    "local/user-agent": {
+        "version": "dev-master"
+    },
     "nelmio/cors-bundle": {
         "version": "2.4",
         "recipe": {

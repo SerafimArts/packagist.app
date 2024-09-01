@@ -21,6 +21,8 @@ use Doctrine\ORM\Mapping as ORM;
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
  *
  * @uses Collection (phpstorm reference bug)
+ *
+ * @property-read RoleSet $roles Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'accounts')]
@@ -45,8 +47,12 @@ class Account implements
     /**
      * @var list<Role>
      */
-    #[ORM\Column(type: Role::class . '[]', options: ['default' => '{}'])]
-    public array $roles = [];
+    #[ORM\Column(name: 'roles', type: Role::class . '[]', options: ['default' => '{}'])]
+    private array $roleValues = [];
+
+    public private(set) RoleSet $roles {
+        get => RoleSet::for($this->roleValues);
+    }
 
     /**
      * @param non-empty-string $login
@@ -82,7 +88,6 @@ class Account implements
     public private(set) AccountId $id;
 
     /**
-     * @var IntegrationsSet<Integration>
      * @readonly
      */
     #[ORM\OneToMany(targetEntity: Integration::class, mappedBy: 'account', cascade: ['ALL'], orphanRemoval: true)]

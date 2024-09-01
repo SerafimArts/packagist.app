@@ -79,7 +79,6 @@ class Package implements
     public private(set) PackageId $id;
 
     /**
-     * @var PackageVersionsSet<PackageVersion>
      * @readonly
      */
     #[ORM\OneToMany(targetEntity: PackageVersion::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]

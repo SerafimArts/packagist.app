@@ -16,6 +16,7 @@
         "local/http-factory-bundle": "^1.0",
         "local/integration": "^1.0",
         "local/integration-github": "^1.0",
+        "local/set": "^1.0",
         "local/token": "^1.0",
         "local/user-agent": "^1.0",
         "nyholm/psr7": "^1.8",

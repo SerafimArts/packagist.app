@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d63084cd7d2ff0fae5633a69241425b5",
+    "content-hash": "dff043d993383a30bbabd5fead024b15",
     "packages": [
         {
             "name": "brick/math",
@@ -2180,6 +2180,73 @@
             "autoload-dev": {
                 "psr-4": {
                     "Local\\Integration\\Github\\Tests\\": "tests"
+                }
+            },
+            "scripts": {
+                "linter": [
+                    "@linter:check"
+                ],
+                "linter:check": [
+                    "phpstan analyse --configuration phpstan.neon"
+                ],
+                "phpcs": [
+                    "@phpcs:fix"
+                ],
+                "phpcs:check": [
+                    "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes --diff --dry-run"
+                ],
+                "phpcs:fix": [
+                    "php-cs-fixer fix --config=.php-cs-fixer.php --allow-risky=yes --diff"
+                ],
+                "test": [
+                    "@test:unit"
+                ],
+                "test:unit": [
+                    "phpunit --testdox"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "transport-options": {
+                "relative": true
+            }
+        },
+        {
+            "name": "local/set",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "libs/set",
+                "reference": "a3a4fd5b4c83619b0626ccc45b9a19bf257827b0"
+            },
+            "require": {
+                "doctrine/collections": "^2.2",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.16",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.11",
+                "phpstan/phpstan-strict-rules": "^1.6",
+                "phpunit/phpunit": "^10.1|^11.0",
+                "symfony/var-dumper": "^5.4|^6.0|^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev",
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Local\\Set\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Local\\Set\\Tests\\": "tests"
                 }
             },
             "scripts": {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Domain\Version;
 
-use App\Shared\Infrastructure\Collection\Set;
+use Local\Set\Set;
 
 /**
  * @template-extends Set<PackageVersion>

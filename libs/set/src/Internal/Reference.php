@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Collection;
+namespace Local\Set\Internal;
 
 /**
  * @internal this is an internal library class, please do not use it in your code.
- * @psalm-internal App\Shared\Infrastructure\Collection
+ * @psalm-internal Local\Set\Internal
  *
  * @template T of object
  * @template U of object
