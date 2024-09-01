@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Account\Presentation\Controller;
 
-use App\Account\Application\Auth\Exception\InvalidCredentialsException;
 use App\Account\Application\Auth\AuthCommand;
+use App\Account\Application\Auth\Exception\InvalidCredentialsException;
 use App\Account\Domain\Token\Token;
 use App\Account\Presentation\Controller\LoginController\LoginRequestDTO;
 use App\Account\Presentation\Controller\LoginController\LoginResponseDTO;

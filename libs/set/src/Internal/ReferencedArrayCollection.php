@@ -7,13 +7,12 @@ namespace Local\Set\Internal;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @template TKey of array-key
- * @template T
- *
- * @template-extends ArrayCollection<TKey, T>
- *
  * @internal this is an internal library class, please do not use it in your code.
  * @psalm-internal Local\Set
+ *
+ * @template TKey of array-key
+ * @template T
+ * @template-extends ArrayCollection<TKey, T>
  */
 final class ReferencedArrayCollection extends ArrayCollection
 {
@@ -24,7 +23,7 @@ final class ReferencedArrayCollection extends ArrayCollection
     {
         parent::__construct($elements);
 
-        $accessor = (function(array &$value): void {
+        $accessor = (function (array &$value): void {
             $this->elements = &$value;
         })
             ->bindTo($this, parent::class);

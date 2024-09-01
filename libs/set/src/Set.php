@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\Collection as CollectionInterface;
 
 /**
  * @template T of mixed
- *
  * @template-extends ReadableSet<T>
  * @template-implements CollectionInterface<array-key, T>
  *
@@ -28,7 +27,7 @@ class Set extends ReadableSet implements CollectionInterface
 
     protected function onAdd(mixed $entry): bool
     {
-        return ! $this->delegate->contains($entry);
+        return !$this->delegate->contains($entry);
     }
 
     public function add(mixed $element): void

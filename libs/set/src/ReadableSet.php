@@ -13,7 +13,6 @@ use Local\Set\Internal\ReferencedArrayCollection;
 
 /**
  * @template T of mixed
- *
  * @template-implements ReadableCollectionInterface<array-key, T>
  * @template-implements SelectableInterface<array-key, T>
  *

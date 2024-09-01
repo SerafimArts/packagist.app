@@ -7,8 +7,6 @@ namespace App\Account\Presentation\Console;
 use App\Account\Domain\Account;
 use App\Account\Domain\AccountRepositoryInterface;
 use App\Account\Domain\Integration\Integration;
-use App\Account\Domain\Role;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
