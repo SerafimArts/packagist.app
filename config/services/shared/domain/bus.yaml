@@ -9,3 +9,10 @@ services:
 
   App\Shared\Domain\Bus\CommandBusInterface:
     class: App\Shared\Infrastructure\Bus\CommandBus\SymfonyMessengerCommandBus
+    arguments:
+      $bus: '@command.bus'
+
+  App\Shared\Domain\Bus\QueryBusInterface:
+    class: App\Shared\Infrastructure\Bus\QueryBus\SymfonyMessengerQueryBus
+    arguments:
+      $bus: '@query.bus'
