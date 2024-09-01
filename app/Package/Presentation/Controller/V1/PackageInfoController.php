@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller\V1;
 
-use App\Package\Application\PackageInfo\PackageInfoFinder;
+use App\Package\Application\PackageInfo\GetPackageByNameStringQuery;
+use App\Package\Application\PackageInfo\PackageInfo;
 use App\Package\Presentation\Controller\V1\PackageInfoController\PackageInfoResponseDTO;
 use App\Package\Presentation\Controller\V1\PackageInfoController\PackageInfoResponseTransformer;
+use App\Shared\Domain\Bus\QueryBusInterface;
 use App\Shared\Domain\DomainException;
 use App\Shared\Presentation\Exception\Http\HttpPresentationException;
 use App\Shared\Presentation\Exception\PresentationException;
@@ -25,7 +27,7 @@ final readonly class PackageInfoController
 {
     public function __construct(
         private PackageInfoResponseTransformer $response,
-        private PackageInfoFinder $finder,
+        private QueryBusInterface $queries,
     ) {}
 
     /**
@@ -36,18 +38,22 @@ final readonly class PackageInfoController
     public function __invoke(string $package, ?string $_route = null): PackageInfoResponseDTO
     {
         try {
-            $instance = $this->finder->getByNameString($package);
+            $info = $this->queries->get(new GetPackageByNameStringQuery($package));
+
+            if (!$info instanceof PackageInfo) {
+                throw new HttpPresentationException(
+                    message: 'An internal error occurred while fetching package info',
+                );
+            }
         } catch (DomainException $e) {
             throw PresentationException::fromDomainException($e);
         }
 
-        if ($instance->package === null) {
+        if ($info->packages === []) {
             throw (new HttpPresentationException('404 not found, no packages here'))
                 ->setHttpStatusCode(Response::HTTP_NOT_FOUND);
         }
 
-        return $this->response->transform(
-            entry: $instance->package,
-        );
+        return $this->response->transform($info);
     }
 }

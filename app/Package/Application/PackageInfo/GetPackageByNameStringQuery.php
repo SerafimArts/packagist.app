@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace App\Package\Application\PackageInfo;
 
-use App\Package\Domain\Package;
-
-final readonly class PackageInfo
+final readonly class GetPackageByNameStringQuery
 {
     /**
-     * @param list<Package> $packages
+     * @param non-empty-string $name
      */
     public function __construct(
-        public array $packages = [],
+        public string $name,
     ) {}
 }
