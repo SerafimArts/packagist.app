@@ -39,25 +39,13 @@ final class ExamplePackageFixture extends Fixture
                 isRelease: true,
             );
 
-            $version->dist = new DistReference(
-                type: 'zip',
-                url: 'https://api.github.com/repos/phplrt/phplrt/zipball/2d2745637cc9136189e5b6ef769657872919d32a',
-                hash: '2d2745637cc9136189e5b6ef769657872919d32a',
-            );
-
-            if (\random_int(0, 2) === 0) {
-                $version->source = new SourceReference(
-                    type: 'git',
-                    url: 'https://github.com/phplrt/phplrt.git',
-                    hash: '2d2745637cc9136189e5b6ef769657872919d32a',
-                );
-            }
+            $this->addSourceOrDist($version);
         }
 
         for ($i = 0; $i < 30; ++$i) {
             echo $this->progressNext('Generating example/example dev package versions...');
 
-            new PackageVersion(
+            $version = new PackageVersion(
                 package: $package,
                 version: match (\random_int(0, 4)) {
                     0 => 'dev-' . \strtolower($faker->userName()),
@@ -71,11 +59,32 @@ final class ExamplePackageFixture extends Fixture
                 },
                 isRelease: false,
             );
+
+            $this->addSourceOrDist($version);
         }
 
         echo "\r";
 
         $manager->persist($package);
         $manager->flush();
+    }
+
+    private function addSourceOrDist(PackageVersion $version): void
+    {
+        if (\random_int(0, 2) === 0) {
+            $version->dist = new DistReference(
+                type: 'zip',
+                url: 'https://api.github.com/repos/phplrt/phplrt/zipball/2d2745637cc9136189e5b6ef769657872919d32a',
+                hash: '2d2745637cc9136189e5b6ef769657872919d32a',
+            );
+        }
+
+        if (\random_int(0, 2) === 0) {
+            $version->source = new SourceReference(
+                type: 'git',
+                url: 'https://github.com/phplrt/phplrt.git',
+                hash: '2d2745637cc9136189e5b6ef769657872919d32a',
+            );
+        }
     }
 }
