@@ -21,9 +21,9 @@ final class PackagesFixture extends Fixture
         for ($i = 0; $i < 100; ++$i) {
             echo $this->progressNext('Generating accounts...');
 
-            $package = new Package(new Credentials(
-                vendor: \strtolower($faker->userName()),
+            $package = new Package(new Name(
                 name: \strtolower($faker->userName()),
+                vendor: \strtolower($faker->userName()),
             ));
 
             $manager->persist($package);

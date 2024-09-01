@@ -1,0 +1,12 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # ----------------------------------------------------------------------------
+  #  Package Updates Use Case
+  # ----------------------------------------------------------------------------
+
+  App\Statistic\Application\Updates\:
+    resource: '%kernel.project_dir%/app/Statistic/Application/Updates'

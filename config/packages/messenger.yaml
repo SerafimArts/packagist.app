@@ -35,6 +35,9 @@ framework:
       App\Package\Application\PackageInfo\GetPackageByNameStringQuery: default
       App\Package\Application\PackageList\GetPackageListQuery: default
       App\Package\Application\RepositoryInfo\GetRepositoryInfoQuery: default
+      # Statistic
+      # - Commands
+      App\Statistic\Application\Updates\AddPackagesUpdateCommand: default
 
     buses:
       command.bus:

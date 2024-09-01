@@ -9,6 +9,8 @@ use Doctrine\Migrations\AbstractMigration;
 
 /**
  * @api
+ * @internal this is an internal library class, please do not use it in your code.
+ * @psalm-internal App\Database\Migrations
  */
 final class Version20240603184220 extends AbstractMigration
 {

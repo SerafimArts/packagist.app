@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Statistic\Infrastructure\EventListener\:
+    resource: '%kernel.project_dir%/app/Statistic/Infrastructure/EventListener'

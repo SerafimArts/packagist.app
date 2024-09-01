@@ -21,9 +21,9 @@ final class ExamplePackageFixture extends Fixture
     {
         $faker = Factory::create();
 
-        $package = new Package(new Credentials(
-            vendor: 'example',
+        $package = new Package(new Name(
             name: 'example',
+            vendor: 'example',
         ));
 
         for ($i = 0; $i < 100; ++$i) {
