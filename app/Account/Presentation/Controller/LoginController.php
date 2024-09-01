@@ -6,6 +6,7 @@ namespace App\Account\Presentation\Controller;
 
 use App\Account\Application\Auth\Exception\AuthenticationFailedException;
 use App\Account\Application\Auth\AuthCommand;
+use App\Account\Domain\Token\Token;
 use App\Account\Presentation\Controller\LoginController\LoginRequestDTO;
 use App\Account\Presentation\Controller\LoginController\LoginResponseDTO;
 use App\Account\Presentation\Controller\LoginController\LoginResponseTransformer;
@@ -32,6 +33,12 @@ final readonly class LoginController
                 login: $request->login,
                 password: $request->password,
             ));
+
+            if (!$result instanceof Token) {
+                throw new HttpPresentationException(
+                    message: 'An internal error occurred while processing the login process',
+                );
+            }
 
             return $this->response->transform($result);
         } catch (AuthenticationFailedException $e) {

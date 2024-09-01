@@ -6,6 +6,7 @@ namespace App\Account\Presentation\Controller;
 
 use App\Account\Application\Registration\Exception\AccountAlreadyRegisteredException;
 use App\Account\Application\Registration\RegisterCommand;
+use App\Account\Domain\Token\Token;
 use App\Account\Presentation\Controller\RegisterController\RegisterRequestDTO;
 use App\Account\Presentation\Controller\RegisterController\RegisterResponseDTO;
 use App\Account\Presentation\Controller\RegisterController\RegisterResponseTransformer;
@@ -32,6 +33,12 @@ final readonly class RegisterController
                 login: $request->login,
                 password: $request->password,
             ));
+
+            if (!$result instanceof Token) {
+                throw new HttpPresentationException(
+                    message: 'An internal error occurred while processing the registration process',
+                );
+            }
 
             return $this->response->transform($result);
         } catch (AccountAlreadyRegisteredException $e) {
