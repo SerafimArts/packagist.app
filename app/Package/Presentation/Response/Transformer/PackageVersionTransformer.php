@@ -6,14 +6,14 @@ namespace App\Package\Presentation\Response\Transformer;
 
 use App\Package\Domain\Version\ComputedChangeSet;
 use App\Package\Domain\Version\PackageVersion;
-use App\Package\Presentation\Response\DTO\MinifiedPackageVersionResponseDTO;
+use App\Package\Presentation\Response\DTO\PackageVersionResponseDTO;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 use Composer\Semver\VersionParser;
 
 /**
- * @template-extends ResponseTransformer<PackageVersion, MinifiedPackageVersionResponseDTO>
+ * @template-extends ResponseTransformer<PackageVersion, PackageVersionResponseDTO>
  */
-final readonly class MinifiedPackageVersionTransformer extends ResponseTransformer
+final readonly class PackageVersionTransformer extends ResponseTransformer
 {
     public function __construct(
         private SourceReferenceResponseTransformer $sources,
@@ -21,7 +21,7 @@ final readonly class MinifiedPackageVersionTransformer extends ResponseTransform
         private VersionParser $semver = new VersionParser(),
     ) {}
 
-    public function transform(mixed $entry, ?PackageVersion $prev = null): MinifiedPackageVersionResponseDTO
+    public function transform(mixed $entry, ?PackageVersion $prev = null): PackageVersionResponseDTO
     {
         try {
             $normalized = $this->semver->normalize($entry->version);
@@ -31,7 +31,7 @@ final readonly class MinifiedPackageVersionTransformer extends ResponseTransform
 
         $changeSet = new ComputedChangeSet($entry, $prev);
 
-        return new MinifiedPackageVersionResponseDTO(
+        return new PackageVersionResponseDTO(
             name: $changeSet->fetchNameIfChanged(),
             description: $changeSet->fetchDescriptionIfChanged(),
             keywords: $changeSet->fetchKeywordsIfChanged(),

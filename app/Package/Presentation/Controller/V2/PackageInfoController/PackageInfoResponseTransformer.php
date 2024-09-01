@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\PackageInfoController;
+namespace App\Package\Presentation\Controller\V2\PackageInfoController;
 
 use App\Package\Domain\Package;
-use App\Package\Presentation\Response\DTO\MinifiedPackageVersionResponseDTO;
-use App\Package\Presentation\Response\Transformer\MinifiedPackageVersionTransformer;
+use App\Package\Presentation\Response\DTO\PackageVersionResponseDTO;
+use App\Package\Presentation\Response\Transformer\PackageVersionTransformer;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**
  * @internal this is an internal library class, please do not use it in your code.
- * @psalm-internal App\Package\Presentation\Controller
+ * @psalm-internal App\Package\Presentation\Controller\V2
  *
- * @template-extends ResponseTransformer<Package, MinifiedPackageVersionsResponseDTO>
+ * @template-extends ResponseTransformer<Package, PackageInfoResponseDTO>
  */
-final readonly class MinifiedPackageVersionsResponseTransformer extends ResponseTransformer
+final readonly class PackageInfoResponseTransformer extends ResponseTransformer
 {
     public function __construct(
-        private MinifiedPackageVersionTransformer $versions,
+        private PackageVersionTransformer $versions,
     ) {}
 
-    public function transform(mixed $entry, ?bool $dev = null): MinifiedPackageVersionsResponseDTO
+    public function transform(mixed $entry, ?bool $dev = null): PackageInfoResponseDTO
     {
-        return new MinifiedPackageVersionsResponseDTO(
+        return new PackageInfoResponseDTO(
             packages: [
                 (string) $entry->credentials => $this->mapVersions($entry, $dev),
             ]
@@ -31,7 +31,7 @@ final readonly class MinifiedPackageVersionsResponseTransformer extends Response
     }
 
     /**
-     * @return iterable<array-key, MinifiedPackageVersionResponseDTO>
+     * @return iterable<array-key, PackageVersionResponseDTO>
      */
     private function mapVersions(Package $package, ?bool $dev = null): iterable
     {
