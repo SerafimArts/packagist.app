@@ -23,71 +23,71 @@ final class PackageV1VersionsTest extends PackageVersionsTestCase
 
     #[TestDox('Package versions without source or dist SHOULD not be returned')]
     #[DataProvider('stabilityDataProvider')]
-    public function testSkipPackagesWithoutSourceOrDist(bool $stable, string $suffix): void
+    public function testSkipPackagesWithoutSourceOrDist(bool $stable): void
     {
         $name = $this->getPackageName($stable);
 
         $this->givenPackageVersion($name, $stable);
 
-        $this->json('GET', '/package/v1/test/' . $name . $suffix . '.json')
+        $this->json('GET', '/package/v1/test/' . $name . '.json')
             ->assertSuccessful()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/package-v2.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/package-v1.json')
             ->assertJsonPathSame('$.packages["test/' . $name .'"]', [])
         ;
     }
 
     #[TestDox('Package versions with dist url')]
     #[DataProvider('stabilityDataProvider')]
-    public function testVersionsWithDist(bool $stable, string $suffix): void
+    public function testVersionsWithDist(bool $stable): void
     {
         $name = $this->getPackageName($stable);
 
         $this->givenPackageVersionWithDist($name, $stable);
 
-        $this->json('GET', '/package/v1/test/' . $name . $suffix . '.json')
+        $this->json('GET', '/package/v1/test/' . $name . '.json')
             ->assertSuccessful()
             ->assertJsonSchemaFileMatches(__DIR__ . '/package-v1.json')
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].name', 'test/' . $name)
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].version', '2.0')
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].version_normalized', '2.0.0.0')
-            ->assertJsonPathIsObject('$.packages["test/' . $name . '"][0].dist')
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].name', 'test/' . $name)
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version', '2.0')
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version_normalized', '2.0.0.0')
+            ->assertJsonPathIsObject('$.packages["test/' . $name . '"]["2.0"].dist')
         ;
     }
 
     #[TestDox('Package versions with source url')]
     #[DataProvider('stabilityDataProvider')]
-    public function testVersionsWithSource(bool $stable, string $suffix): void
+    public function testVersionsWithSource(bool $stable): void
     {
         $name = $this->getPackageName($stable);
 
         $this->givenPackageVersionWithSource($name, $stable);
 
-        $this->json('GET', '/package/v1/test/' . $name . $suffix . '.json')
+        $this->json('GET', '/package/v1/test/' . $name . '.json')
             ->assertSuccessful()
             ->assertJsonSchemaFileMatches(__DIR__ . '/package-v1.json')
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].name', 'test/' . $name)
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].version', '2.0')
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].version_normalized', '2.0.0.0')
-            ->assertJsonPathIsObject('$.packages["test/' . $name . '"][0].source')
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].name', 'test/' . $name)
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version', '2.0')
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version_normalized', '2.0.0.0')
+            ->assertJsonPathIsObject('$.packages["test/' . $name . '"]["2.0"].source')
         ;
     }
 
     #[TestDox('Package versions with source url')]
     #[DataProvider('stabilityDataProvider')]
-    public function testVersionsWithSourceAndDist(bool $stable, string $suffix): void
+    public function testVersionsWithSourceAndDist(bool $stable): void
     {
         $name = $this->getPackageName($stable);
 
         $this->givenPackageVersionWithSourceAndDist($name, $stable);
 
-        $this->json('GET', '/package/v1/test/' . $name . $suffix . '.json')
+        $this->json('GET', '/package/v1/test/' . $name . '.json')
             ->assertSuccessful()
             ->assertJsonSchemaFileMatches(__DIR__ . '/package-v1.json')
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].name', 'test/' . $name)
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].version', '2.0')
-            ->assertJsonPathSame('$.packages["test/' . $name . '"][0].version_normalized', '2.0.0.0')
-            ->assertJsonPathIsObject('$.packages["test/' . $name . '"][0].dist')
-            ->assertJsonPathIsObject('$.packages["test/' . $name . '"][0].source')
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].name', 'test/' . $name)
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version', '2.0')
+            ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version_normalized', '2.0.0.0')
+            ->assertJsonPathIsObject('$.packages["test/' . $name . '"]["2.0"].dist')
+            ->assertJsonPathIsObject('$.packages["test/' . $name . '"]["2.0"].source')
         ;
     }
 }

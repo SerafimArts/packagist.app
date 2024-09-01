@@ -46,6 +46,7 @@ final class Version20240803123749 extends AbstractMigration
         $this->addSql(<<<'SQL'
             ALTER TABLE package_versions ADD CONSTRAINT FK_FD5DD4BCF44CABFF
                 FOREIGN KEY (package_id) REFERENCES packages (id)
+                    ON DELETE CASCADE
                     NOT DEFERRABLE INITIALLY IMMEDIATE
             SQL);
     }

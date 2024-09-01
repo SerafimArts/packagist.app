@@ -41,6 +41,7 @@ final class Version20240830211215 extends AbstractMigration
         $this->addSql(<<<'SQL'
             ALTER TABLE account_integrations ADD CONSTRAINT FK_E5F67AEC9B6B5FBA
                 FOREIGN KEY (account_id) REFERENCES accounts (id)
+                    ON DELETE CASCADE
                     NOT DEFERRABLE INITIALLY IMMEDIATE
             SQL);
     }

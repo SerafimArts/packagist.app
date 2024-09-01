@@ -48,7 +48,7 @@ final readonly class PackageInfoController
 
         return $this->response->transform(
             entry: $instance,
-            dev: $_route === 'package.dev',
+            dev: $_route === 'package.v2.dev',
         );
     }
 }

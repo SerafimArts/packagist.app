@@ -14,12 +14,17 @@ final readonly class RepositoryInfoProvider
     /**
      * @var non-empty-string
      */
-    private const string ROUTE_TEMP_PLACEHOLDER = 'VENDOR/NAME';
+    private const string ROUTE_TEMP_PLACEHOLDER = 'DEADBEEF';
 
     /**
      * @var non-empty-string
      */
     private const string PACKAGE_V2_ROUTE = 'package.v2';
+
+    /**
+     * @var non-empty-string
+     */
+    private const string PACKAGE_V1_ROUTE = 'package.v1.hashed';
 
     /**
      * @var non-empty-string
@@ -39,7 +44,28 @@ final readonly class RepositoryInfoProvider
             'package' => self::ROUTE_TEMP_PLACEHOLDER,
         ]);
 
-        return \str_replace(self::ROUTE_TEMP_PLACEHOLDER, '%package%', $result);
+        return \str_replace(
+            search: \urlencode(self::ROUTE_TEMP_PLACEHOLDER),
+            replace: '%package%',
+            subject: $result,
+        );
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    private function getProvidersTemplateUrl(): string
+    {
+        $result = $this->generator->generate(self::PACKAGE_V1_ROUTE, [
+            'package' => self::ROUTE_TEMP_PLACEHOLDER,
+            'hash' => '$' . self::ROUTE_TEMP_PLACEHOLDER,
+        ]);
+
+        return \str_replace(
+            search: \urlencode(self::ROUTE_TEMP_PLACEHOLDER . '$' . self::ROUTE_TEMP_PLACEHOLDER),
+            replace: '%package%$%hash%',
+            subject: $result,
+        );
     }
 
     /**
@@ -54,6 +80,7 @@ final readonly class RepositoryInfoProvider
     {
         return new RepositoryInfo(
             metadataTemplateUrl: $this->getMetadataTemplateUrl(),
+            providersTemplateUrl: $this->getProvidersTemplateUrl(),
             listUrl: $this->getListUrl(),
         );
     }

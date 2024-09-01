@@ -25,6 +25,7 @@ trait InteractWithDatabase
 
         $em->persist($entity);
         $em->flush();
+        $em->clear();
 
         return $entity;
     }

@@ -17,6 +17,16 @@ final readonly class RepositoryInfo
          */
         public string $metadataTemplateUrl,
         /**
+         * Provides concrete package metadata template url for APIv1.
+         *
+         * The "template" term means that a specific package name must be
+         * substituted for the value "%package%" within this url pattern
+         * and "%hash%" for package versions list hash.
+         *
+         * @var non-empty-string
+         */
+        public string $providersTemplateUrl,
+        /**
          * Provides url to the packages list.
          *
          * @var non-empty-string

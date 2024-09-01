@@ -5,6 +5,7 @@
         "warning",
         "warning-versions",
         "metadata-url",
+        "providers-url",
         "list"
     ],
     "additionalProperties": false,
@@ -22,6 +23,10 @@
             "minLength": 1
         },
         "metadata-url": {
+            "type": "string",
+            "minLength": 1
+        },
+        "providers-url": {
             "type": "string",
             "minLength": 1
         },

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Package\Presentation\Controller\V1\PackageInfoController;
 
 use App\Package\Domain\Package;
-use App\Package\Domain\Version\PackageVersionsSet;
 use App\Package\Presentation\Response\DTO\PackageVersionResponseDTO;
 use App\Package\Presentation\Response\Transformer\PackageVersionTransformer;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
@@ -22,32 +21,21 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
         private PackageVersionTransformer $versions,
     ) {}
 
-    public function transform(mixed $entry, ?bool $dev = null): PackageInfoResponseDTO
+    public function transform(mixed $entry): PackageInfoResponseDTO
     {
         return new PackageInfoResponseDTO(
             packages: [
-                (string) $entry->credentials => $this->mapVersions($entry, $dev),
+                (string) $entry->credentials => $this->mapVersions($entry),
             ]
         );
-    }
-
-    private function getPackageVersions(Package $package, ?bool $dev = null): PackageVersionsSet
-    {
-        $versions = match ($dev) {
-            true => $package->versions->dev,
-            false => $package->versions->released,
-            default => $package->versions,
-        };
-
-        return $versions->withSourceOrDist;
     }
 
     /**
      * @return iterable<array-key, PackageVersionResponseDTO>
      */
-    private function mapVersions(Package $package, ?bool $dev = null): iterable
+    private function mapVersions(Package $package): iterable
     {
-        foreach ($this->getPackageVersions($package, $dev) as $version) {
+        foreach ($package->versions->withSourceOrDist as $version) {
             yield $version->version => $this->versions->transform($version);
         }
     }

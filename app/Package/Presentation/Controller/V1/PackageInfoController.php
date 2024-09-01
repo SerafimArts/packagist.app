@@ -19,8 +19,8 @@ use Symfony\Component\Routing\Attribute\Route;
  * Return versions list for a package.
  */
 #[AsController]
-#[Route('/package/v1/{package}~dev.json', name: 'package.v1.dev', methods: Request::METHOD_GET, priority: 2, stateless: true)]
-#[Route('/package/v1/{package}.json', name: 'package.v1', methods: Request::METHOD_GET, priority: 1, stateless: true)]
+#[Route('/package/v1/{package}.json', name: 'package.v1', methods: Request::METHOD_GET, stateless: true)]
+#[Route('/package/v1/{package}{hash}.json', name: 'package.v1.hashed', methods: Request::METHOD_GET, stateless: true)]
 final readonly class PackageInfoController
 {
     public function __construct(
@@ -48,7 +48,6 @@ final readonly class PackageInfoController
 
         return $this->response->transform(
             entry: $instance,
-            dev: $_route === 'package.dev',
         );
     }
 }
