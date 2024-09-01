@@ -43,7 +43,7 @@ final readonly class MinifiedPackageVersionsResponseTransformer extends Response
 
         $previous = null;
 
-        foreach ($versions as $version) {
+        foreach ($versions->withSourceOrDist as $version) {
             yield $this->versions->transform($version, $previous);
 
             $previous = $version;

@@ -19,8 +19,8 @@ use Symfony\Component\Routing\Attribute\Route;
  * Return versions list for a package.
  */
 #[AsController]
-#[Route('/package/{package}.json', name: 'package', methods: Request::METHOD_GET, stateless: true)]
-#[Route('/package/{package}~dev.json', name: 'package.dev', methods: Request::METHOD_GET, stateless: true)]
+#[Route('/package/{package}~dev.json', name: 'package.dev', methods: Request::METHOD_GET, priority: 2, stateless: true)]
+#[Route('/package/{package}.json', name: 'package', methods: Request::METHOD_GET, priority: 1, stateless: true)]
 final readonly class PackageInfoController
 {
     public function __construct(
@@ -28,6 +28,11 @@ final readonly class PackageInfoController
         private PackageFinder $finder,
     ) {}
 
+    /**
+     * @param non-empty-string $package
+     * @param non-empty-string|null $_route A builtin (by Symfony) parameter
+     *        containing the name of the current route.
+     */
     public function __invoke(string $package, ?string $_route = null): MinifiedPackageVersionsResponseDTO
     {
         try {
