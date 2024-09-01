@@ -11,42 +11,45 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 final readonly class RepositoryInfoProvider
 {
+    /**
+     * @var non-empty-string
+     */
+    private const string PACKAGE_ROUTE = 'package';
+
+    /**
+     * @var non-empty-string
+     */
+    private const string LIST_ROUTE = 'package.list';
+
     public function __construct(
         private UrlGeneratorInterface $generator,
     ) {}
 
     /**
-     * Required to generate a real URL without escaping route parameters.
-     *
-     * @param non-empty-string $name
-     * @param array<non-empty-string, array{non-empty-string, non-empty-string}> $parameters
+     * @return non-empty-string
      */
-    private function generateUriString(string $name, array $parameters = []): string
+    private function getMetadataTemplateUrl(): string
     {
-        $before = $after = [];
+        $result = $this->generator->generate(self::PACKAGE_ROUTE, [
+            'package' => 'VENDOR/NAME',
+        ]);
 
-        foreach ($parameters as $parameter => [$placeholder, $replacement]) {
-            $before[$parameter] = $placeholder;
-            $after[$placeholder] = $replacement;
-        }
+        return \str_replace('VENDOR/NAME', '%package%', $result);
+    }
 
-        return \str_replace(
-            search: \array_keys($after),
-            replace: \array_values($after),
-            subject: $this->generator->generate($name, $before),
-        );
+    /**
+     * @return non-empty-string
+     */
+    private function getListUrl(): string
+    {
+        return $this->generator->generate(self::LIST_ROUTE);
     }
 
     public function get(): RepositoryInfo
     {
         return new RepositoryInfo(
-            metadataTemplateUrl: $this->generateUriString(
-                name: 'package',
-                parameters: ['package' => ['vendor/name', '%package%']],
-            ),
-            listUrl: $this->generateUriString(
-                name: 'package.list',
-            ),
+            metadataTemplateUrl: $this->getMetadataTemplateUrl(),
+            listUrl: $this->getListUrl(),
         );
     }
 }
