@@ -1,0 +1,12 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # ----------------------------------------------------------------------------
+  #  Repository Info Use Case
+  # ----------------------------------------------------------------------------
+
+  App\Package\Application\RepositoryInfo\:
+    resource: '%kernel.project_dir%/app/Package/Application/RepositoryInfo'

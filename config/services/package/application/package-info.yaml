@@ -1,0 +1,12 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # ----------------------------------------------------------------------------
+  #  Package Info Use Case
+  # ----------------------------------------------------------------------------
+
+  App\Package\Application\PackageInfo\:
+    resource: '%kernel.project_dir%/app/Package/Application/PackageInfo'

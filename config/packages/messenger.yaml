@@ -27,8 +27,12 @@ framework:
 
     routing:
       # Account
+      # - Commands
       App\Account\Application\Auth\AuthCommand: default
       App\Account\Application\Registration\RegisterCommand: default
+      # Package
+      # - Queries
+      App\Package\Application\RepositoryInfo\GetRepositoryInfoQuery: default
 
     buses:
       command.bus:

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller;
 
-use App\Package\Application\Package\PackageListFinder;
+use App\Package\Application\PackageList\PackageListFinder;
 use App\Package\Presentation\Controller\PackageListController\PackageListResponseDTO;
 use App\Package\Presentation\Controller\PackageListController\PackageListResponseTransformer;
 use Symfony\Component\HttpFoundation\Request;

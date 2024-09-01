@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller\V1;
 
-use App\Package\Application\Package\PackageFinder;
+use App\Package\Application\PackageInfo\PackageInfoFinder;
 use App\Package\Presentation\Controller\V1\PackageInfoController\PackageInfoResponseDTO;
 use App\Package\Presentation\Controller\V1\PackageInfoController\PackageInfoResponseTransformer;
 use App\Shared\Domain\DomainException;
@@ -25,7 +25,7 @@ final readonly class PackageInfoController
 {
     public function __construct(
         private PackageInfoResponseTransformer $response,
-        private PackageFinder $finder,
+        private PackageInfoFinder $finder,
     ) {}
 
     /**
@@ -36,18 +36,18 @@ final readonly class PackageInfoController
     public function __invoke(string $package, ?string $_route = null): PackageInfoResponseDTO
     {
         try {
-            $instance = $this->finder->findByPackageString($package);
+            $instance = $this->finder->getByNameString($package);
         } catch (DomainException $e) {
             throw PresentationException::fromDomainException($e);
         }
 
-        if ($instance === null) {
+        if ($instance->package === null) {
             throw (new HttpPresentationException('404 not found, no packages here'))
                 ->setHttpStatusCode(Response::HTTP_NOT_FOUND);
         }
 
         return $this->response->transform(
-            entry: $instance,
+            entry: $instance->package,
         );
     }
 }

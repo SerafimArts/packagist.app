@@ -13,7 +13,7 @@ final readonly class NameParser
         private NameValidator $validator,
     ) {}
 
-    public function createFromPackage(string $name): Name
+    public function parse(string $name): Name
     {
         if ($this->validator->getPackageError($name)) {
             return $this->createFromNonOwnedPackage($name);

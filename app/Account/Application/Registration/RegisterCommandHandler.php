@@ -7,6 +7,9 @@ namespace App\Account\Application\Registration;
 use App\Account\Domain\Token\Token;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+/**
+ * @api
+ */
 #[AsMessageHandler]
 final readonly class RegisterCommandHandler
 {

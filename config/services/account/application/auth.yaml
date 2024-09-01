@@ -10,10 +10,3 @@ services:
 
   App\Account\Application\Auth\:
     resource: '%kernel.project_dir%/app/Account/Application/Auth'
-
-  # ----------------------------------------------------------------------------
-  #  Registration Use Case
-  # ----------------------------------------------------------------------------
-
-  App\Account\Application\Registration\:
-    resource: '%kernel.project_dir%/app/Account/Application/Registration'

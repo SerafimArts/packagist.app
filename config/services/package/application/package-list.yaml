@@ -1,0 +1,12 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # ----------------------------------------------------------------------------
+  #  Package List Use Case
+  # ----------------------------------------------------------------------------
+
+  App\Package\Application\PackageList\:
+    resource: '%kernel.project_dir%/app/Package/Application/PackageList'

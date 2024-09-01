@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Application\Package;
+namespace App\Package\Application\PackageList;
 
 use App\Package\Domain\Package;
 use App\Package\Domain\PackageRepositoryInterface;

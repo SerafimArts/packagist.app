@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Application\Repository;
+namespace App\Package\Application\RepositoryInfo;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

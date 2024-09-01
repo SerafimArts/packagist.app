@@ -1,0 +1,12 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # ----------------------------------------------------------------------------
+  #  Registration Use Case
+  # ----------------------------------------------------------------------------
+
+  App\Account\Application\Registration\:
+    resource: '%kernel.project_dir%/app/Account/Application/Registration'
