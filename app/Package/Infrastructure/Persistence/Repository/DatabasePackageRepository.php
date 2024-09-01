@@ -37,12 +37,22 @@ final class DatabasePackageRepository extends DatabaseRepository implements Pack
             ->getOneOrNullResult();
     }
 
-    public function getAll(): iterable
+    public function getAllNames(): iterable
     {
-        return $this->createQueryBuilder('pkg')
+        $result = $this->createQueryBuilder('pkg')
+            ->select('pkg.name.value', 'pkg.name.vendor')
             ->orderBy('pkg.name.value', 'ASC')
             ->orderBy('pkg.name.vendor', 'ASC')
             ->getQuery()
             ->getResult();
+
+        foreach ($result as ['name.value' => $name, 'name.vendor' => $vendor]) {
+            yield new Name($name, $vendor);
+        }
+    }
+
+    public function getAll(): iterable
+    {
+        return $this->findAll();
     }
 }

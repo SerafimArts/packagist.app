@@ -12,4 +12,9 @@ interface PackageRepositoryInterface
      * @return iterable<array-key, Package>
      */
     public function getAll(): iterable;
+
+    /**
+     * @return iterable<array-key, Name>
+     */
+    public function getAllNames(): iterable;
 }
