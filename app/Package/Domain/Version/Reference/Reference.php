@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Package\Domain\Version\Reference;
 
+use App\Package\Domain\Version\PackageVersion;
+use App\Shared\Domain\ValueObjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]
-abstract readonly class Reference
+abstract readonly class Reference implements ValueObjectInterface
 {
     /**
      * @param non-empty-string $type
@@ -22,8 +24,27 @@ abstract readonly class Reference
 
     abstract public static function createEmpty(): self;
 
+    /**
+     * @internal for internal usage in {@see PackageVersion} properties.
+     */
     public function isValid(): bool
     {
         return $this->type !== '' && $this->url !== '';
+    }
+
+    public function equals(ValueObjectInterface $object): bool
+    {
+        return $this === $object
+            || ($object instanceof static
+                && $this->type === $object->type
+                && $this->url === $object->url);
+    }
+
+    public function __toString(): string
+    {
+        return \vsprintf('%s://%s', [
+            $this->type,
+            $this->url,
+        ]);
     }
 }

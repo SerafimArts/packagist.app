@@ -26,7 +26,7 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
     {
         return new PackageInfoResponseDTO(
             packages: [
-                (string) $entry->credentials => $this->mapVersions($entry, $dev),
+                (string) $entry->name => $this->mapVersions($entry, $dev),
             ]
         );
     }

@@ -49,8 +49,8 @@ abstract class PackageVersionsTestCase extends HttpTestCase
     {
         return new PackageVersion(
             package: Package::create(
-                vendor: 'test',
                 name: $name,
+                vendor: 'test',
             ),
             version: '2.0',
             isRelease: $stable,

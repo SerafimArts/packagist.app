@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Domain\Version\Reference;
 
+use App\Shared\Domain\ValueObjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]
@@ -23,6 +24,9 @@ final readonly class SourceReference extends Reference
         parent::__construct($type, $url);
     }
 
+    /**
+     * @internal for internal usage in {@see PackageVersion} properties.
+     */
     public function isValid(): bool
     {
         return parent::isValid() && $this->hash !== '';
@@ -32,5 +36,11 @@ final readonly class SourceReference extends Reference
     {
         // @phpstan-ignore-next-line
         return new self('', '', '');
+    }
+
+    public function equals(ValueObjectInterface $object): bool
+    {
+        return parent::equals($object)
+            && $this->hash === $object->hash;
     }
 }

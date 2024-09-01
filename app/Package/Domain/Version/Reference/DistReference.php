@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Domain\Version\Reference;
 
+use App\Shared\Domain\ValueObjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]
@@ -27,5 +28,11 @@ final readonly class DistReference extends Reference
     {
         // @phpstan-ignore-next-line
         return new self('', '', null);
+    }
+
+    public function equals(ValueObjectInterface $object): bool
+    {
+        return parent::equals($object)
+            && $this->hash === $object->hash;
     }
 }

@@ -21,7 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @uses Collection (phpstorm reference bug)
  *
- * @property Credentials $credentials Annotation for PHP 8.4 autocompletion support
+ * @property Name $credentials Annotation for PHP 8.4 autocompletion support
  * @property PackageVersionsSet $versions Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
@@ -35,29 +35,36 @@ class Package implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
-    #[ORM\Embedded(class: Credentials::class, columnPrefix: false)]
-    public Credentials $credentials;
+    #[ORM\Embedded(class: Name::class, columnPrefix: false)]
+    public Name $name;
 
+    /**
+     * @param Name|non-empty-string $name
+     */
     public function __construct(
-        Credentials $credentials,
+        Name|string $name,
         ?PackageId $id = null,
     ) {
-        $this->credentials = $credentials;
+        if (\is_string($name)) {
+            $name = new Name($name);
+        }
+
+        $this->name = $name;
         $this->versions = new PackageVersionsSet();
         $this->id = $id ?? PackageId::new();
     }
 
     /**
-     * @param non-empty-string $vendor
      * @param non-empty-string $name
+     * @param non-empty-string|null $vendor
      */
     public static function create(
-        string $vendor,
         string $name,
+        ?string $vendor = null,
         ?PackageId $id = null,
     ): self {
         return new self(
-            credentials: new Credentials(
+            name: new Name(
                 name: $name,
                 vendor: $vendor,
             ),

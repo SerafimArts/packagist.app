@@ -30,7 +30,7 @@ final readonly class PackageListResponseTransformer extends ResponseTransformer
     private function mapAllPackageNames(iterable $packages): iterable
     {
         foreach ($packages as $package) {
-            yield (string) $package->credentials;
+            yield (string) $package->name;
         }
     }
 }

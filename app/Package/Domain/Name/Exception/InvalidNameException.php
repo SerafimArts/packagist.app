@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Domain\Credentials\Exception;
+namespace App\Package\Domain\Name\Exception;
 
 use App\Shared\Domain\DomainException;
 
-class InvalidCredentialsException extends DomainException
+class InvalidNameException extends DomainException
 {
     public static function fromInvalidPackage(string $package, ?\Throwable $prev = null): self
     {

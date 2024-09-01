@@ -17,7 +17,7 @@ final readonly class ComputedChangeSet
     public function fetchNameIfChanged(): ?string
     {
         if ($this->previous === null) {
-            return (string) $this->version->package->credentials;
+            return (string) $this->version->package->name;
         }
 
         return null;

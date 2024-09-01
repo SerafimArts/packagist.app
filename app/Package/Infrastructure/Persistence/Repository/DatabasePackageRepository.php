@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Infrastructure\Persistence\Repository;
 
-use App\Package\Domain\Credentials;
+use App\Package\Domain\Name;
 use App\Package\Domain\Package;
 use App\Package\Domain\PackageRepositoryInterface;
 use App\Shared\Infrastructure\Persistence\Repository\DatabaseRepository;
@@ -25,13 +25,13 @@ final class DatabasePackageRepository extends DatabaseRepository implements Pack
         parent::__construct($registry, Package::class);
     }
 
-    public function findByCredentials(Credentials $credentials): ?Package
+    public function findByName(Name $name): ?Package
     {
         return $this->createQueryBuilder('pkg')
-            ->andWhere('pkg.credentials.name = :name')
-            ->andWhere('pkg.credentials.vendor = :vendor')
-            ->setParameter('name', $credentials->name)
-            ->setParameter('vendor', $credentials->vendor)
+            ->andWhere('pkg.name.value = :name')
+            ->andWhere('pkg.name.vendor = :vendor')
+            ->setParameter('name', $name->value)
+            ->setParameter('vendor', $name->vendor)
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
@@ -40,8 +40,8 @@ final class DatabasePackageRepository extends DatabaseRepository implements Pack
     public function getAll(): iterable
     {
         return $this->createQueryBuilder('pkg')
-            ->orderBy('pkg.credentials.name', 'ASC')
-            ->orderBy('pkg.credentials.vendor', 'ASC')
+            ->orderBy('pkg.name.value', 'ASC')
+            ->orderBy('pkg.name.vendor', 'ASC')
             ->getQuery()
             ->getResult();
     }

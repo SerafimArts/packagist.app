@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Database\DataFixtures;
 
-use App\Package\Domain\Credentials;
+use App\Package\Domain\Name;
 use App\Package\Domain\Package;
 use App\Package\Domain\Version\PackageVersion;
 use App\Package\Domain\Version\Reference\DistReference;

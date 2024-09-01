@@ -4,9 +4,9 @@ services:
     autowire: true
     autoconfigure: true
 
-  App\Package\Domain\Credentials\CredentialsParser: ~
+  App\Package\Domain\Name\NameParser: ~
 
-  App\Package\Domain\Credentials\CredentialsValidator:
+  App\Package\Domain\Name\NameValidator:
     public: true
     arguments:
       $validator: '@Symfony\Component\Validator\Validator\ValidatorInterface'

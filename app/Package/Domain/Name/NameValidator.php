@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Domain\Credentials;
+namespace App\Package\Domain\Name;
 
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-final readonly class CredentialsValidator
+final readonly class NameValidator
 {
     /**
      * @var non-empty-string

@@ -6,7 +6,7 @@ namespace App\Package\Domain;
 
 interface PackageRepositoryInterface
 {
-    public function findByCredentials(Credentials $credentials): ?Package;
+    public function findByName(Name $name): ?Package;
 
     /**
      * @return iterable<array-key, Package>
