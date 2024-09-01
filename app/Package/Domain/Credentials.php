@@ -18,18 +18,18 @@ final readonly class Credentials implements \Stringable
     public string $name;
 
     /**
-     * @var non-empty-lowercase-string
+     * @var non-empty-lowercase-string|null
      */
-    #[ORM\Column(type: 'string')]
-    public string $vendor;
+    #[ORM\Column(type: 'string', nullable: true)]
+    public ?string $vendor;
 
     /**
-     * @param non-empty-string $vendor
+     * @param non-empty-string|null $vendor
      * @param non-empty-string $name
      */
     public function __construct(
-        string $vendor,
         string $name,
+        ?string $vendor = null,
     ) {
         $this->vendor = \strtolower($vendor);
         $this->name = \strtolower($name);
@@ -40,6 +40,10 @@ final readonly class Credentials implements \Stringable
      */
     public function __toString(): string
     {
+        if ($this->vendor === null) {
+            return $this->name;
+        }
+
         return \vsprintf('%s/%s', [
             $this->vendor,
             $this->name,
