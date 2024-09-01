@@ -19,12 +19,12 @@ final readonly class RepositoryInfoProvider
     /**
      * @var non-empty-string
      */
-    private const string PACKAGE_V2_ROUTE = 'package.v2';
+    private const string PACKAGE_METADATA_ROUTE = 'package.meta';
 
     /**
      * @var non-empty-string
      */
-    private const string PACKAGE_V1_ROUTE = 'package.v1.hashed';
+    private const string PACKAGE_PROVIDER_ROUTE = 'package.provider';
 
     /**
      * @var non-empty-string
@@ -40,7 +40,7 @@ final readonly class RepositoryInfoProvider
      */
     private function getMetadataTemplateUrl(): string
     {
-        $result = $this->generator->generate(self::PACKAGE_V2_ROUTE, [
+        $result = $this->generator->generate(self::PACKAGE_METADATA_ROUTE, [
             'package' => self::ROUTE_TEMP_PLACEHOLDER,
         ]);
 
@@ -56,13 +56,12 @@ final readonly class RepositoryInfoProvider
      */
     private function getProvidersTemplateUrl(): string
     {
-        $result = $this->generator->generate(self::PACKAGE_V1_ROUTE, [
+        $result = $this->generator->generate(self::PACKAGE_PROVIDER_ROUTE, [
             'package' => self::ROUTE_TEMP_PLACEHOLDER,
-            'hash' => '$' . self::ROUTE_TEMP_PLACEHOLDER,
         ]);
 
         return \str_replace(
-            search: \urlencode(self::ROUTE_TEMP_PLACEHOLDER . '$' . self::ROUTE_TEMP_PLACEHOLDER),
+            search: \urlencode(self::ROUTE_TEMP_PLACEHOLDER),
             replace: '%package%$%hash%',
             subject: $result,
         );

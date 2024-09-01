@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\V1\PackageInfoController;
+namespace App\Package\Presentation\Controller\PackageProviderController;
 
 use App\Package\Application\PackageInfo\PackageInfo;
 use App\Package\Domain\Package;
@@ -12,17 +12,17 @@ use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**
  * @internal this is an internal library class, please do not use it in your code.
- * @psalm-internal App\Package\Presentation\Controller\V1
+ * @psalm-internal App\Package\Presentation\Controller
  *
- * @template-extends ResponseTransformer<PackageInfo, PackageInfoResponseDTO>
+ * @template-extends ResponseTransformer<PackageInfo, PackageProviderResponseDTO>
  */
-final readonly class PackageInfoResponseTransformer extends ResponseTransformer
+final readonly class PackageProviderResponseTransformer extends ResponseTransformer
 {
     public function __construct(
         private PackageVersionTransformer $versions,
     ) {}
 
-    public function transform(mixed $entry): PackageInfoResponseDTO
+    public function transform(mixed $entry): PackageProviderResponseDTO
     {
         $result = [];
 
@@ -30,7 +30,7 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
             $result[(string) $package->name] = $this->mapVersions($package);
         }
 
-        return new PackageInfoResponseDTO($result);
+        return new PackageProviderResponseDTO($result);
     }
 
     /**

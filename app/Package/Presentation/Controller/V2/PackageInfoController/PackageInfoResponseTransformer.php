@@ -23,12 +23,12 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
         private PackageVersionTransformer $versions,
     ) {}
 
-    public function transform(mixed $entry, ?bool $dev = null): PackageInfoResponseDTO
+    public function transform(mixed $entry): PackageInfoResponseDTO
     {
         $result = [];
 
         foreach ($entry->packages as $package) {
-            $result[(string) $package->name] = $this->mapVersions($package, $dev);
+            $result[(string) $package->name] = $this->mapVersions($package, $entry->dev);
         }
 
         return new PackageInfoResponseDTO($result);

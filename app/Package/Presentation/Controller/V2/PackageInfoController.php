@@ -21,14 +21,23 @@ use Symfony\Component\Routing\Attribute\Route;
  * Return versions list for a package.
  */
 #[AsController]
-#[Route('/package/v2/{package}~dev.json', name: 'package.v2.dev', methods: Request::METHOD_GET, priority: 2, stateless: true)]
-#[Route('/package/v2/{package}.json', name: 'package.v2', methods: Request::METHOD_GET, priority: 1, stateless: true)]
+#[Route('/package/meta/{package}~dev.json', name: 'package.meta.dev', methods: Request::METHOD_GET, priority: 2, stateless: true)]
+#[Route('/package/meta/{package}.json', name: 'package.meta', methods: Request::METHOD_GET, priority: 1, stateless: true)]
 final readonly class PackageInfoController
 {
     public function __construct(
         private PackageInfoResponseTransformer $response,
         private QueryBusInterface $queries,
     ) {}
+
+    private static function expectsDevPackages(?string $route): ?bool
+    {
+        if ($route === null) {
+            return null;
+        }
+
+        return \str_ends_with($route, '.dev');
+    }
 
     /**
      * @param non-empty-string $package
@@ -38,7 +47,10 @@ final readonly class PackageInfoController
     public function __invoke(string $package, ?string $_route = null): PackageInfoResponseDTO
     {
         try {
-            $info = $this->queries->get(new GetPackageByNameStringQuery($package));
+            $info = $this->queries->get(new GetPackageByNameStringQuery(
+                name: $package,
+                dev: self::expectsDevPackages($_route),
+            ));
 
             if (!$info instanceof PackageInfo) {
                 throw new HttpPresentationException(
@@ -54,9 +66,6 @@ final readonly class PackageInfoController
                 ->setHttpStatusCode(Response::HTTP_NOT_FOUND);
         }
 
-        return $this->response->transform(
-            entry: $info,
-            dev: $_route === 'package.v2.dev',
-        );
+        return $this->response->transform($info);
     }
 }

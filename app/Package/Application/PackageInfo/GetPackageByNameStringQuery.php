@@ -11,5 +11,6 @@ final readonly class GetPackageByNameStringQuery
      */
     public function __construct(
         public string $name,
+        public ?bool $dev = null,
     ) {}
 }

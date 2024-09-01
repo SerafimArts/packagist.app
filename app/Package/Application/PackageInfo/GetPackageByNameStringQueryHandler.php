@@ -18,6 +18,9 @@ final readonly class GetPackageByNameStringQueryHandler
 
     public function __invoke(GetPackageByNameStringQuery $query): PackageInfo
     {
-        return $this->finder->getByNameString($query->name);
+        return $this->finder->getByNameString(
+            name: $query->name,
+            dev: $query->dev,
+        );
     }
 }

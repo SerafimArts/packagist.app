@@ -8,14 +8,14 @@ use App\Tests\Concerns\InteractWithDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 
-#[TestDox('GET /package/v1/<vendor>/<name>.json')]
-final class PackageV1VersionsTest extends PackageVersionsTestCase
+#[TestDox('GET /package/provider/<vendor>/<name>.json')]
+final class PackageProviderTest extends PackageVersionsTestCase
 {
     use InteractWithDatabase;
 
     public function testInvalidPackage(): void
     {
-        $this->json('GET', '/package/v1/unknown/pattern.json')
+        $this->json('GET', '/package/provider/unknown/pattern.json')
             ->assertStatus(404)
             ->assertJsonSchemaFileMatches(__DIR__ . '/../error.packagist.json')
             ->assertJsonPathSame('$.message', '404 not found, no packages here');
@@ -29,9 +29,9 @@ final class PackageV1VersionsTest extends PackageVersionsTestCase
 
         $this->givenPackageVersionWithDist($name, $stable);
 
-        $this->json('GET', '/package/v1/test/' . $name . '.json')
+        $this->json('GET', '/package/provider/test/' . $name . '.json')
             ->assertSuccessful()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/package-v1.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/package-provider.json')
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].name', 'test/' . $name)
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version', '2.0')
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version_normalized', '2.0.0.0')
@@ -47,9 +47,9 @@ final class PackageV1VersionsTest extends PackageVersionsTestCase
 
         $this->givenPackageVersionWithSource($name, $stable);
 
-        $this->json('GET', '/package/v1/test/' . $name . '.json')
+        $this->json('GET', '/package/provider/test/' . $name . '.json')
             ->assertSuccessful()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/package-v1.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/package-provider.json')
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].name', 'test/' . $name)
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version', '2.0')
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version_normalized', '2.0.0.0')
@@ -65,9 +65,9 @@ final class PackageV1VersionsTest extends PackageVersionsTestCase
 
         $this->givenPackageVersionWithSourceAndDist($name, $stable);
 
-        $this->json('GET', '/package/v1/test/' . $name . '.json')
+        $this->json('GET', '/package/provider/test/' . $name . '.json')
             ->assertSuccessful()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/package-v1.json')
+            ->assertJsonSchemaFileMatches(__DIR__ . '/package-provider.json')
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].name', 'test/' . $name)
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version', '2.0')
             ->assertJsonPathSame('$.packages["test/' . $name . '"]["2.0"].version_normalized', '2.0.0.0')

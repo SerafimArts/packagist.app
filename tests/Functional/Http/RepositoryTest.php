@@ -17,8 +17,8 @@ final class RepositoryTest extends HttpTestCase
             ->assertJsonPathSame('$.packages', [])
             ->assertJsonPathStringContains('$.warning', 'Support for Composer 1 is deprecated')
             ->assertJsonPathSame('$.warning-versions', '<1.99')
-            ->assertJsonPathSame('$.metadata-url', '/package/v2/%package%.json')
-            ->assertJsonPathSame('$.providers-url', '/package/v1/%package%$%hash%.json')
+            ->assertJsonPathSame('$.metadata-url', '/package/meta/%package%.json')
+            ->assertJsonPathSame('$.providers-url', '/package/provider/%package%$%hash%.json')
         ;
     }
 }

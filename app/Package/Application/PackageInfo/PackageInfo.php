@@ -13,5 +13,6 @@ final readonly class PackageInfo
      */
     public function __construct(
         public array $packages = [],
+        public ?bool $dev = null,
     ) {}
 }
