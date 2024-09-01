@@ -11,7 +11,6 @@ use App\Shared\Infrastructure\Collection\Set;
  *
  * @property PackageVersionsSet $released Annotation for PHP 8.4 autocompletion support
  * @property PackageVersionsSet $dev Annotation for PHP 8.4 autocompletion support
- * @property PackageVersionsSet $withSourceOrDist Annotation for PHP 8.4 autocompletion support
  */
 final class PackageVersionsSet extends Set
 {
@@ -24,12 +23,6 @@ final class PackageVersionsSet extends Set
     public PackageVersionsSet $dev {
         get => $this->filter(static fn (PackageVersion $v): bool
             => !$v->isRelease
-        );
-    }
-
-    public PackageVersionsSet $withSourceOrDist {
-        get => $this->filter(static fn (PackageVersion $v): bool
-            => $v->dist !== null || $v->source !== null
         );
     }
 }

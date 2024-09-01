@@ -21,21 +21,6 @@ final class PackageV2VersionsTest extends PackageVersionsTestCase
             ->assertJsonPathSame('$.message', '404 not found, no packages here');
     }
 
-    #[TestDox('Package versions without source or dist SHOULD not be returned')]
-    #[DataProvider('stabilityDataProvider')]
-    public function testSkipPackagesWithoutSourceOrDist(bool $stable, string $suffix): void
-    {
-        $name = $this->getPackageName($stable);
-
-        $this->givenPackageVersion($name, $stable);
-
-        $this->json('GET', '/package/v2/test/' . $name . $suffix . '.json')
-            ->assertSuccessful()
-            ->assertJsonSchemaFileMatches(__DIR__ . '/package-v2.json')
-            ->assertJsonPathSame('$.packages["test/' . $name .'"]', [])
-        ;
-    }
-
     #[TestDox('Package versions with dist url')]
     #[DataProvider('stabilityDataProvider')]
     public function testVersionsWithDist(bool $stable, string $suffix): void

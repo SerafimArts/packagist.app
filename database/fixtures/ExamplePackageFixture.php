@@ -77,14 +77,16 @@ final class ExamplePackageFixture extends Fixture
                 url: 'https://api.github.com/repos/phplrt/phplrt/zipball/2d2745637cc9136189e5b6ef769657872919d32a',
                 hash: '2d2745637cc9136189e5b6ef769657872919d32a',
             );
+
+            if (\random_int(0, 2) === 0) {
+                return;
+            }
         }
 
-        if (\random_int(0, 2) === 0) {
-            $version->source = new SourceReference(
-                type: 'git',
-                url: 'https://github.com/phplrt/phplrt.git',
-                hash: '2d2745637cc9136189e5b6ef769657872919d32a',
-            );
-        }
+        $version->source = new SourceReference(
+            type: 'git',
+            url: 'https://github.com/phplrt/phplrt.git',
+            hash: '2d2745637cc9136189e5b6ef769657872919d32a',
+        );
     }
 }

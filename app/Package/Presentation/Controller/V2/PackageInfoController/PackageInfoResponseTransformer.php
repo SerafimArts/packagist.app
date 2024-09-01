@@ -33,13 +33,11 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
 
     private function getPackageVersions(Package $package, ?bool $dev = null): PackageVersionsSet
     {
-        $versions = match ($dev) {
+        return match ($dev) {
             true => $package->versions->dev,
             false => $package->versions->released,
             default => $package->versions,
         };
-
-        return $versions->withSourceOrDist;
     }
 
     /**

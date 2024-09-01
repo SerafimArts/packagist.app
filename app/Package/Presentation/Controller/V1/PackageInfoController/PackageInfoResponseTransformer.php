@@ -35,7 +35,7 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
      */
     private function mapVersions(Package $package): iterable
     {
-        foreach ($package->versions->withSourceOrDist as $version) {
+        foreach ($package->versions as $version) {
             yield $version->version => $this->versions->transform($version);
         }
     }

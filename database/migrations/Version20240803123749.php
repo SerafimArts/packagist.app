@@ -35,7 +35,11 @@ final class Version20240803123749 extends AbstractMigration
                 is_release BOOLEAN NOT NULL DEFAULT false,
                 created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
-                PRIMARY KEY(id)
+                PRIMARY KEY(id),
+                CONSTRAINT package_version_source_or_dist_required CHECK (
+                    ( source_type <> '' AND source_url <> '' AND source_hash <> '' ) OR
+                    ( dist_type <> '' AND dist_url <> '' )
+                )
             )
             SQL);
 
