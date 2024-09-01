@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Account\Application\Auth;
 
-use App\Account\Application\Auth\Exception\AuthenticationFailedException;
+use App\Account\Application\Auth\Exception\InvalidCredentialsException;
 use App\Account\Domain\AccountCredentialsFinder;
 use App\Account\Domain\Token\Token;
 use App\Account\Domain\Token\TokenCreator;
@@ -21,7 +21,7 @@ final readonly class AccountAuthenticator
      * @param non-empty-string $login
      * @param non-empty-string $password
      *
-     * @throws AuthenticationFailedException
+     * @throws InvalidCredentialsException
      * @throws \Throwable
      */
     public function login(string $login, #[\SensitiveParameter] string $password): Token
@@ -29,7 +29,7 @@ final readonly class AccountAuthenticator
         try {
             $account = $this->accounts->getByCredentials($login, $password);
         } catch (DomainException $e) {
-            throw AuthenticationFailedException::becauseInvalidCredentials($login, $e);
+            throw InvalidCredentialsException::becauseInvalidCredentials($login, $e);
         }
 
         return $this->tokens->create($account);

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Account\Presentation\Controller;
 
-use App\Account\Application\Auth\Exception\AuthenticationFailedException;
+use App\Account\Application\Auth\Exception\InvalidCredentialsException;
 use App\Account\Application\Auth\AuthCommand;
 use App\Account\Domain\Token\Token;
 use App\Account\Presentation\Controller\LoginController\LoginRequestDTO;
@@ -41,7 +41,7 @@ final readonly class LoginController
             }
 
             return $this->response->transform($result);
-        } catch (AuthenticationFailedException $e) {
+        } catch (InvalidCredentialsException $e) {
             throw HttpPresentationException::fromApplicationException($e);
         }
     }

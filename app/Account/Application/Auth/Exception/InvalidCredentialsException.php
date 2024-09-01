@@ -6,7 +6,7 @@ namespace App\Account\Application\Auth\Exception;
 
 use App\Shared\Application\Exception\ApplicationException;
 
-class AuthenticationFailedException extends ApplicationException
+class InvalidCredentialsException extends ApplicationException
 {
     public static function becauseInvalidCredentials(string $login, ?\Throwable $prev = null): static
     {
