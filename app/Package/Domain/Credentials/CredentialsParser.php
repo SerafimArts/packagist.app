@@ -15,12 +15,21 @@ final readonly class CredentialsParser
 
     public function createFromPackage(string $package): Credentials
     {
-        if ($errors = $this->validator->getPackageError($package)) {
-            throw InvalidCredentialsException::fromInvalidPackage($package, $errors);
+        if ($this->validator->getPackageError($package)) {
+            return $this->createFromNonOwnedPackage($package);
         }
 
         [$vendor, $name] = \explode('/', $package);
 
         return new Credentials($name, $vendor);
+    }
+
+    public function createFromNonOwnedPackage(string $package): Credentials
+    {
+        if ($errors = $this->validator->getNameError($package)) {
+            throw InvalidCredentialsException::fromInvalidPackage($package, $errors);
+        }
+
+        return new Credentials($package);
     }
 }

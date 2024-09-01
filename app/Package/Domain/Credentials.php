@@ -31,7 +31,7 @@ final readonly class Credentials implements \Stringable
         string $name,
         ?string $vendor = null,
     ) {
-        $this->vendor = \strtolower($vendor);
+        $this->vendor = \is_string($vendor) ? \strtolower($vendor) : null;
         $this->name = \strtolower($name);
     }
 
