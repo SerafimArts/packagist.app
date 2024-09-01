@@ -16,4 +16,5 @@ return [
     Local\Token\TokenBundle::class => ['all' => true],
     Local\Integration\Github\GithubIntegrationBundle::class => ['all' => true],
     Local\Integration\IntegrationBundle::class => ['all' => true],
+    Local\UserAgent\UserAgentBundle::class => ['all' => true],
 ];

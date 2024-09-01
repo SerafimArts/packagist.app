@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\V2;
+namespace App\Package\Presentation\Controller\V1;
 
 use App\Package\Application\Package\PackageFinder;
-use App\Package\Presentation\Controller\V2\PackageInfoController\PackageInfoResponseDTO;
-use App\Package\Presentation\Controller\V2\PackageInfoController\PackageInfoResponseTransformer;
+use App\Package\Presentation\Controller\V1\PackageInfoController\PackageInfoResponseDTO;
+use App\Package\Presentation\Controller\V1\PackageInfoController\PackageInfoResponseTransformer;
 use App\Shared\Domain\DomainException;
 use App\Shared\Presentation\Exception\Http\HttpPresentationException;
 use App\Shared\Presentation\Exception\PresentationException;
@@ -19,8 +19,8 @@ use Symfony\Component\Routing\Attribute\Route;
  * Return versions list for a package.
  */
 #[AsController]
-#[Route('/package/v2/{package}~dev.json', name: 'package.v2.dev', methods: Request::METHOD_GET, priority: 2, stateless: true)]
-#[Route('/package/v2/{package}.json', name: 'package.v2', methods: Request::METHOD_GET, priority: 1, stateless: true)]
+#[Route('/package/v1/{package}~dev.json', name: 'package.v1.dev', methods: Request::METHOD_GET, priority: 2, stateless: true)]
+#[Route('/package/v1/{package}.json', name: 'package.v1', methods: Request::METHOD_GET, priority: 1, stateless: true)]
 final readonly class PackageInfoController
 {
     public function __construct(

@@ -17,6 +17,7 @@
         "local/integration": "^1.0",
         "local/integration-github": "^1.0",
         "local/token": "^1.0",
+        "local/user-agent": "^1.0",
         "nyholm/psr7": "^1.8",
         "ramsey/uuid": "^4.7",
         "symfony/clock": "7.1.*",

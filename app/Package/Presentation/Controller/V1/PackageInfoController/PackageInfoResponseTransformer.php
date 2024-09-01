@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Presentation\Controller\V2\PackageInfoController;
+namespace App\Package\Presentation\Controller\V1\PackageInfoController;
 
 use App\Package\Domain\Package;
 use App\Package\Domain\Version\PackageVersionsSet;
@@ -12,7 +12,7 @@ use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**
  * @internal this is an internal library class, please do not use it in your code.
- * @psalm-internal App\Package\Presentation\Controller\V2
+ * @psalm-internal App\Package\Presentation\Controller\V1
  *
  * @template-extends ResponseTransformer<Package, PackageInfoResponseDTO>
  */
@@ -47,12 +47,8 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
      */
     private function mapVersions(Package $package, ?bool $dev = null): iterable
     {
-        $previous = null;
-
         foreach ($this->getPackageVersions($package, $dev) as $version) {
-            yield $this->versions->transform($version, $previous);
-
-            $previous = $version;
+            yield $version->version => $this->versions->transform($version);
         }
     }
 }

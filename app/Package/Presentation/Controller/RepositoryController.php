@@ -23,7 +23,7 @@ final readonly class RepositoryController
         private RepositoryInfoProvider $metadata,
     ) {}
 
-    public function __invoke(): RepositoryResponseDTO
+    public function __invoke(Request $request): RepositoryResponseDTO
     {
         return $this->response->transform(
             entry: $this->metadata->get(),

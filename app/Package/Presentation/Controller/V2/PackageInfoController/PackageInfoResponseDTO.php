@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 final readonly class PackageInfoResponseDTO
 {
     /**
-     * @param PackageVersionResponseDTO $packages
+     * @param iterable<non-empty-string, list<PackageVersionResponseDTO>> $packages
      */
     public function __construct(
         public iterable $packages,

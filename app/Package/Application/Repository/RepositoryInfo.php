@@ -8,7 +8,7 @@ final readonly class RepositoryInfo
 {
     public function __construct(
         /**
-         * Provides concrete package metadata template url.
+         * Provides concrete package metadata template url for APIv2.
          *
          * The "template" term means that a specific package name must be
          * substituted for the value "%package%" within this url pattern.

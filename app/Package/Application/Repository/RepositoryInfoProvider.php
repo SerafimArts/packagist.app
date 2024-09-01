@@ -14,7 +14,12 @@ final readonly class RepositoryInfoProvider
     /**
      * @var non-empty-string
      */
-    private const string PACKAGE_ROUTE = 'package';
+    private const string ROUTE_TEMP_PLACEHOLDER = 'VENDOR/NAME';
+
+    /**
+     * @var non-empty-string
+     */
+    private const string PACKAGE_V2_ROUTE = 'package.v2';
 
     /**
      * @var non-empty-string
@@ -30,11 +35,11 @@ final readonly class RepositoryInfoProvider
      */
     private function getMetadataTemplateUrl(): string
     {
-        $result = $this->generator->generate(self::PACKAGE_ROUTE, [
-            'package' => 'VENDOR/NAME',
+        $result = $this->generator->generate(self::PACKAGE_V2_ROUTE, [
+            'package' => self::ROUTE_TEMP_PLACEHOLDER,
         ]);
 
-        return \str_replace('VENDOR/NAME', '%package%', $result);
+        return \str_replace(self::ROUTE_TEMP_PLACEHOLDER, '%package%', $result);
     }
 
     /**
