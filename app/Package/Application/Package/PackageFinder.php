@@ -17,6 +17,10 @@ final readonly class PackageFinder
 
     public function findByPackageString(string $package): ?Package
     {
+        if ($package === '') {
+            return null;
+        }
+
         return $this->packages->findByCredentials(
             credentials: $this->parser->createFromPackage($package),
         );
