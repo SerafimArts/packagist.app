@@ -5,24 +5,25 @@ declare(strict_types=1);
 namespace App\Statistic\Application\Updates;
 
 use App\Shared\Domain\Bus\CommandBusInterface;
-use App\Statistic\Domain\Event\PackagesUpdateRequested;
+use App\Statistic\Domain\Event\PackageDownloadedEvent;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 
 /**
  * @api
  */
 #[AsEventListener]
-final readonly class PackagesUpdateRequestedHandler
+final readonly class PackageDownloadedEventHandler
 {
     public function __construct(
         private CommandBusInterface $commands,
     ) {}
 
-    public function __invoke(PackagesUpdateRequested $event): void
+    public function __invoke(PackageDownloadedEvent $event): void
     {
-        $this->commands->send(new AddPackagesUpdateCommand(
+        $this->commands->send(new AddPackageDownloadsCommand(
             ip: $event->ip,
-            userAgent: $event->userAgent,
+            name: $event->name,
+            version: $event->version,
         ));
     }
 }

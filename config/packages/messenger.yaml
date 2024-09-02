@@ -37,7 +37,7 @@ framework:
       App\Package\Application\GetRepositoryInfo\GetRepositoryInfoQuery: default
       # Statistic
       # - Commands
-      App\Statistic\Application\Updates\AddPackagesUpdateCommand: default
+      App\Statistic\Application\Updates\AddDownloadsCommand: default
 
     buses:
       command.bus:

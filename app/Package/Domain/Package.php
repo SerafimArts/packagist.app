@@ -45,11 +45,7 @@ class Package implements
         Name|string $name,
         ?PackageId $id = null,
     ) {
-        if (\is_string($name)) {
-            $name = new Name($name);
-        }
-
-        $this->name = $name;
+        $this->name = Name::create($name);
         $this->versions = new PackageVersionsSet();
         $this->id = $id ?? PackageId::new();
     }

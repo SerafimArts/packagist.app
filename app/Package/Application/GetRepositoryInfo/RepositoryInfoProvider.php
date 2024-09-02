@@ -29,7 +29,12 @@ final readonly class RepositoryInfoProvider
     /**
      * @var non-empty-string
      */
-    private const string LIST_ROUTE = 'package.list';
+    private const string PACKAGE_BATCH_NOTIFY_ROUTE = 'package.downloads';
+
+    /**
+     * @var non-empty-string
+     */
+    private const string PACKAGES_LIST_ROUTE = 'package.list';
 
     public function __construct(
         private UrlGeneratorInterface $generator,
@@ -72,7 +77,15 @@ final readonly class RepositoryInfoProvider
      */
     private function getListUrl(): string
     {
-        return $this->generator->generate(self::LIST_ROUTE);
+        return $this->generator->generate(self::PACKAGES_LIST_ROUTE);
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    private function getNotifyBatchUrl(): string
+    {
+        return $this->generator->generate(self::PACKAGE_BATCH_NOTIFY_ROUTE);
     }
 
     public function get(): RepositoryInfo
@@ -80,6 +93,7 @@ final readonly class RepositoryInfoProvider
         return new RepositoryInfo(
             metadataTemplateUrl: $this->getMetadataTemplateUrl(),
             providersTemplateUrl: $this->getProvidersTemplateUrl(),
+            notifyBatchUrl: $this->getNotifyBatchUrl(),
             listUrl: $this->getListUrl(),
         );
     }

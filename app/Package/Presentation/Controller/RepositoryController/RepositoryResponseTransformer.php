@@ -18,6 +18,7 @@ final readonly class RepositoryResponseTransformer extends ResponseTransformer
     public function transform(mixed $entry): RepositoryResponseDTO
     {
         return new RepositoryResponseDTO(
+            notifyBatchUrl: $this->formatUrl($entry->notifyBatchUrl),
             providersTemplateUrl: $this->formatTemplateUrl($entry->providersTemplateUrl),
             metadataTemplateUrl: $this->formatTemplateUrl($entry->metadataTemplateUrl),
             listUrl: $this->formatUrl($entry->listUrl),

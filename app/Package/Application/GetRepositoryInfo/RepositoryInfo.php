@@ -27,6 +27,12 @@ final readonly class RepositoryInfo
          */
         public string $providersTemplateUrl,
         /**
+         * Provides downloads notification url.
+         *
+         * @var non-empty-string
+         */
+        public string $notifyBatchUrl,
+        /**
          * Provides url to the packages list.
          *
          * @var non-empty-string

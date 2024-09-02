@@ -37,6 +37,15 @@ final class Name implements ValueObjectInterface
         $this->value = \strtolower($name);
     }
 
+    public static function create(string|\Stringable $name): self
+    {
+        if ($name instanceof Name) {
+            return clone $name;
+        }
+
+        return new Name((string) $name);
+    }
+
     public function equals(ValueObjectInterface $object): bool
     {
         return $this === $object

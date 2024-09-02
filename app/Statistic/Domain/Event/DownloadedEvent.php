@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Statistic\Application\Updates;
+namespace App\Statistic\Domain\Event;
 
-final readonly class AddPackagesUpdateCommand
+final readonly class DownloadedEvent
 {
     /**
      * @param non-empty-string $ip
@@ -12,6 +12,6 @@ final readonly class AddPackagesUpdateCommand
      */
     public function __construct(
         public string $ip,
-        public ?string $userAgent = null,
+        public ?string $userAgent,
     ) {}
 }
