@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller\RepositoryController;
 
-use App\Package\Application\RepositoryInfo\RepositoryInfo;
+use App\Package\Application\GetRepositoryInfo\RepositoryInfo;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**

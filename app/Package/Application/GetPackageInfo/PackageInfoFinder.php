@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Package\Application\PackageInfo;
+namespace App\Package\Application\GetPackageInfo;
 
 use App\Package\Domain\Name;
 use App\Package\Domain\Name\NameParser;

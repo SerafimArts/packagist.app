@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller\PackageMetaController;
 
-use App\Package\Application\PackageInfo\PackageInfo;
+use App\Package\Application\GetPackageInfo\PackageInfo;
 use App\Package\Domain\Package;
 use App\Package\Domain\Version\PackageVersionsSet;
 use App\Package\Presentation\Response\DTO\PackageVersionResponseDTO;

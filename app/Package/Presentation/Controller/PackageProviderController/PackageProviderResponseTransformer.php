@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller\PackageProviderController;
 
-use App\Package\Application\PackageInfo\PackageInfo;
+use App\Package\Application\GetPackageInfo\PackageInfo;
 use App\Package\Domain\Package;
 use App\Package\Presentation\Response\DTO\PackageVersionResponseDTO;
 use App\Package\Presentation\Response\Transformer\PackageVersionTransformer;

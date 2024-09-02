@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller;
 
-use App\Package\Application\RepositoryInfo\GetRepositoryInfoQuery;
-use App\Package\Application\RepositoryInfo\RepositoryInfo;
+use App\Package\Application\GetRepositoryInfo\GetRepositoryInfoQuery;
+use App\Package\Application\GetRepositoryInfo\RepositoryInfo;
 use App\Package\Presentation\Controller\RepositoryController\RepositoryResponseDTO;
 use App\Package\Presentation\Controller\RepositoryController\RepositoryResponseTransformer;
 use App\Shared\Domain\Bus\QueryBusInterface;

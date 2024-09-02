@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller;
 
-use App\Package\Application\PackageList\GetPackageListQuery;
-use App\Package\Application\PackageList\PackageList;
+use App\Package\Application\GetPackageList\GetPackageListQuery;
+use App\Package\Application\GetPackageList\PackageList;
 use App\Package\Presentation\Controller\PackageListController\PackageListResponseDTO;
 use App\Package\Presentation\Controller\PackageListController\PackageListResponseTransformer;
 use App\Shared\Domain\Bus\QueryBusInterface;

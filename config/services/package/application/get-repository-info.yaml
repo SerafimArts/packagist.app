@@ -5,8 +5,8 @@ services:
     autoconfigure: true
 
   # ----------------------------------------------------------------------------
-  #  Package List Use Case
+  #  Repository Info Use Case
   # ----------------------------------------------------------------------------
 
-  App\Package\Application\PackageList\:
-    resource: '%kernel.project_dir%/app/Package/Application/PackageList'
+  App\Package\Application\GetRepositoryInfo\:
+    resource: '%kernel.project_dir%/app/Package/Application/GetRepositoryInfo'

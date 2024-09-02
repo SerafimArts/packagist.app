@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Controller;
 
-use App\Package\Application\PackageInfo\GetPackageByNameStringQuery;
-use App\Package\Application\PackageInfo\PackageInfo;
+use App\Package\Application\GetPackageInfo\GetPackageByNameStringQuery;
+use App\Package\Application\GetPackageInfo\PackageInfo;
 use App\Package\Presentation\Controller\PackageProviderController\PackageProviderResponseDTO;
 use App\Package\Presentation\Controller\PackageProviderController\PackageProviderResponseTransformer;
 use App\Shared\Domain\Bus\QueryBusInterface;

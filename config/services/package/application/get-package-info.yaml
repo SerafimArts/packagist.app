@@ -8,5 +8,5 @@ services:
   #  Package Info Use Case
   # ----------------------------------------------------------------------------
 
-  App\Package\Application\PackageInfo\:
-    resource: '%kernel.project_dir%/app/Package/Application/PackageInfo'
+  App\Package\Application\GetPackageInfo\:
+    resource: '%kernel.project_dir%/app/Package/Application/GetPackageInfo'
