@@ -19,13 +19,13 @@ abstract class StatisticRecord implements CreatedDateProviderInterface
     #[ORM\Id]
     #[ORM\Column(type: 'integer')]
     #[ORM\GeneratedValue]
-    public private(set) ?int $id = null;
+    public protected(set) ?int $id = null;
 
     /**
      * @var non-empty-string
      */
     #[ORM\Column(name: 'ip', type: 'string', nullable: false)]
-    public private(set) string $ip;
+    public protected(set) string $ip;
 
     /**
      * @param non-empty-string $ip

@@ -19,10 +19,20 @@ final class ExamplePackageFixture extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        foreach (['example', 'example-1', 'test'] as $name) {
+            $package = $this->createPackage($name);
+
+            $manager->persist($package);
+            $manager->flush();
+        }
+    }
+
+    private function createPackage(string $name): Package
+    {
         $faker = Factory::create();
 
         $package = new Package(new Name(
-            name: 'example',
+            name: $name,
             vendor: 'example',
         ));
 
@@ -65,8 +75,7 @@ final class ExamplePackageFixture extends Fixture
 
         echo "\r";
 
-        $manager->persist($package);
-        $manager->flush();
+        return $package;
     }
 
     private function addSourceOrDist(PackageVersion $version): void

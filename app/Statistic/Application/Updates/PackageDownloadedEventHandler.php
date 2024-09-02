@@ -21,7 +21,10 @@ final readonly class PackageDownloadedEventHandler
     public function __invoke(PackageDownloadedEvent $event): void
     {
         $this->commands->send(new AddPackageDownloadsCommand(
-            ip: $event->ip,
+            parent: new AddDownloadsCommand(
+                ip: $event->parent->ip,
+                userAgent: $event->parent->userAgent,
+            ),
             name: $event->name,
             version: $event->version,
         ));
