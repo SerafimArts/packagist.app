@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Package\Presentation\Response\Transformer;
 
-use App\Package\Domain\Package;
 use App\Package\Domain\Version\ComputedChangeSet;
 use App\Package\Domain\Version\PackageVersion;
 use App\Package\Presentation\Response\DTO\PackageVersionResponseDTO;

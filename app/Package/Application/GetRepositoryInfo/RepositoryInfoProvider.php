@@ -41,11 +41,25 @@ final readonly class RepositoryInfoProvider
     ) {}
 
     /**
+     * @param non-empty-string $name
+     * @param array<non-empty-string, string> $parameters
+     * @return non-empty-string
+     */
+    private function url(string $name, array $parameters = []): string
+    {
+        return $this->generator->generate(
+            name: $name,
+            parameters: $parameters,
+            referenceType: UrlGeneratorInterface::ABSOLUTE_URL,
+        );
+    }
+
+    /**
      * @return non-empty-string
      */
     private function getMetadataTemplateUrl(): string
     {
-        $result = $this->generator->generate(self::PACKAGE_METADATA_ROUTE, [
+        $result = $this->url(self::PACKAGE_METADATA_ROUTE, [
             'package' => self::ROUTE_TEMP_PLACEHOLDER,
         ]);
 
@@ -61,7 +75,7 @@ final readonly class RepositoryInfoProvider
      */
     private function getProvidersTemplateUrl(): string
     {
-        $result = $this->generator->generate(self::PACKAGE_PROVIDER_ROUTE, [
+        $result = $this->url(self::PACKAGE_PROVIDER_ROUTE, [
             'package' => self::ROUTE_TEMP_PLACEHOLDER,
         ]);
 
@@ -77,7 +91,7 @@ final readonly class RepositoryInfoProvider
      */
     private function getListUrl(): string
     {
-        return $this->generator->generate(self::PACKAGES_LIST_ROUTE);
+        return $this->url(self::PACKAGES_LIST_ROUTE);
     }
 
     /**
@@ -85,7 +99,7 @@ final readonly class RepositoryInfoProvider
      */
     private function getNotifyBatchUrl(): string
     {
-        return $this->generator->generate(self::PACKAGE_BATCH_NOTIFY_ROUTE);
+        return $this->url(self::PACKAGE_BATCH_NOTIFY_ROUTE);
     }
 
     public function get(): RepositoryInfo
