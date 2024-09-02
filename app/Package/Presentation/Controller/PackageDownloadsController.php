@@ -24,7 +24,8 @@ final readonly class PackageDownloadsController
 
     public function __invoke(
         Request $request,
-        #[MapBody] PackageDownloadsRequestDTO $data,
+        #[MapBody]
+        PackageDownloadsRequestDTO $data,
     ): PackageDownloadsResponseDTO {
         $this->events->dispatch($event = new DownloadedEvent(
             ip: $request->getClientIp() ?? '127.0.0.1',

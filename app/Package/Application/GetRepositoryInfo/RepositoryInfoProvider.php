@@ -43,6 +43,7 @@ final readonly class RepositoryInfoProvider
     /**
      * @param non-empty-string $name
      * @param array<non-empty-string, string> $parameters
+     *
      * @return non-empty-string
      */
     private function url(string $name, array $parameters = []): string
