@@ -1,10 +1,11 @@
 PROJECT_NAME=$(shell basename "$(PWD)")
 PROJECT_DIR=$(shell pwd)
-DOCKER_COMPOSE=$(shell which docker-compose)
+DOCKER_COMPOSE=$(shell which docker) compose
 DOCKER=$(shell which docker)
 
 PHP_CONTAINER_NAME=php
-PHP_CONTAINER_EXEC=${DOCKER_COMPOSE} exec ${PHP_CONTAINER_NAME}
+PHP_CONTAINER_EXEC=${DOCKER_COMPOSE} exec -it ${PHP_CONTAINER_NAME}
+PHP_CONTAINER_ROOT_EXEC=${DOCKER_COMPOSE} exec -it -uroot ${PHP_CONTAINER_NAME}
 
 COMPOSER_EXEC=${PHP_CONTAINER_EXEC} composer
 CONSOLE_EXEC=${PHP_CONTAINER_EXEC} bin/console
@@ -61,6 +62,9 @@ restart: down up
 
 bash:
 	${PHP_CONTAINER_EXEC} bash
+
+root:
+	${PHP_CONTAINER_ROOT_EXEC} bash
 
 build:
 	${DOCKER_COMPOSE} --env-file .env build
