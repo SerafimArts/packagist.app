@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Statistic\Application\Updates;
 
-use App\Package\Domain\Name\NameParser;
+use App\Packagist\Domain\Name\NameParser;
 use App\Statistic\Domain\DownloadsStatisticRecord;
 use App\Statistic\Domain\PackageDownloadsStatisticRecord;
 use App\Statistic\Domain\StatisticRecord;

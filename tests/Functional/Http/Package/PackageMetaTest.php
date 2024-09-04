@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Http\Package;
 
-use App\Package\Domain\Version\PackageVersion;
-use App\Package\Domain\Version\Reference\DistReference;
+use App\Packagist\Domain\Version\PackageVersion;
+use App\Packagist\Domain\Version\Reference\DistReference;
 use App\Tests\Concerns\InteractWithDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Http\Package;
 
-use App\Package\Domain\Package;
-use App\Package\Domain\Version\PackageVersion;
-use App\Package\Domain\Version\Reference\DistReference;
-use App\Package\Domain\Version\Reference\SourceReference;
+use App\Packagist\Domain\Package;
+use App\Packagist\Domain\Version\PackageVersion;
+use App\Packagist\Domain\Version\Reference\DistReference;
+use App\Packagist\Domain\Version\Reference\SourceReference;
 use App\Tests\Concerns\InteractWithDatabase;
 use App\Tests\Functional\Http\HttpTestCase;
 

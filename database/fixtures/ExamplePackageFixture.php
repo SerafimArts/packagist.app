@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Database\DataFixtures;
 
-use App\Package\Domain\Name;
-use App\Package\Domain\Package;
-use App\Package\Domain\Version\PackageVersion;
-use App\Package\Domain\Version\Reference\DistReference;
-use App\Package\Domain\Version\Reference\SourceReference;
+use App\Packagist\Domain\Name;
+use App\Packagist\Domain\Package;
+use App\Packagist\Domain\Version\PackageVersion;
+use App\Packagist\Domain\Version\Reference\DistReference;
+use App\Packagist\Domain\Version\Reference\SourceReference;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 

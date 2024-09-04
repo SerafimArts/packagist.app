@@ -19,19 +19,19 @@ namespace PHPSTORM_META {
     );
 
     expectedArguments(
-        App\Package\Domain\Reference\Reference::__construct(),
+        App\Packagist\Domain\Reference\Reference::__construct(),
         0,
         argumentsSet('package_reference_type')
     );
 
     expectedArguments(
-        App\Package\Domain\Reference\Reference::__construct(),
+        App\Packagist\Domain\Reference\Reference::__construct(),
         0,
         argumentsSet('package_reference_type')
     );
 
     expectedArguments(
-        App\Package\Domain\Reference\Reference::__construct(),
+        App\Packagist\Domain\Reference\Reference::__construct(),
         0,
         argumentsSet('package_reference_type')
     );

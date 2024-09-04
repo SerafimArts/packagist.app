@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Packagist\Domain\PackageRepositoryInterface:
+    alias: App\Packagist\Infrastructure\Persistence\Repository\DatabasePackageRepository

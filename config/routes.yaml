@@ -8,8 +8,8 @@ accounts:
 
 packages:
   resource:
-    path: ../app/Package/Presentation/Controller/
-    namespace: App\Package\Presentation\Controller
+    path: ../app/Packagist/Presentation/Controller/
+    namespace: App\Packagist\Presentation\Controller
   type: attribute
   requirements:
     package: '[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+?)?'

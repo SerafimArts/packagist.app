@@ -1,7 +1,0 @@
-
-services:
-  _defaults:
-    autowire: true
-    autoconfigure: true
-
-  App\Package\Infrastructure\Persistence\Repository\DatabasePackageRepository: ~

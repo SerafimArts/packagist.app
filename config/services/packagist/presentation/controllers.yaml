@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Packagist\Presentation\Controller\:
+    resource: '%kernel.project_dir%/app/Packagist/Presentation/Controller/'

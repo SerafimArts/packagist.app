@@ -32,9 +32,9 @@ framework:
       App\Account\Application\Registration\RegisterCommand: default
       # Package
       # - Queries
-      App\Package\Application\GetPackageInfo\GetPackageByNameStringQuery: default
-      App\Package\Application\GetPackageList\GetPackageListQuery: default
-      App\Package\Application\GetRepositoryInfo\GetRepositoryInfoQuery: default
+      App\Packagist\Application\GetPackageInfo\GetPackageByNameStringQuery: default
+      App\Packagist\Application\GetPackageList\GetPackageListQuery: default
+      App\Packagist\Application\GetRepositoryInfo\GetRepositoryInfoQuery: default
       # Statistic
       # - Commands
       App\Statistic\Application\Updates\AddDownloadsCommand: default

@@ -1,0 +1,12 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # ----------------------------------------------------------------------------
+  #  Repository Info Use Case
+  # ----------------------------------------------------------------------------
+
+  App\Packagist\Application\GetRepositoryInfo\:
+    resource: '%kernel.project_dir%/app/Packagist/Application/GetRepositoryInfo'

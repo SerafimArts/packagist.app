@@ -6,6 +6,7 @@
         "warning-versions",
         "metadata-url",
         "providers-url",
+        "notify-batch",
         "list"
     ],
     "additionalProperties": false,
@@ -27,6 +28,10 @@
             "minLength": 1
         },
         "providers-url": {
+            "type": "string",
+            "minLength": 1
+        },
+        "notify-batch": {
             "type": "string",
             "minLength": 1
         },

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Database\DataFixtures;
 
-use App\Package\Domain\Name;
-use App\Package\Domain\Package;
+use App\Packagist\Domain\Name;
+use App\Packagist\Domain\Package;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 
