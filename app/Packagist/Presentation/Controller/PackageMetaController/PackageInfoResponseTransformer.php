@@ -37,9 +37,9 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
     private function getPackageVersions(Package $package, ?bool $dev): PackageReleasesSet
     {
         return match ($dev) {
-            true => $package->versions->dev,
-            false => $package->versions->released,
-            default => $package->versions,
+            true => $package->releases->dev,
+            false => $package->releases->released,
+            default => $package->releases,
         };
     }
 

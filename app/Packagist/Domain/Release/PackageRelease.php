@@ -74,7 +74,7 @@ class PackageRelease implements
         $this->dist = $dist ?? DistReference::createEmpty();
         $this->id = $id ?? PackageReleaseId::new();
 
-        $package->versions->add($this);
+        $package->releases->add($this);
     }
 
     // -------------------------------------------------------------------------
@@ -88,7 +88,7 @@ class PackageRelease implements
      */
     #[ORM\Id]
     #[ORM\Column(type: PackageReleaseId::class)]
-    public private(set) PackageVersionId $id;
+    public private(set) PackageReleaseId $id;
 
     /**
      * @readonly impossible to specify "readonly" attribute natively due

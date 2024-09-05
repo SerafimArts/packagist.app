@@ -46,7 +46,7 @@ class Package implements
         ?PackageId $id = null,
     ) {
         $this->name = Name::create($name);
-        $this->versions = new PackageReleasesSet();
+        $this->releases = new PackageReleasesSet();
         $this->id = $id ?? PackageId::new();
     }
 
