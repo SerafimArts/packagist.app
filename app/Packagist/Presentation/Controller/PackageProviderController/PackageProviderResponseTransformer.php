@@ -6,8 +6,8 @@ namespace App\Packagist\Presentation\Controller\PackageProviderController;
 
 use App\Packagist\Application\GetPackageInfo\PackageInfo;
 use App\Packagist\Domain\Package;
-use App\Packagist\Presentation\Response\DTO\PackageVersionResponseDTO;
-use App\Packagist\Presentation\Response\Transformer\PackageVersionTransformer;
+use App\Packagist\Presentation\Response\DTO\PackageReleaseResponseDTO;
+use App\Packagist\Presentation\Response\Transformer\PackageReleaseTransformer;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**
@@ -19,7 +19,7 @@ use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 final readonly class PackageProviderResponseTransformer extends ResponseTransformer
 {
     public function __construct(
-        private PackageVersionTransformer $versions,
+        private PackageReleaseTransformer $releases,
     ) {}
 
     public function transform(mixed $entry): PackageProviderResponseDTO
@@ -27,19 +27,19 @@ final readonly class PackageProviderResponseTransformer extends ResponseTransfor
         $result = [];
 
         foreach ($entry->packages as $package) {
-            $result[(string) $package->name] = $this->mapVersions($package);
+            $result[(string) $package->name] = $this->mapReleases($package);
         }
 
         return new PackageProviderResponseDTO($result);
     }
 
     /**
-     * @return iterable<array-key, PackageVersionResponseDTO>
+     * @return iterable<non-empty-string, PackageReleaseResponseDTO>
      */
-    private function mapVersions(Package $package): iterable
+    private function mapReleases(Package $package): iterable
     {
-        foreach ($package->releases as $version) {
-            yield $version->version => $this->versions->transform($version);
+        foreach ($package->releases as $release) {
+            yield (string) $release->version => $this->releases->transform($release);
         }
     }
 }

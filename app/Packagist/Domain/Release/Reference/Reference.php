@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Packagist\Domain\Release\Reference;
 
-use App\Packagist\Domain\Release\PackageRelease;
+use App\Packagist\Domain\Release;
 use App\Shared\Domain\ValueObjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,7 +25,7 @@ abstract readonly class Reference implements ValueObjectInterface
     abstract public static function createEmpty(): self;
 
     /**
-     * @internal for internal usage in {@see PackageRelease} properties.
+     * @internal for internal usage in {@see Release} properties.
      */
     public function isValid(): bool
     {

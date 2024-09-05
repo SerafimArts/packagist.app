@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Packagist\Presentation\Response\Transformer;
 
+use App\Packagist\Domain\Release;
 use App\Packagist\Domain\Release\ComputedChangeSet;
-use App\Packagist\Domain\Release\PackageRelease;
-use App\Packagist\Presentation\Response\DTO\PackageVersionResponseDTO;
+use App\Packagist\Presentation\Response\DTO\PackageReleaseResponseDTO;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 use Composer\Semver\VersionParser;
 
 /**
- * @template-extends ResponseTransformer<PackageRelease, PackageVersionResponseDTO>
+ * @template-extends ResponseTransformer<Release, PackageReleaseResponseDTO>
  */
-final readonly class PackageVersionTransformer extends ResponseTransformer
+final readonly class PackageReleaseTransformer extends ResponseTransformer
 {
     public function __construct(
         private SourceReferenceResponseTransformer $sources,
@@ -21,9 +21,9 @@ final readonly class PackageVersionTransformer extends ResponseTransformer
         private VersionParser $semver = new VersionParser(),
     ) {}
 
-    private function normalizeVersion(PackageRelease $version): string
+    private function normalizeVersion(Release $release): string
     {
-        $result = $version->version;
+        $result = (string) $release->version;
 
         if (\str_starts_with($result, 'dev-')) {
             return $result;
@@ -44,22 +44,24 @@ final readonly class PackageVersionTransformer extends ResponseTransformer
         }
     }
 
-    private function formatVersion(PackageRelease $version): string
+    private function formatVersion(Release $version): string
     {
-        try {
-            $this->semver->normalize($version->version);
+        $result = (string) $version->version;
 
-            return $version->version;
+        try {
+            $this->semver->normalize($result);
+
+            return $result;
         } catch (\Throwable) {
-            return $version->version . '-dev';
+            return $result . '-dev';
         }
     }
 
-    public function transform(mixed $entry, ?PackageRelease $prev = null): PackageVersionResponseDTO
+    public function transform(mixed $entry, ?Release $prev = null): PackageReleaseResponseDTO
     {
         $changeSet = new ComputedChangeSet($entry, $prev);
 
-        return new PackageVersionResponseDTO(
+        return new PackageReleaseResponseDTO(
             name: $changeSet->fetchNameIfChanged(),
             description: $changeSet->fetchDescriptionIfChanged(),
             keywords: $changeSet->fetchKeywordsIfChanged(),

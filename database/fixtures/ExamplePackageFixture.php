@@ -6,7 +6,7 @@ namespace App\Database\DataFixtures;
 
 use App\Packagist\Domain\Name;
 use App\Packagist\Domain\Package;
-use App\Packagist\Domain\Release\PackageRelease;
+use App\Packagist\Domain\Release;
 use App\Packagist\Domain\Release\Reference\DistReference;
 use App\Packagist\Domain\Release\Reference\SourceReference;
 use Doctrine\Persistence\ObjectManager;
@@ -39,7 +39,7 @@ final class ExamplePackageFixture extends Fixture
         for ($i = 0; $i < 100; ++$i) {
             echo $this->progressNext('Generating example/example package versions...');
 
-            $version = new PackageRelease(
+            $version = new Release(
                 package: $package,
                 version: \vsprintf('%d.%d.%d', [
                     \random_int(0, 3),
@@ -55,7 +55,7 @@ final class ExamplePackageFixture extends Fixture
         for ($i = 0; $i < 30; ++$i) {
             echo $this->progressNext('Generating example/example dev package versions...');
 
-            $version = new PackageRelease(
+            $version = new Release(
                 package: $package,
                 version: match (\random_int(0, 4)) {
                     0 => 'dev-' . \strtolower($faker->userName()),
@@ -78,7 +78,7 @@ final class ExamplePackageFixture extends Fixture
         return $package;
     }
 
-    private function addSourceOrDist(PackageRelease $version): void
+    private function addSourceOrDist(Release $version): void
     {
         if (\random_int(0, 2) === 0) {
             $version->dist = new DistReference(

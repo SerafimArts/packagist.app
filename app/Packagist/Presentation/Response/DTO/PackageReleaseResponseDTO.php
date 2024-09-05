@@ -6,7 +6,7 @@ namespace App\Packagist\Presentation\Response\DTO;
 
 use JMS\Serializer\Annotation as Serializer;
 
-final readonly class PackageVersionResponseDTO
+final readonly class PackageReleaseResponseDTO
 {
     /**
      * @param non-empty-string|null $name

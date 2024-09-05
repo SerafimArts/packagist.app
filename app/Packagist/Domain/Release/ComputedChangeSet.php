@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace App\Packagist\Domain\Release;
 
+use App\Packagist\Domain\Release;
+
 final readonly class ComputedChangeSet
 {
     public function __construct(
-        private PackageRelease $version,
-        private ?PackageRelease $previous,
+        private Release $release,
+        private ?Release $previous,
     ) {}
 
     /**
@@ -17,7 +19,7 @@ final readonly class ComputedChangeSet
     public function fetchNameIfChanged(): ?string
     {
         if ($this->previous === null) {
-            return (string) $this->version->package->name;
+            return (string) $this->release->package->name;
         }
 
         return null;
@@ -25,8 +27,8 @@ final readonly class ComputedChangeSet
 
     public function fetchDescriptionIfChanged(): ?string
     {
-        if ($this->previous === null || $this->previous->description !== $this->version->description) {
-            return (string) $this->version->description;
+        if ($this->previous === null || $this->previous->description !== $this->release->description) {
+            return (string) $this->release->description;
         }
 
         return null;

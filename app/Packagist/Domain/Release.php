@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Packagist\Domain\Release;
+namespace App\Packagist\Domain;
 
-use App\Packagist\Domain\Package;
+use App\Packagist\Domain\Release\LicensesSet;
 use App\Packagist\Domain\Release\Reference\DistReference;
 use App\Packagist\Domain\Release\Reference\SourceReference;
+use App\Packagist\Domain\Release\Version;
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;
@@ -26,7 +27,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'package_releases')]
-class PackageRelease implements
+class Release implements
     IdentifiableInterface,
     CreatedDateProviderInterface,
     UpdatedDateProviderInterface
@@ -38,11 +39,8 @@ class PackageRelease implements
     #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id')]
     public readonly Package $package;
 
-    /**
-     * @var non-empty-string
-     */
-    #[ORM\Column(type: 'string', options: ['default' => '0.0.1'])]
-    public string $version;
+    #[ORM\Embedded(class: Version::class, columnPrefix: false)]
+    public Version $version;
 
     #[ORM\Column(type: 'text', nullable: true)]
     public ?string $description = null;
@@ -61,14 +59,14 @@ class PackageRelease implements
      */
     public function __construct(
         Package $package,
-        string $version,
+        string|\Stringable $version,
         bool $isRelease = false,
         ?SourceReference $source = null,
         ?DistReference $dist = null,
         ?PackageId $id = null,
     ) {
         $this->package = $package;
-        $this->version = $version;
+        $this->version = new Version((string) $version);
         $this->isRelease = $isRelease;
         $this->source = $source ?? SourceReference::createEmpty();
         $this->dist = $dist ?? DistReference::createEmpty();

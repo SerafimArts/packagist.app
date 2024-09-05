@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace App\Packagist\Domain;
 
-use App\Packagist\Domain\Release\PackageRelease;
-use App\Packagist\Domain\Release\PackageReleasesSet;
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;
@@ -22,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @uses Collection (phpstorm reference bug)
  *
  * @property Name $credentials Annotation for PHP 8.4 autocompletion support
- * @property PackageReleasesSet $releases Annotation for PHP 8.4 autocompletion support
+ * @property ReleasesSet $releases Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'packages')]
@@ -46,7 +44,7 @@ class Package implements
         ?PackageId $id = null,
     ) {
         $this->name = Name::create($name);
-        $this->releases = new PackageReleasesSet();
+        $this->releases = new ReleasesSet();
         $this->id = $id ?? PackageId::new();
     }
 
@@ -84,9 +82,9 @@ class Package implements
     /**
      * @readonly
      */
-    #[ORM\OneToMany(targetEntity: PackageRelease::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
-    #[ORM\OrderBy(['version' => 'DESC', 'createdAt' => 'ASC'])]
+    #[ORM\OneToMany(targetEntity: Release::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OrderBy(['version.value' => 'DESC', 'createdAt' => 'ASC'])]
     public private(set) Collection $releases {
-        get => PackageReleasesSet::for($this->releases);
+        get => ReleasesSet::for($this->releases);
     }
 }

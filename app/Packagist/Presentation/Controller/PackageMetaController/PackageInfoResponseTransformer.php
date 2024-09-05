@@ -6,9 +6,9 @@ namespace App\Packagist\Presentation\Controller\PackageMetaController;
 
 use App\Packagist\Application\GetPackageInfo\PackageInfo;
 use App\Packagist\Domain\Package;
-use App\Packagist\Domain\Release\PackageReleasesSet;
-use App\Packagist\Presentation\Response\DTO\PackageVersionResponseDTO;
-use App\Packagist\Presentation\Response\Transformer\PackageVersionTransformer;
+use App\Packagist\Domain\ReleasesSet;
+use App\Packagist\Presentation\Response\DTO\PackageReleaseResponseDTO;
+use App\Packagist\Presentation\Response\Transformer\PackageReleaseTransformer;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 
 /**
@@ -20,7 +20,7 @@ use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 final readonly class PackageInfoResponseTransformer extends ResponseTransformer
 {
     public function __construct(
-        private PackageVersionTransformer $versions,
+        private PackageReleaseTransformer $releases,
     ) {}
 
     public function transform(mixed $entry): PackageInfoResponseDTO
@@ -28,13 +28,13 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
         $result = [];
 
         foreach ($entry->packages as $package) {
-            $result[(string) $package->name] = $this->mapVersions($package, $entry->dev);
+            $result[(string) $package->name] = $this->mapReleases($package, $entry->dev);
         }
 
         return new PackageInfoResponseDTO($result);
     }
 
-    private function getPackageVersions(Package $package, ?bool $dev): PackageReleasesSet
+    private function getPackageReleases(Package $package, ?bool $dev): ReleasesSet
     {
         return match ($dev) {
             true => $package->releases->dev,
@@ -44,14 +44,14 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
     }
 
     /**
-     * @return iterable<array-key, PackageVersionResponseDTO>
+     * @return iterable<array-key, PackageReleaseResponseDTO>
      */
-    private function mapVersions(Package $package, ?bool $dev): iterable
+    private function mapReleases(Package $package, ?bool $dev): iterable
     {
         $previous = null;
 
-        foreach ($this->getPackageVersions($package, $dev) as $version) {
-            yield $this->versions->transform($version, $previous);
+        foreach ($this->getPackageReleases($package, $dev) as $version) {
+            yield $this->releases->transform($version, $previous);
 
             $previous = $version;
         }

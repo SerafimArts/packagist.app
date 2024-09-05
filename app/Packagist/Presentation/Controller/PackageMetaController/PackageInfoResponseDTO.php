@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Packagist\Presentation\Controller\PackageMetaController;
 
-use App\Packagist\Presentation\Response\DTO\PackageVersionResponseDTO;
+use App\Packagist\Presentation\Response\DTO\PackageReleaseResponseDTO;
 use JMS\Serializer\Annotation\VirtualProperty;
 
 /**
@@ -16,7 +16,7 @@ use JMS\Serializer\Annotation\VirtualProperty;
 final readonly class PackageInfoResponseDTO
 {
     /**
-     * @param PackageVersionResponseDTO $packages
+     * @param PackageReleaseResponseDTO $packages
      */
     public function __construct(
         public iterable $packages,
