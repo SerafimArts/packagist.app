@@ -27,7 +27,7 @@ doctrine:
       App\Account\Domain\Role[]: App\Account\Infrastructure\Persistence\Type\AccountRoleListType
       # Shared
       App\Shared\Domain\Id\PackageId: App\Shared\Infrastructure\Persistence\Type\PackageIdType
-      App\Shared\Domain\Id\PackageVersionId: App\Shared\Infrastructure\Persistence\Type\PackageVersionIdType
+      App\Shared\Domain\Id\PackageReleaseId: App\Shared\Infrastructure\Persistence\Type\PackageReleaseIdType
       App\Shared\Domain\Id\AccountId: App\Shared\Infrastructure\Persistence\Type\AccountIdType
       App\Shared\Domain\Id\IntegrationId: App\Shared\Infrastructure\Persistence\Type\IntegrationIdType
       # Other

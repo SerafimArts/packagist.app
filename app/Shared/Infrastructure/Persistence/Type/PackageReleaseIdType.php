@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Persistence\Type;
 
-use App\Shared\Domain\Id\PackageVersionId;
+use App\Shared\Domain\Id\PackageReleaseId;
 
 /**
  * @api
@@ -12,12 +12,12 @@ use App\Shared\Domain\Id\PackageVersionId;
  * @internal this is an internal library class, please do not use it in your code.
  * @psalm-internal App\Shared\Infrastructure\Persistence\Type
  *
- * @template-extends UniversalUniqueIdType<PackageVersionId>
+ * @template-extends UniversalUniqueIdType<PackageReleaseId>
  */
-final class PackageVersionIdType extends UniversalUniqueIdType
+final class PackageReleaseIdType extends UniversalUniqueIdType
 {
     protected static function getClass(): string
     {
-        return PackageVersionId::class;
+        return PackageReleaseId::class;
     }
 }

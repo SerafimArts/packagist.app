@@ -13,7 +13,7 @@ use App\Shared\Domain\Date\UpdatedDateProvider;
 use App\Shared\Domain\Date\UpdatedDateProviderInterface;
 use App\Shared\Domain\Id\IdentifiableInterface;
 use App\Shared\Domain\Id\PackageId;
-use App\Shared\Domain\Id\PackageVersionId;
+use App\Shared\Domain\Id\PackageReleaseId;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,7 +72,7 @@ class PackageRelease implements
         $this->isRelease = $isRelease;
         $this->source = $source ?? SourceReference::createEmpty();
         $this->dist = $dist ?? DistReference::createEmpty();
-        $this->id = $id ?? PackageVersionId::new();
+        $this->id = $id ?? PackageReleaseId::new();
 
         $package->versions->add($this);
     }
@@ -87,7 +87,7 @@ class PackageRelease implements
      *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
      */
     #[ORM\Id]
-    #[ORM\Column(type: PackageVersionId::class)]
+    #[ORM\Column(type: PackageReleaseId::class)]
     public private(set) PackageVersionId $id;
 
     /**
