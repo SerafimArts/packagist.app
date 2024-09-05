@@ -25,7 +25,7 @@ final class Version20240802201735 extends AbstractMigration
             CREATE TABLE packages (
                 id UUID NOT NULL,
                 name VARCHAR(255) NOT NULL CHECK(name <> ''),
-                vendor VARCHAR(255) NOT NULL CHECK(vendor <> ''),
+                vendor VARCHAR(255) DEFAULT NULL,
                 created_at TIMESTAMP(0) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
                 updated_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
                 PRIMARY KEY(id)
@@ -33,7 +33,7 @@ final class Version20240802201735 extends AbstractMigration
             SQL);
 
         $this->addSql(<<<'SQL'
-            CREATE UNIQUE INDEX package_name_idx ON packages (name)
+            CREATE UNIQUE INDEX package_name_idx ON packages (name, vendor)
             SQL);
     }
 

@@ -26,7 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'packages')]
-#[ORM\UniqueConstraint(name: 'package_name_idx', columns: ['name'])]
+#[ORM\UniqueConstraint(name: 'package_name_idx', columns: ['name', 'vendor'])]
 class Package implements
     IdentifiableInterface,
     CreatedDateProviderInterface,
