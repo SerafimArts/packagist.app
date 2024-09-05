@@ -22,7 +22,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @uses Collection (phpstorm reference bug)
  *
  * @property Name $credentials Annotation for PHP 8.4 autocompletion support
- * @property PackageReleasesSet $versions Annotation for PHP 8.4 autocompletion support
+ * @property PackageReleasesSet $releases Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'packages')]
@@ -86,7 +86,7 @@ class Package implements
      */
     #[ORM\OneToMany(targetEntity: PackageRelease::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
     #[ORM\OrderBy(['version' => 'DESC', 'createdAt' => 'ASC'])]
-    public private(set) Collection $versions {
-        get => PackageReleasesSet::for($this->versions);
+    public private(set) Collection $releases {
+        get => PackageReleasesSet::for($this->releases);
     }
 }

@@ -34,7 +34,7 @@ class PackageRelease implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
-    #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'versions')]
+    #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'releases')]
     #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id')]
     public readonly Package $package;
 
