@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Packagist\Presentation\Response\Transformer;
 
-use App\Packagist\Domain\Version\ComputedChangeSet;
-use App\Packagist\Domain\Version\PackageVersion;
+use App\Packagist\Domain\Release\ComputedChangeSet;
+use App\Packagist\Domain\Release\PackageRelease;
 use App\Packagist\Presentation\Response\DTO\PackageVersionResponseDTO;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
 use Composer\Semver\VersionParser;
 
 /**
- * @template-extends ResponseTransformer<PackageVersion, PackageVersionResponseDTO>
+ * @template-extends ResponseTransformer<PackageRelease, PackageVersionResponseDTO>
  */
 final readonly class PackageVersionTransformer extends ResponseTransformer
 {
@@ -21,7 +21,7 @@ final readonly class PackageVersionTransformer extends ResponseTransformer
         private VersionParser $semver = new VersionParser(),
     ) {}
 
-    private function normalizeVersion(PackageVersion $version): string
+    private function normalizeVersion(PackageRelease $version): string
     {
         $result = $version->version;
 
@@ -44,7 +44,7 @@ final readonly class PackageVersionTransformer extends ResponseTransformer
         }
     }
 
-    private function formatVersion(PackageVersion $version): string
+    private function formatVersion(PackageRelease $version): string
     {
         try {
             $this->semver->normalize($version->version);
@@ -55,7 +55,7 @@ final readonly class PackageVersionTransformer extends ResponseTransformer
         }
     }
 
-    public function transform(mixed $entry, ?PackageVersion $prev = null): PackageVersionResponseDTO
+    public function transform(mixed $entry, ?PackageRelease $prev = null): PackageVersionResponseDTO
     {
         $changeSet = new ComputedChangeSet($entry, $prev);
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional\Http\Package;
 
-use App\Packagist\Domain\Version\PackageVersion;
-use App\Packagist\Domain\Version\Reference\DistReference;
+use App\Packagist\Domain\Release\PackageRelease;
+use App\Packagist\Domain\Release\Reference\DistReference;
 use App\Tests\Concerns\InteractWithDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -31,7 +31,7 @@ final class PackageMetaTest extends PackageVersionsTestCase
 
         $package = $this->givenPackage($name);
 
-        $this->given(new PackageVersion(
+        $this->given(new PackageRelease(
             package: $package,
             version: '1.0',
             isRelease: true,
@@ -41,7 +41,7 @@ final class PackageMetaTest extends PackageVersionsTestCase
             ),
         ));
 
-        $this->given(new PackageVersion(
+        $this->given(new PackageRelease(
             package: $package,
             version: '1.x-dev',
             isRelease: false,

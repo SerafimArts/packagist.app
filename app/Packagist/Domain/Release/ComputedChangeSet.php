@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Packagist\Domain\Version;
+namespace App\Packagist\Domain\Release;
 
 final readonly class ComputedChangeSet
 {
     public function __construct(
-        private PackageVersion $version,
-        private ?PackageVersion $previous,
+        private PackageRelease $version,
+        private ?PackageRelease $previous,
     ) {}
 
     /**

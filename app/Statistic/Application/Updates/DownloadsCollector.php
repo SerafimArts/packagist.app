@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Statistic\Application\Updates;
 
 use App\Packagist\Domain\Name\NameParser;
-use App\Statistic\Domain\DownloadsStatisticRecord;
-use App\Statistic\Domain\PackageDownloadsStatisticRecord;
-use App\Statistic\Domain\StatisticRecord;
+use App\Packagist\Domain\Statistic\DownloadsStatisticRecord;
+use App\Packagist\Domain\Statistic\PackageDownloadsStatisticRecord;
+use App\Packagist\Domain\Statistic\StatisticRecord;
 use Doctrine\ORM\EntityManagerInterface;
 use Local\UserAgent\ParserInterface as ComposerUserAgentParserInterface;
 

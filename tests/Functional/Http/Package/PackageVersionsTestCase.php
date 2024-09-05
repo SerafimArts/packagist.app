@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Functional\Http\Package;
 
 use App\Packagist\Domain\Package;
-use App\Packagist\Domain\Version\PackageVersion;
-use App\Packagist\Domain\Version\Reference\DistReference;
-use App\Packagist\Domain\Version\Reference\SourceReference;
+use App\Packagist\Domain\Release\PackageRelease;
+use App\Packagist\Domain\Release\Reference\DistReference;
+use App\Packagist\Domain\Release\Reference\SourceReference;
 use App\Tests\Concerns\InteractWithDatabase;
 use App\Tests\Functional\Http\HttpTestCase;
 
@@ -45,21 +45,21 @@ abstract class PackageVersionsTestCase extends HttpTestCase
         ));
     }
 
-    private function createPackageVersion(string $name, bool $stable = true): PackageVersion
+    private function createPackageVersion(string $name, bool $stable = true): PackageRelease
     {
-        return new PackageVersion(
+        return new PackageRelease(
             package: $this->givenPackage($name),
             version: '2.0',
             isRelease: $stable,
         );
     }
 
-    protected function givenPackageVersion(string $name, bool $stable = true): PackageVersion
+    protected function givenPackageVersion(string $name, bool $stable = true): PackageRelease
     {
         return $this->given($this->createPackageVersion($name, $stable));
     }
 
-    protected function givenPackageVersionWithDist(string $name, bool $stable = true): PackageVersion
+    protected function givenPackageVersionWithDist(string $name, bool $stable = true): PackageRelease
     {
         $version = $this->createPackageVersion($name, $stable);
         $version->dist = new DistReference('zip', 'http://localhost/example.zip');
@@ -67,7 +67,7 @@ abstract class PackageVersionsTestCase extends HttpTestCase
         return $this->given($version);
     }
 
-    protected function givenPackageVersionWithSource(string $name, bool $stable = true): PackageVersion
+    protected function givenPackageVersionWithSource(string $name, bool $stable = true): PackageRelease
     {
         $version = $this->createPackageVersion($name, $stable);
         $version->source = new SourceReference('zip', 'http://localhost/example.zip', 'deadbeef');
@@ -75,7 +75,7 @@ abstract class PackageVersionsTestCase extends HttpTestCase
         return $this->given($version);
     }
 
-    protected function givenPackageVersionWithSourceAndDist(string $name, bool $stable = true): PackageVersion
+    protected function givenPackageVersionWithSourceAndDist(string $name, bool $stable = true): PackageRelease
     {
         $version = $this->createPackageVersion($name, $stable);
         $version->dist = new DistReference('zip', 'http://localhost/example.zip');

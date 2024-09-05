@@ -22,7 +22,7 @@ final class Version20240803123749 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-            CREATE TABLE package_versions (
+            CREATE TABLE package_releases (
                 id UUID NOT NULL,
                 package_id UUID DEFAULT NULL,
                 version VARCHAR(255) NOT NULL DEFAULT '0.0.1' CHECK(version <> ''),
@@ -46,11 +46,11 @@ final class Version20240803123749 extends AbstractMigration
             SQL);
 
         $this->addSql(<<<'SQL'
-            CREATE INDEX IDX_FD5DD4BCF44CABFF ON package_versions (package_id)
+            CREATE INDEX IDX_FD5DD4BCF44CABFF ON package_releases (package_id)
             SQL);
 
         $this->addSql(<<<'SQL'
-            ALTER TABLE package_versions ADD CONSTRAINT FK_FD5DD4BCF44CABFF
+            ALTER TABLE package_releases ADD CONSTRAINT FK_FD5DD4BCF44CABFF
                 FOREIGN KEY (package_id) REFERENCES packages (id)
                     ON DELETE CASCADE
                     NOT DEFERRABLE INITIALLY IMMEDIATE
@@ -60,11 +60,11 @@ final class Version20240803123749 extends AbstractMigration
     public function down(Schema $schema): void
     {
         $this->addSql(<<<'SQL'
-            ALTER TABLE package_versions DROP CONSTRAINT FK_FD5DD4BCF44CABFF
+            ALTER TABLE package_releases DROP CONSTRAINT FK_FD5DD4BCF44CABFF
             SQL);
 
         $this->addSql(<<<'SQL'
-            DROP TABLE package_versions
+            DROP TABLE package_releases
             SQL);
     }
 }

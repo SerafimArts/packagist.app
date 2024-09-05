@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Packagist\Domain\Version;
+namespace App\Packagist\Domain\Release;
 
 use Local\Set\Set;
 
 /**
  * @template-extends Set<non-empty-string>
  */
-final class LicenseSet extends Set
+final class LicensesSet extends Set
 {
     #[\Override]
     protected function onAdd(mixed $entry): bool

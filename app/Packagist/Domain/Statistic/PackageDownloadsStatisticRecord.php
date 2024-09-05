@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Statistic\Domain;
+namespace App\Packagist\Domain\Statistic;
 
 use App\Packagist\Domain\Name;
 use Doctrine\ORM\Mapping as ORM;

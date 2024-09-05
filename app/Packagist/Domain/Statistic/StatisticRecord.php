@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Statistic\Domain;
+namespace App\Packagist\Domain\Statistic;
 
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\CreatedDateProviderInterface;

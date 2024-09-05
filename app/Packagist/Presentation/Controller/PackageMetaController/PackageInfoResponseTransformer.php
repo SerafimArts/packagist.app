@@ -6,7 +6,7 @@ namespace App\Packagist\Presentation\Controller\PackageMetaController;
 
 use App\Packagist\Application\GetPackageInfo\PackageInfo;
 use App\Packagist\Domain\Package;
-use App\Packagist\Domain\Version\PackageVersionsSet;
+use App\Packagist\Domain\Release\PackageReleasesSet;
 use App\Packagist\Presentation\Response\DTO\PackageVersionResponseDTO;
 use App\Packagist\Presentation\Response\Transformer\PackageVersionTransformer;
 use App\Shared\Presentation\Response\Transformer\ResponseTransformer;
@@ -34,7 +34,7 @@ final readonly class PackageInfoResponseTransformer extends ResponseTransformer
         return new PackageInfoResponseDTO($result);
     }
 
-    private function getPackageVersions(Package $package, ?bool $dev): PackageVersionsSet
+    private function getPackageVersions(Package $package, ?bool $dev): PackageReleasesSet
     {
         return match ($dev) {
             true => $package->versions->dev,

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Packagist\Domain\Version;
+namespace App\Packagist\Domain\Release;
 
 use App\Packagist\Domain\Package;
-use App\Packagist\Domain\Version\Reference\DistReference;
-use App\Packagist\Domain\Version\Reference\SourceReference;
+use App\Packagist\Domain\Release\Reference\DistReference;
+use App\Packagist\Domain\Release\Reference\SourceReference;
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\CreatedDateProviderInterface;
 use App\Shared\Domain\Date\UpdatedDateProvider;
@@ -22,11 +22,11 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @property SourceReference|null $source Annotation for PHP 8.4 autocompletion support
  * @property DistReference|null $dist Annotation for PHP 8.4 autocompletion support
- * @property-read LicenseSet $license Annotation for PHP 8.4 autocompletion support
+ * @property-read LicensesSet $license Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
-#[ORM\Table(name: 'package_versions')]
-class PackageVersion implements
+#[ORM\Table(name: 'package_releases')]
+class PackageRelease implements
     IdentifiableInterface,
     CreatedDateProviderInterface,
     UpdatedDateProviderInterface
