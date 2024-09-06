@@ -34,6 +34,7 @@ final class PackageMetaTest extends PackageVersionsTestCase
         $this->given(new Release(
             package: $package,
             version: '1.0',
+            normalized: '1.0.0.0',
             isRelease: true,
             dist: new DistReference(
                 type: 'git',
@@ -44,6 +45,7 @@ final class PackageMetaTest extends PackageVersionsTestCase
         $this->given(new Release(
             package: $package,
             version: '1.x-dev',
+            normalized: '1.9999.9999.9999-dev',
             isRelease: false,
             dist: new DistReference(
                 type: 'git',

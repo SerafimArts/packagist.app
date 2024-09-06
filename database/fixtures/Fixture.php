@@ -32,7 +32,7 @@ abstract class Fixture extends BaseFixture
 
         $char = self::PROGRESS_CHARS[$this->progress % 8];
 
-        return "\r     $char $suffix";
+        return "\r     $char $suffix" . \str_repeat(' ', 5);
     }
 
     protected function json(string $pathname): array

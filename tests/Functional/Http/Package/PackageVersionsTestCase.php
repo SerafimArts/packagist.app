@@ -50,6 +50,7 @@ abstract class PackageVersionsTestCase extends HttpTestCase
         return new Release(
             package: $this->givenPackage($name),
             version: '2.0',
+            normalized: '2.0.0.0',
             isRelease: $stable,
         );
     }

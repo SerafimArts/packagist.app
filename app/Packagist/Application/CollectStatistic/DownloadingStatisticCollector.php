@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Packagist\Application\CollectStatistic;
 
+use App\Packagist\Domain\Name\NameParser;
 use App\Packagist\Domain\Statistic\DownloadsStatisticRecord;
 use App\Packagist\Domain\Statistic\ReleaseDownloadsStatisticRecord;
 use App\Packagist\Domain\Statistic\StatisticRecord;
@@ -18,6 +19,7 @@ final readonly class DownloadingStatisticCollector
 
     public function __construct(
         private EntityManagerInterface $em,
+        private NameParser $names,
     ) {
         $this->records = new \SplQueue();
     }
@@ -41,13 +43,13 @@ final readonly class DownloadingStatisticCollector
     {
         // Skip when command has been executed
         // from the CI or flag cannot be parsed.
-        if ($command->info->ci !== false) {
+        if ($command->package->info->ci !== false) {
             return;
         }
 
         $this->records->enqueue(new ReleaseDownloadsStatisticRecord(
-            ip: $command->info->ip,
-            name: $command->name,
+            ip: $command->package->info->ip,
+            name: $this->names->parse($command->package->name),
             version: $command->version,
         ));
     }

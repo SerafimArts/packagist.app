@@ -26,6 +26,7 @@ final class Version20240803123749 extends AbstractMigration
                 id UUID NOT NULL,
                 package_id UUID DEFAULT NULL,
                 version VARCHAR(255) NOT NULL DEFAULT '0.0.1' CHECK(version <> ''),
+                normalized_version VARCHAR(255) NOT NULL DEFAULT '0.0.1' CHECK(normalized_version <> ''),
                 description TEXT DEFAULT NULL,
                 license VARCHAR(255)[] DEFAULT '{}' NOT NULL,
                 source_type VARCHAR(255) NOT NULL DEFAULT '',

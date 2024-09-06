@@ -12,14 +12,20 @@ use JMS\Serializer\Annotation\VirtualProperty;
 #[VirtualProperty(
     name: 'warning',
     exp: '"Support for Composer 1 is deprecated and some packages will not be available. '
-        . 'You should upgrade to Composer 2. '
-        . 'See https://blog.packagist.com/deprecating-composer-1-support/"',
+    . 'You should upgrade to Composer 2. '
+    . 'See https://blog.packagist.com/deprecating-composer-1-support/"',
 )]
 #[VirtualProperty(name: 'warning-versions', exp: '"<1.99"')]
 final readonly class RepositoryResponseDTO
 {
     public function __construct(
         /**
+         * The notify-batch field allows you to specify a URL that will be
+         * called every time a user installs a package. The URL can be either
+         * an absolute path (that will use the same domain as the repository),
+         * or a fully qualified URL.
+         *
+         *
          * @var non-empty-string|null
          */
         #[SerializedName('notify-batch')]
