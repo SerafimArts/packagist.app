@@ -46,7 +46,7 @@ final class Version20240803123749 extends AbstractMigration
             SQL);
 
         $this->addSql(<<<'SQL'
-            CREATE INDEX IDX_FD5DD4BCF44CABFF ON package_releases (package_id)
+            CREATE INDEX IDX_9C1770BFF44CABFF ON package_releases (package_id)
             SQL);
 
         $this->addSql(<<<'SQL'
