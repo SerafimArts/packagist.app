@@ -8,6 +8,7 @@ use App\Packagist\Domain\Package;
 use App\Packagist\Domain\Release;
 use App\Packagist\Domain\Release\Reference\DistReference;
 use App\Packagist\Domain\Release\Reference\SourceReference;
+use App\Packagist\Domain\Release\Version;
 use App\Tests\Concerns\InteractWithDatabase;
 use App\Tests\Functional\Http\HttpTestCase;
 
@@ -49,8 +50,10 @@ abstract class PackageVersionsTestCase extends HttpTestCase
     {
         return new Release(
             package: $this->givenPackage($name),
-            version: '2.0',
-            normalized: '2.0.0.0',
+            version: new Version(
+                value: '2.0',
+                normalized: '2.0.0.0',
+            ),
             isRelease: $stable,
         );
     }

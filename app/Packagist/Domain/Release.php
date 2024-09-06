@@ -42,9 +42,6 @@ class Release implements
     #[ORM\Embedded(class: Version::class, columnPrefix: false)]
     public Version $version;
 
-    #[ORM\Embedded(class: Version::class, columnPrefix: 'normalized_')]
-    public Version $normalized;
-
     #[ORM\Column(type: 'text', nullable: true)]
     public ?string $description = null;
 
@@ -57,22 +54,16 @@ class Release implements
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     public bool $isRelease;
 
-    /**
-     * @param non-empty-string|\Stringable $version
-     * @param non-empty-string|\Stringable $normalized
-     */
     public function __construct(
         Package $package,
-        string|\Stringable $version,
-        string|\Stringable $normalized,
+        Version $version,
         bool $isRelease = false,
         ?SourceReference $source = null,
         ?DistReference $dist = null,
         ?PackageId $id = null,
     ) {
         $this->package = $package;
-        $this->version = new Version((string) $version);
-        $this->normalized = new Version((string) $normalized);
+        $this->version = $version;
         $this->isRelease = $isRelease;
         $this->source = $source ?? SourceReference::createEmpty();
         $this->dist = $dist ?? DistReference::createEmpty();

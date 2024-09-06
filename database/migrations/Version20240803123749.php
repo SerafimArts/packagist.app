@@ -25,8 +25,8 @@ final class Version20240803123749 extends AbstractMigration
             CREATE TABLE package_releases (
                 id UUID NOT NULL,
                 package_id UUID DEFAULT NULL,
-                version VARCHAR(255) NOT NULL DEFAULT '0.0.1' CHECK(version <> ''),
-                normalized_version VARCHAR(255) NOT NULL DEFAULT '0.0.1' CHECK(normalized_version <> ''),
+                version VARCHAR(255) NOT NULL CHECK(version <> ''),
+                version_normalized VARCHAR(255) NOT NULL CHECK(version_normalized <> ''),
                 description TEXT DEFAULT NULL,
                 license VARCHAR(255)[] DEFAULT '{}' NOT NULL,
                 source_type VARCHAR(255) NOT NULL DEFAULT '',

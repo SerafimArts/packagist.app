@@ -125,12 +125,12 @@ final class PackagesFixture extends Fixture
         for ($i = 0; $i < 100; ++$i) {
             echo $this->progressNext('Generating ' . $name . ' package versions...');
 
-            $version = $this->parser->parse($this->generateVersion($faker), true);
-
             $release = new Release(
                 package: $package,
-                version: $version->version,
-                normalized: $version->normalized,
+                version: $this->parser->parse(
+                    version: $this->generateVersion($faker),
+                    release: true,
+                ),
                 isRelease: true,
             );
 
@@ -140,12 +140,12 @@ final class PackagesFixture extends Fixture
         for ($i = 0; $i < 30; ++$i) {
             echo $this->progressNext('Generating ' . $name . ' dev package versions...');
 
-            $branch = $this->parser->parse($this->generateBranch($faker), false);
-
             $release = new Release(
                 package: $package,
-                version: $branch->version,
-                normalized: $branch->normalized,
+                version: $this->parser->parse(
+                    version: $this->generateBranch($faker),
+                    release: false,
+                ),
                 isRelease: false,
             );
 

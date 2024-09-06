@@ -6,6 +6,7 @@ namespace App\Tests\Functional\Http\Package;
 
 use App\Packagist\Domain\Release;
 use App\Packagist\Domain\Release\Reference\DistReference;
+use App\Packagist\Domain\Release\Version;
 use App\Tests\Concerns\InteractWithDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -33,8 +34,10 @@ final class PackageMetaTest extends PackageVersionsTestCase
 
         $this->given(new Release(
             package: $package,
-            version: '1.0',
-            normalized: '1.0.0.0',
+            version: new Version(
+                value: '1.0',
+                normalized: '1.0.0.0'
+            ),
             isRelease: true,
             dist: new DistReference(
                 type: 'git',
@@ -44,8 +47,10 @@ final class PackageMetaTest extends PackageVersionsTestCase
 
         $this->given(new Release(
             package: $package,
-            version: '1.x-dev',
-            normalized: '1.9999.9999.9999-dev',
+            version: new Version(
+                value: '1.x-dev',
+                normalized: '1.9999.9999.9999-dev',
+            ),
             isRelease: false,
             dist: new DistReference(
                 type: 'git',

@@ -35,7 +35,7 @@ final readonly class PackageReleaseTransformer extends ResponseTransformer
             source: $this->sources->optional($entry->source),
             dist: $this->dists->optional($entry->dist),
             version: $entry->version->value,
-            versionNormalized: $entry->normalized->value,
+            versionNormalized: $entry->version->normalized,
             updatedAt: $entry->updatedAt ?? $entry->createdAt,
         );
     }

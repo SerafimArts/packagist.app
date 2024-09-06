@@ -7,20 +7,22 @@ namespace App\Packagist\Domain\Release;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Embeddable]
-class Version implements \Stringable
+final readonly class Version implements \Stringable
 {
-    /**
-     * @var non-empty-string
-     */
-    public const string DEFAULT_VALUE = '0.0.1';
+    #[ORM\Column(name: 'version_normalized', type: 'string')]
+    public string $normalized;
 
     /**
      * @param non-empty-string $value
+     * @param non-empty-string|null $normalized
      */
     public function __construct(
-        #[ORM\Column(name: 'version', type: 'string', options: ['default' => '0.0.1'])]
-        public readonly string $value = self::DEFAULT_VALUE,
-    ) {}
+        #[ORM\Column(name: 'version', type: 'string')]
+        public string $value,
+        ?string $normalized = null,
+    ) {
+        $this->normalized = $normalized ?? $this->value;
+    }
 
     public function __toString(): string
     {

@@ -15,21 +15,21 @@ final readonly class VersionParser
         private ComposerVersionParser $semver = new ComposerVersionParser(),
     ) {}
 
-    private function parseStableVersion(string $version): ?ParsedVersionInfo
+    private function parseStableVersion(string $version): ?Version
     {
         try {
-            $result = $this->semver->normalize($version);
+            $normalized = $this->semver->normalize($version);
         } catch (\Throwable) {
             return null;
         }
 
-        return new ParsedVersionInfo(
-            version: new Version($version),
-            normalized: new Version($result),
+        return new Version(
+            value: $version,
+            normalized: $normalized,
         );
     }
 
-    private function parseDevVersion(string $version): ?ParsedVersionInfo
+    private function parseDevVersion(string $version): ?Version
     {
         try {
             $normalized = $this->semver->normalizeBranch($version);
@@ -43,23 +43,25 @@ final readonly class VersionParser
         // Make sure branch packages have a dev flag
 
         if (\str_starts_with($normalized, 'dev-') || self::DEFAULT_BRANCH_ALIAS === $normalized) {
-            return new ParsedVersionInfo(
-                version: new Version($version),
-                normalized: new Version('dev-' . $version),
+            return new Version(
+                value: $version,
+                normalized: 'dev-' . $version,
             );
         }
 
         $prefix = \str_starts_with($version, 'v') ? 'v' : '';
 
-        return new ParsedVersionInfo(
-            version: new Version($version),
-            normalized: new Version(
-                value: $prefix . \preg_replace('{(\.9{7})+}', '.x', $normalized),
+        return new Version(
+            value: $version,
+            normalized: $prefix . \preg_replace(
+                pattern: '{(\.9{7})+}',
+                replacement: '.x',
+                subject: $normalized,
             ),
         );
     }
 
-    public function parse(string $version, bool $release = false): ?ParsedVersionInfo
+    public function parse(string $version, bool $release = false): ?Version
     {
         if ($release) {
             return $this->parseStableVersion($version);
