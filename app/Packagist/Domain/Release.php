@@ -36,7 +36,7 @@ class Release implements
     use UpdatedDateProvider;
 
     #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'releases')]
-    #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     public readonly Package $package;
 
     #[ORM\Embedded(class: Version::class, columnPrefix: false)]

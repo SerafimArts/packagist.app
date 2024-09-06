@@ -28,7 +28,7 @@ class Integration implements
     use UpdatedDateProvider;
 
     #[ORM\ManyToOne(targetEntity: Account::class, cascade: ['ALL'], inversedBy: 'integrations')]
-    #[ORM\JoinColumn(name: 'account_id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'account_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     public readonly Account $account;
 
     #[ORM\Embedded(class: ConnectionInfo::class, columnPrefix: false)]
