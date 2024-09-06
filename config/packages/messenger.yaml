@@ -31,13 +31,13 @@ framework:
       App\Account\Application\Auth\AuthCommand: default
       App\Account\Application\Registration\RegisterCommand: default
       # Package
+      # - Commands
+      App\Packagist\Application\CollectStatistic\AddDownloadingRecordCommand: default
+      App\Packagist\Application\CollectStatistic\AddReleaseDownloadingCommand: default
       # - Queries
       App\Packagist\Application\GetPackageInfo\GetPackageByNameStringQuery: default
       App\Packagist\Application\GetPackageList\GetPackageListQuery: default
       App\Packagist\Application\GetRepositoryInfo\GetRepositoryInfoQuery: default
-      # Statistic
-      # - Commands
-      App\Statistic\Application\Updates\AddDownloadsCommand: default
 
     buses:
       command.bus:

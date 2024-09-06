@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Packagist\Presentation\Controller;
 
+use App\Packagist\Application\CollectStatistic\AddDownloadingRecordCommand;
+use App\Packagist\Application\CollectStatistic\AddReleaseDownloadingCommand;
 use App\Packagist\Presentation\Controller\PackageDownloadsController\PackageDownloadsRequestDTO;
 use App\Packagist\Presentation\Controller\PackageDownloadsController\PackageDownloadsResponseDTO;
-use App\Shared\Domain\Bus\EventBusInterface;
-use App\Statistic\Domain\Event\DownloadedEvent;
-use App\Statistic\Domain\Event\PackageDownloadedEvent;
+use App\Packagist\Presentation\Request\DTO\ClientInfoRequestDTO;
+use App\Shared\Domain\Bus\CommandBusInterface;
 use Local\HttpData\Attribute\MapBody;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -19,24 +20,28 @@ use Symfony\Component\Routing\Attribute\Route;
 final readonly class PackageDownloadsController
 {
     public function __construct(
-        private EventBusInterface $events,
+        private CommandBusInterface $commands,
     ) {}
 
     public function __invoke(
         Request $request,
         #[MapBody]
         PackageDownloadsRequestDTO $data,
+        ClientInfoRequestDTO $info,
     ): PackageDownloadsResponseDTO {
-        $this->events->dispatch($event = new DownloadedEvent(
+        $this->commands->send($downloading = new AddDownloadingRecordCommand(
             ip: $request->getClientIp() ?? '127.0.0.1',
-            userAgent: $request->headers->get('user-agent'),
+            composerVersion: $info->composerVersion,
+            phpVersion: $info->phpVersion,
+            operatingSystem: $info->operatingSystem,
+            ci: $info->ci,
         ));
 
         foreach ($data->downloads as $package) {
-            $this->events->dispatch(new PackageDownloadedEvent(
-                parent: $event,
+            $this->commands->send(new AddReleaseDownloadingCommand(
                 name: $package->name,
                 version: $package->version,
+                info: $downloading,
             ));
         }
 

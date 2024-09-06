@@ -1,0 +1,9 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Packagist\Infrastructure\ValueResolver\ClientInfoValueResolver:
+    tags:
+      - { name: 'controller.argument_value_resolver' }

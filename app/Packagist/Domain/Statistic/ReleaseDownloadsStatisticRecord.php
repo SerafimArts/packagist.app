@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'statistic_package_downloads')]
-class PackageDownloadsStatisticRecord extends StatisticRecord
+class ReleaseDownloadsStatisticRecord extends StatisticRecord
 {
     #[ORM\Embedded(class: Name::class, columnPrefix: false)]
     public private(set) Name $name;

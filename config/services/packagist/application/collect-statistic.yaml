@@ -5,8 +5,8 @@ services:
     autoconfigure: true
 
   # ----------------------------------------------------------------------------
-  #  Package Updates Use Case
+  #  Collect Statistic Use Case
   # ----------------------------------------------------------------------------
 
-  App\Statistic\Application\Updates\:
-    resource: '%kernel.project_dir%/app/Statistic/Application/Updates'
+  App\Packagist\Application\CollectStatistic\:
+    resource: '%kernel.project_dir%/app/Packagist/Application/CollectStatistic'

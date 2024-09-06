@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Packagist\Infrastructure\Listener\:
+    resource: '%kernel.project_dir%/app/Packagist/Infrastructure/Listener'
