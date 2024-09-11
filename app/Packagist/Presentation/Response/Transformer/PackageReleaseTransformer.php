@@ -28,6 +28,7 @@ final readonly class PackageReleaseTransformer extends ResponseTransformer
             description: $changeSet->fetchDescriptionIfChanged(),
             keywords: $changeSet->fetchKeywordsIfChanged(),
             homepage: $changeSet->fetchHomepageIfChanged(),
+            readme: $changeSet->fetchReadmeIfChanged(),
             license: $changeSet->fetchLicensesIfChanged(),
             authors: $changeSet->fetchAuthorsIfChanged(),
             type: $changeSet->fetchTypeIfChanged(),

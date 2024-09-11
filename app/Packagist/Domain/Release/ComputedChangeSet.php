@@ -62,6 +62,18 @@ final readonly class ComputedChangeSet
 
     /**
      * TODO
+     */
+    public function fetchReadmeIfChanged(): ?string
+    {
+        if ($this->previous === null) {
+            return '';
+        }
+
+        return null;
+    }
+
+    /**
+     * TODO
      *
      * @return list<non-empty-string>
      */
