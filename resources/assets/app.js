@@ -1,5 +1,11 @@
-import './styles/app.css';
+import './styles/app.scss';
+import { createApp, ref  } from 'vue'
 
-window.app = new Vue({
-    el: '#app',
-});
+window.vue = createApp({
+    setup() {
+        return {
+            count: ref(0)
+        }
+    }
+})
+    .mount('#app');

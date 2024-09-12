@@ -6,12 +6,13 @@
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 </head>
 <body>
 <main id="app">
-<h1 class="text-3xl font-bold underline">
-    Hello world!
-</h1>
+    <button @click="count++">{{ '{{ count }}'|raw }}</button>
 </main>
 </body>
 </html>

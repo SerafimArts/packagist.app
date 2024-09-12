@@ -16,10 +16,11 @@ module.exports = Encore
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
     .enableVersioning(Encore.isProduction())
-    // configure Babel
-    // .configureBabel((config) => {
-    //     config.plugins.push('@babel/a-babel-plugin');
-    // })
+    .configureBabel((config) => {
+        config.plugins.push('@babel/plugin-proposal-class-properties');
+        config.plugins.push('@babel/plugin-proposal-private-methods');
+        config.plugins.push('@babel/plugin-transform-flow-strip-types');
+    })
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
@@ -27,6 +28,7 @@ module.exports = Encore
     .enableVueLoader(() => {}, {
         runtimeCompilerBuild: true,
     })
+    .enableSassLoader()
     .enablePostCssLoader()
     .enableIntegrityHashes(Encore.isProduction())
     .getWebpackConfig()
