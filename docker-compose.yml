@@ -47,6 +47,16 @@ services:
     networks:
       - packagist
 
+  node:
+    build: docker/node
+    container_name: packagist-node
+    env_file:
+      - path: .env
+        required: false
+    working_dir: /home/packagist/packagist.app
+    volumes:
+      - .:/home/packagist/packagist.app:rw
+
 networks:
   packagist:
     name: packagist

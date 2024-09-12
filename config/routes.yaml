@@ -16,3 +16,11 @@ packages:
     hash: '\$[A-Fa-f0-9]+'
   defaults:
     _api: packagist
+
+web:
+  resource:
+    path: ../app/Web/Presentation/Controller/
+    namespace: App\Web\Presentation\Controller
+  type: attribute
+  defaults:
+    _api: v1

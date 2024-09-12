@@ -1,0 +1,8 @@
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\Web\Presentation\Controller\:
+    resource: '%kernel.project_dir%/app/Web/Presentation/Controller/'

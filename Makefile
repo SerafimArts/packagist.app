@@ -7,8 +7,13 @@ PHP_CONTAINER_NAME=php
 PHP_CONTAINER_EXEC=${DOCKER_COMPOSE} exec -it ${PHP_CONTAINER_NAME}
 PHP_CONTAINER_ROOT_EXEC=${DOCKER_COMPOSE} exec -it -uroot ${PHP_CONTAINER_NAME}
 
+NODE_CONTAINER_NAME=node
+NODE_CONTAINER_EXEC=${DOCKER_COMPOSE} exec -it ${NODE_CONTAINER_NAME}
+NODE_CONTAINER_ROOT_EXEC=${DOCKER_COMPOSE} exec -it -uroot ${NODE_CONTAINER_NAME}
+
 COMPOSER_EXEC=${PHP_CONTAINER_EXEC} composer
 CONSOLE_EXEC=${PHP_CONTAINER_EXEC} bin/console
+NPM_EXEC=${NODE_CONTAINER_EXEC} npm
 
 # Colors
 G=\033[32m
@@ -60,8 +65,11 @@ down:
 
 restart: down up
 
-bash:
+php:
 	${PHP_CONTAINER_EXEC} bash
+
+node:
+	${NODE_CONTAINER_EXEC} bash
 
 root:
 	${PHP_CONTAINER_ROOT_EXEC} bash
@@ -74,6 +82,11 @@ push:
 
 .PHONY: up down restart build bash
 
+
+npm-install:
+	${NPM_EXEC} install
+
+ni: npm-install
 
 
 composer-install:

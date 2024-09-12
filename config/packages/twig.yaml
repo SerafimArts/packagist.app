@@ -1,5 +1,9 @@
 twig:
+  # Pattern of file name used for cache warmer and linter
   file_name_pattern: '*.twig'
+
+  # The default path used to load templates
+  default_path: '%kernel.project_dir%/resources/views'
 
 when@test:
   twig:
