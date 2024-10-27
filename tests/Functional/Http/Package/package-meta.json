@@ -46,6 +46,9 @@
                             "homepage": {
                                 "type": "string"
                             },
+                            "readme": {
+                                "type": "string"
+                            },
                             "license": {
                                 "type": "array",
                                 "items": {

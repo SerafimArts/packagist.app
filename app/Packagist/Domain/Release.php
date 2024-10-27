@@ -31,7 +31,6 @@ class Release implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
-
     /**
      * @readonly impossible to specify "readonly" attribute natively due
      *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
@@ -44,7 +43,7 @@ class Release implements
      * @readonly impossible to specify "readonly" attribute natively due
      *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
      */
-    public private(set) LicenseSet $license {
+    public LicenseSet $license {
         get => LicenseSet::for($this->licenseValues);
     }
 

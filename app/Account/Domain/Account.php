@@ -59,7 +59,7 @@ class Account implements
     /**
      * @readonly
      */
-    public private(set) RoleSet $roles {
+    public RoleSet $roles {
         get => RoleSet::for($this->roleValues);
     }
 
