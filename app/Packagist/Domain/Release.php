@@ -20,10 +20,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @final impossible to specify "final" attribute natively due
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
- *
- * @property SourceReference|null $source Annotation for PHP 8.4 autocompletion support
- * @property DistReference|null $dist Annotation for PHP 8.4 autocompletion support
- * @property-read LicensesSet $license Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'package_releases')]
@@ -34,6 +30,35 @@ class Release implements
 {
     use CreatedDateProvider;
     use UpdatedDateProvider;
+
+
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: PackageReleaseId::class)]
+    public private(set) PackageReleaseId $id;
+
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    public private(set) LicenseSet $license {
+        get => LicenseSet::for($this->licenseValues);
+    }
+
+    #[ORM\Embedded(class: SourceReference::class, columnPrefix: 'source_')]
+    public ?SourceReference $source {
+        get => $this->source?->isValid() ? $this->source : null;
+        set (?SourceReference $ref) => $ref ?? SourceReference::createEmpty();
+    }
+
+    #[ORM\Embedded(class: DistReference::class, columnPrefix: 'dist_')]
+    public ?DistReference $dist {
+        get => $this->dist?->isValid() ? $this->dist : null;
+        set (?DistReference $ref) => $ref ?? DistReference::createEmpty();
+    }
 
     #[ORM\ManyToOne(targetEntity: Package::class, cascade: ['ALL'], inversedBy: 'releases')]
     #[ORM\JoinColumn(name: 'package_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
@@ -70,38 +95,5 @@ class Release implements
         $this->id = $id ?? PackageReleaseId::new();
 
         $package->releases->add($this);
-    }
-
-    // -------------------------------------------------------------------------
-    //  All properties are located AFTER the methods, because at the moment
-    //  IDE does not support PHP 8.4
-    // -------------------------------------------------------------------------
-
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: PackageReleaseId::class)]
-    public private(set) PackageReleaseId $id;
-
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    public private(set) LicenseSet $license {
-        get => LicenseSet::for($this->licenseValues);
-    }
-
-    #[ORM\Embedded(class: SourceReference::class, columnPrefix: 'source_')]
-    public ?SourceReference $source {
-        get => $this->source?->isValid() ? $this->source : null;
-        set (?SourceReference $ref) => $ref ?? SourceReference::createEmpty();
-    }
-
-    #[ORM\Embedded(class: DistReference::class, columnPrefix: 'dist_')]
-    public ?DistReference $dist {
-        get => $this->dist?->isValid() ? $this->dist : null;
-        set (?DistReference $ref) => $ref ?? DistReference::createEmpty();
     }
 }

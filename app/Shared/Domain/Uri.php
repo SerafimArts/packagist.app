@@ -9,15 +9,6 @@ use Nyholm\Psr7\Uri as PsrUri;
 
 /**
  * @uses Uri
- *
- * @property-read non-empty-string $scheme Annotation for PHP 8.4 autocompletion support
- * @property-read string $authority Annotation for PHP 8.4 autocompletion support
- * @property-read string $userInfo Annotation for PHP 8.4 autocompletion support
- * @property-read non-empty-string $host Annotation for PHP 8.4 autocompletion support
- * @property-read null|int<1, 65535> $port Annotation for PHP 8.4 autocompletion support
- * @property-read string $path Annotation for PHP 8.4 autocompletion support
- * @property-read string $query Annotation for PHP 8.4 autocompletion support
- * @property-read string $fragment Annotation for PHP 8.4 autocompletion support
  */
 class Uri implements ValueObjectInterface
 {
@@ -25,37 +16,6 @@ class Uri implements ValueObjectInterface
      * @var non-empty-string
      */
     protected readonly string $value;
-
-    /**
-     * @param non-empty-string|UriInterface $uri
-     */
-    public function __construct(string|UriInterface $uri)
-    {
-        $this->value = (string) $uri;
-
-        if ($uri instanceof UriInterface) {
-            $this->parsed = $uri;
-        }
-    }
-
-    public function equals(ValueObjectInterface $object): bool
-    {
-        return $this === $object
-            || ($object instanceof self && $this->value === (string) $object);
-    }
-
-    /**
-     * @return non-empty-string
-     */
-    public function __toString(): string
-    {
-        return $this->value;
-    }
-
-    // -------------------------------------------------------------------------
-    //  All properties are located AFTER the methods, because at the moment
-    //  IDE does not support PHP 8.4
-    // -------------------------------------------------------------------------
 
     /**
      * @readonly
@@ -231,5 +191,31 @@ class Uri implements ValueObjectInterface
      */
     public string $fragment {
         get => $this->parsed->getFragment();
+    }
+
+    /**
+     * @param non-empty-string|UriInterface $uri
+     */
+    public function __construct(string|UriInterface $uri)
+    {
+        $this->value = (string) $uri;
+
+        if ($uri instanceof UriInterface) {
+            $this->parsed = $uri;
+        }
+    }
+
+    public function equals(ValueObjectInterface $object): bool
+    {
+        return $this === $object
+            || ($object instanceof self && $this->value === (string) $object);
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    public function __toString(): string
+    {
+        return $this->value;
     }
 }

@@ -10,9 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @final impossible to specify "final" attribute natively due
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
- *
- * @property-read Name $name Annotation for PHP 8.4 autocompletion support
- * @property-read non-empty-string $version Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'statistic_package_downloads')]

@@ -10,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @psalm-require-implements UpdatedDateProviderInterface
  *
  * @mixin UpdatedDateProviderInterface
- *
- * @property-read \DateTimeImmutable|null $updatedAt Annotation for PHP 8.4 autocompletion support
  */
 trait UpdatedDateProvider
 {

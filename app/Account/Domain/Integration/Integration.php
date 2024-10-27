@@ -27,6 +27,14 @@ class Integration implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: IntegrationId::class)]
+    public private(set) IntegrationId $id;
+
     #[ORM\ManyToOne(targetEntity: Account::class, cascade: ['ALL'], inversedBy: 'integrations')]
     #[ORM\JoinColumn(name: 'account_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     public readonly Account $account;
@@ -82,17 +90,4 @@ class Integration implements
         $this->avatar = $avatar;
         $this->id = $id ?? IntegrationId::new();
     }
-
-    // -------------------------------------------------------------------------
-    //  All properties are located AFTER the methods, because at the moment
-    //  IDE does not support PHP 8.4
-    // -------------------------------------------------------------------------
-
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: IntegrationId::class)]
-    public private(set) IntegrationId $id;
 }

@@ -16,11 +16,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @final impossible to specify "final" attribute natively due
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
- *
- * @uses Collection (phpstorm reference bug)
- *
- * @property Name $credentials Annotation for PHP 8.4 autocompletion support
- * @property ReleasesSet $releases Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'packages')]
@@ -33,8 +28,25 @@ class Package implements
     use CreatedDateProvider;
     use UpdatedDateProvider;
 
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: PackageId::class)]
+    public private(set) PackageId $id;
+
     #[ORM\Embedded(class: Name::class, columnPrefix: false)]
     public Name $name;
+
+    /**
+     * @readonly
+     */
+    #[ORM\OneToMany(targetEntity: Release::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OrderBy(['version.value' => 'DESC', 'createdAt' => 'ASC'])]
+    public private(set) Collection $releases {
+        get => ReleasesSet::for($this->releases);
+    }
 
     /**
      * @param Name|non-empty-string $name
@@ -64,27 +76,5 @@ class Package implements
             ),
             id: $id,
         );
-    }
-
-    // -------------------------------------------------------------------------
-    //  All properties are located AFTER the methods, because at the moment
-    //  IDE does not support PHP 8.4
-    // -------------------------------------------------------------------------
-
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: PackageId::class)]
-    public private(set) PackageId $id;
-
-    /**
-     * @readonly
-     */
-    #[ORM\OneToMany(targetEntity: Release::class, mappedBy: 'package', cascade: ['ALL'], orphanRemoval: true)]
-    #[ORM\OrderBy(['version.value' => 'DESC', 'createdAt' => 'ASC'])]
-    public private(set) Collection $releases {
-        get => ReleasesSet::for($this->releases);
     }
 }

@@ -8,9 +8,6 @@ use Local\Set\Set;
 
 /**
  * @template-extends Set<Release>
- *
- * @property ReleasesSet $released Annotation for PHP 8.4 autocompletion support
- * @property ReleasesSet $dev Annotation for PHP 8.4 autocompletion support
  */
 final class ReleasesSet extends Set
 {

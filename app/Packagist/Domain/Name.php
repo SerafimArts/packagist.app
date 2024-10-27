@@ -7,9 +7,6 @@ namespace App\Packagist\Domain;
 use App\Shared\Domain\ValueObjectInterface;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @property-read bool $isOwned Annotation for PHP 8.4 autocompletion support
- */
 #[ORM\Embeddable]
 final class Name implements ValueObjectInterface
 {
@@ -24,6 +21,13 @@ final class Name implements ValueObjectInterface
      */
     #[ORM\Column(name: 'vendor', type: 'string', nullable: true)]
     public readonly ?string $vendor;
+
+    /**
+     * @api
+     */
+    public bool $isOwned {
+        get => $this->vendor !== null;
+    }
 
     /**
      * @param non-empty-string $name
@@ -67,17 +71,5 @@ final class Name implements ValueObjectInterface
             $this->vendor,
             $this->value,
         ]);
-    }
-
-    // -------------------------------------------------------------------------
-    //  All properties are located AFTER the methods, because at the moment
-    //  IDE does not support PHP 8.4
-    // -------------------------------------------------------------------------
-
-    /**
-     * @api
-     */
-    public bool $isOwned {
-        get => $this->vendor !== null;
     }
 }

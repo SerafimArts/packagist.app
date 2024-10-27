@@ -10,8 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  * @psalm-require-implements CreatedDateProviderInterface
  *
  * @mixin CreatedDateProviderInterface
- *
- * @property-read \DateTimeImmutable $createdAt Annotation for PHP 8.4 autocompletion support
  */
 trait CreatedDateProvider
 {

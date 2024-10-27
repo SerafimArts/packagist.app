@@ -21,8 +21,6 @@ use Doctrine\ORM\Mapping as ORM;
  *        to a Doctrine bug https://github.com/doctrine/orm/issues/7598
  *
  * @uses Collection (phpstorm reference bug)
- *
- * @property-read RoleSet $roles Annotation for PHP 8.4 autocompletion support
  */
 #[ORM\Entity]
 #[ORM\Table(name: 'accounts')]
@@ -34,6 +32,14 @@ class Account implements
 {
     use CreatedDateProvider;
     use UpdatedDateProvider;
+
+    /**
+     * @readonly impossible to specify "readonly" attribute natively due
+     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
+     */
+    #[ORM\Id]
+    #[ORM\Column(type: AccountId::class)]
+    public private(set) AccountId $id;
 
     /**
      * @var non-empty-string
@@ -49,6 +55,22 @@ class Account implements
      */
     #[ORM\Column(name: 'roles', type: Role::class . '[]', options: ['default' => '{}'])]
     private array $roleValues = [];
+
+    /**
+     * @readonly
+     */
+    public private(set) RoleSet $roles {
+        get => RoleSet::for($this->roleValues);
+    }
+
+    /**
+     * @readonly
+     */
+    #[ORM\OneToMany(targetEntity: Integration::class, mappedBy: 'account', cascade: ['ALL'], orphanRemoval: true)]
+    #[ORM\OrderBy(['createdAt' => 'ASC'])]
+    public private(set) Collection $integrations {
+        get => IntegrationsSet::for($this->integrations);
+    }
 
     /**
      * @param non-empty-string $login
@@ -68,34 +90,5 @@ class Account implements
             default => \array_values([...$roles]),
         };
         $this->integrations = new IntegrationsSet();
-    }
-
-    // -------------------------------------------------------------------------
-    //  All properties are located AFTER the methods, because at the moment
-    //  IDE does not support PHP 8.4
-    // -------------------------------------------------------------------------
-
-    /**
-     * @readonly impossible to specify "readonly" attribute natively due
-     *           to a Doctrine feature/bug https://github.com/doctrine/orm/issues/9863
-     */
-    #[ORM\Id]
-    #[ORM\Column(type: AccountId::class)]
-    public private(set) AccountId $id;
-
-    /**
-     * @readonly
-     */
-    public private(set) RoleSet $roles {
-        get => RoleSet::for($this->roleValues);
-    }
-
-    /**
-     * @readonly
-     */
-    #[ORM\OneToMany(targetEntity: Integration::class, mappedBy: 'account', cascade: ['ALL'], orphanRemoval: true)]
-    #[ORM\OrderBy(['createdAt' => 'ASC'])]
-    public private(set) Collection $integrations {
-        get => IntegrationsSet::for($this->integrations);
     }
 }
